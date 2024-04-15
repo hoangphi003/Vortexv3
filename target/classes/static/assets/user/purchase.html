@@ -1,0 +1,824 @@
+<body ng-controller="PurchaseController">
+    <div class="body-cart container my-4">
+        <div class="row">
+            <div class="col-3 rounded-1 px-0">
+                <div ng-include="'/assets/user/Layouts/side-profile.html'"></div>
+            </div>
+            <div class="col-9 tabs-status">
+                <nav>
+                    <div class="nav nav-underline gap-0 border-bottom-0 bg-white rounded-1 d-flex justify-content-between"
+                        id="nav-tab" role="tablist">
+                        <a class="nav-link px-4 py-2 mt-2 active" id="nav-home-tab" data-bs-toggle="tab" href="#all"
+                            role="tab" aria-controls="nav-home" aria-selected="true">Tất cả</a>
+                        <a class="nav-link px-4 py-2 mt-2 text-black" id="nav-profile-tab" data-bs-toggle="tab"
+                            href="#dangcho" role="tab" aria-controls="nav-profile" aria-selected="false"
+                            ng-click="awaiting()">Chờ xác nhận</a>
+                        <a class="nav-link px-4 py-2 mt-2 text-black" id="nav-profile-tab" data-bs-toggle="tab"
+                            href="#vanchuyen" role="tab" aria-controls="nav-profile" aria-selected="false"
+                            ng-click="inTransit()">Đã xác nhận</a>
+                        <a class="nav-link px-4 py-2 mt-2 text-black" id="nav-profile-tab" data-bs-toggle="tab"
+                            href="#chogiaohang" role="tab" aria-controls="nav-profile" aria-selected="false"
+                            ng-click="delivery()">Chờ giao
+                            hàng</a>
+                        <a class="nav-link px-4 py-2 mt-2 text-black" id="nav-profile-tab" data-bs-toggle="tab"
+                            href="#hoanthanh" role="tab" aria-controls="nav-profile" aria-selected="false"
+                            ng-click="complete()">Hoàn
+                            thành</a>
+                        <a class="nav-link px-4 py-2 mt-2 text-black" id="nav-profile-tab" data-bs-toggle="tab"
+                            href="#dahuy" role="tab" aria-controls="nav-profile" aria-selected="false"
+                            ng-click="cancel()">Đã
+                            hủy</a>
+                    </div>
+                </nav>
+
+                <!-- Modal review -->
+                <div class="modal fade" id="review" tabindex="-1" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">Đánh giá sản phẩm</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" ng-click="clearForm()"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="carder">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img ng-src="/assets/images/products/{{data.product.image}}" alt=""
+                                                class="w-100">
+                                        </div>
+                                        <div class="col-10">
+                                            <h6 class="text-black ">{{data.product.productName}}</h6>
+                                            <span>Phân loại: {{data.product.category.categoryName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-4 my-auto">
+                                            <h6 class="text-secondary mb-0">
+                                                Chất lượng sản phẩm</h6>
+                                        </div>
+                                        <div class=" col-6 rating-star fs-4">
+                                            <span class="fa fa-star " ng-click="rating(1)"
+                                                ng-class="{ 'checked': ratingStart >= 1 }"></span>
+                                            <span class="fa fa-star " ng-click="rating(2)"
+                                                ng-class="{ 'checked': ratingStart >= 2 }"></span>
+                                            <span class="fa fa-star " ng-click="rating(3)"
+                                                ng-class="{ 'checked': ratingStart >= 3 }"></span>
+                                            <span class="fa fa-star " ng-click="rating(4)"
+                                                ng-class="{ 'checked': ratingStart >= 4 }"></span>
+                                            <span class="fa fa-star " ng-click="rating(5)"
+                                                ng-class="{ 'checked': ratingStart >= 5 }"></span>
+                                            <span class="fs-5 ps-2 checked"
+                                                ng-class="{ 'text-danger': ratingStart == undifine }">{{message}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="my-4 pb-2">
+                                            <textarea class="form-control" name="" id="" rows="3" ng-model="comment"
+                                                style="min-height: 200px;" ng-class="commentBorder"
+                                                placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người khác"></textarea>
+                                            <span class="position-absolute text-danger">{{messageComment}}</span>
+                                        </div>
+                                        <div class="file-upload my-3">
+                                            <div class="file-select input-group">
+                                                <label for="" class="input-group-text">Chọn ảnh</label>
+                                                <input type="file" class="form-control" multiple id="fileInput"
+                                                    title="{{fileCount}}" ng-model="selectedFiles"
+                                                    accept="image/x-png, image/gif, image/jpeg, image/webp, image/jfif"
+                                                    onchange="angular.element(this).scope().saveImages(this.files)">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2 mb-3" ng-repeat="x in images">
+                                                <img ng-src="/assets/images/review/{{x.image}}" alt="Ảnh" class="w-100"
+                                                    height="120px" />
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="images.length > 0">
+                                            <div class="col-6">
+                                                <button class="btn bg-secondary mt-2 px-2 py-1 rounded-2 w-25"
+                                                    ng-click="resetImg()">Xóa
+                                                    hết</button>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-end">
+                                            <div class="col-3">
+                                                <a class="btn btn-primary float-end p-2 rounded-2 "
+                                                    ng-click="completeReview(data.product.productId,data.orderDetailId)">Hoàn
+                                                    thành</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End modal review -->
+
+                <!-- Modal cancel order -->
+                <div class="modal fade" id="cancelOrder" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">Bạn chắc chắn muốn hủy
+                                    đơn hàng này
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <span class="">Lý do bạn hủy: (*)</span>
+                                <div class="form-check">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l1"
+                                        ng-model="reason" ng-class="messageBorder" value="1" />
+                                    <label class="form-check-label" for="l1"> Thay đổi chi tiết đơn hàng(Màu sắc, kích
+                                        thước, số lượng,...) </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l2"
+                                        ng-model="reason" value="2" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l2">
+                                        Thay đổi địa chỉ nhận hàng
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l3"
+                                        ng-model="reason" value="3" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l3">
+                                        Thay đổi số điện thoại
+                                    </label>
+                                </div>
+                                <div class="form-check ">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l4"
+                                        ng-model="reason" value="4" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l4">
+                                        Đổi ý, không muốn mua nữa
+                                    </label>
+                                </div>
+                                <div class="form-check ">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l5"
+                                        ng-model="reason" value="5" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l5">
+                                        Đặt nhầm sản phẩm
+                                    </label>
+                                </div>
+                                <div class="form-check ">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l6"
+                                        ng-model="reason" value="6" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l6">
+                                        Không gọi được cho shop
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l7"
+                                        ng-model="reason" value="7" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l7">
+                                        Lý do khác
+                                    </label>
+                                    <span class="text-danger position-absolute d-block ">{{message}}</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary rounded-1 px-3 py-1"
+                                    data-bs-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary rounded-1 px-3 py-1"
+                                    ng-click="submitCancelOrder()">Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End modal cancel order -->
+
+                <div class="tab-content mt-3 rounded-1">
+                    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div ng-show="orders && orders.length > 0">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in ordersStand">
+                                <div class="row g-0 mb-3 position-relative" ng-click="purchaseDetail(order.orderId)"
+                                    ng-repeat="orderDetail in order.orderDetails">
+                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
+                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                            class="w-100" alt="Card title" />
+                                    </div>
+                                    <div class="col-md-8 my-auto pb-3 ps-3 ">
+                                        <div class="card-body">
+                                            <span class="card-text fs-4">
+                                                {{orderDetail.product.productName}}
+                                            </span><br>
+                                            <span class="quan fw-bold">
+                                                x{{orderDetail.quantity}}
+                                            </span>
+                                            <span class="text-danger fw-bold d-block">
+                                                {{orderDetail.price | number:0}} đ
+                                            </span>
+                                        </div>
+                                        <span ng-if="order.orderStatus == 'Đánh giá' && orderDetail.reviewed == false">
+                                            <a class="btn btn-outline-primary rounded-2 py-2 px-3 border-1 me-2 position-absolute top-50 end-0 translate-middle-y"
+                                                data-bs-toggle="modal" data-bs-target="#review"
+                                                ng-click="viewReview(orderDetail.orderDetailId,order.orderId)">Đánh
+                                                giá</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-3 pb-3 border-0">
+                                    <!-- Labels status -->
+                                    <div class="col-6 text-start ps-4">
+                                        <span class="fs-6 text-success" ng-if="order.orderStatus == 'Hoàn thành'">
+                                            Hoàn thành</span>
+                                        <span class="fs-6 text-danger" ng-if="order.orderStatus == 'Đã hủy'">
+                                            Đã hủy</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ xác nhận'">
+                                            Chờ xác nhận</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ vận chuyển'">
+                                            Đã xác nhận</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Đang giao hàng'">
+                                            Chờ giao hàng</span>
+                                        <span ng-if="order.orderStatus == 'Đánh giá' && orderDetail.reviewed == False">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng đánh giá sản
+                                                    phẩm để cho <br>chúng tôi biết
+                                                    chất lượng sản phẩm.</span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <!-- Total -->
+                                    <div class="col-6 text-end pe-4">
+                                        <a class="btn btn-outline-danger rounded-2 py-2 px-3"
+                                            ng-click="getOrderId(order.orderId)" data-bs-toggle="modal"
+                                            data-bs-target="#cancelOrder"
+                                            ng-if="order.orderStatus == 'Chờ xác nhận'">Hủy đơn</a>
+                                        <span ng-if="order.orderStatus == 'Đang giao hàng'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                ng-click="getOrdered(order.orderId)">Đã
+                                                nhận
+                                                hàng</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Hoàn thành'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 "
+                                                href="#!products">Mua
+                                                tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Chờ vận chuyển'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="#!products">Mua tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="#!products">Mua
+                                                tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đánh giá' && orderDetail.reviewed == False">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="#!products">Mua
+                                                tiếp</a>
+                                        </span>
+                                    </div>
+
+                                    <!-- Notifier -->
+                                    <div class="col-6 mt-3 text-start">
+                                        <span ng-if="order.orderStatus == 'Đang giao hàng'">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng chỉ nhấn "Đã nhận
+                                                    hàng" khi đơn
+                                                    hàng
+                                                    đã
+                                                    được giao đến <br>
+                                                    bạn và sản phẩm nhận được không có vấn đề nào.</span>
+                                            </div>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <div style="padding-left: 13px;">
+                                                <span style="font-size: 14px;">Đã hủy bởi bạn</span>
+                                            </div>
+                                        </span>
+                                    </div>
+
+                                    <!-- Set button status -->
+                                    <div class="col-6 pe-4 mt-3 text-end">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="!orders || orders.length === 0">
+                            <div class="bg-white text-center py-5">
+                                <div class="empty-box">
+                                    <img ng-src="/assets/images/status/box.png" alt="" width="145px">
+                                </div>
+                                <div class="text-empty-box ">
+                                    <h5 class="">Bạn chưa có đơn hàng nào</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="dangcho" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div ng-show="ordersAwait && ordersAwait.length > 0">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in ordersAwait"
+                                ng-click="purchaseDetail(order.orderId)">
+                                <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
+                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
+                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                            class="w-100" alt="Card title" />
+                                    </div>
+                                    <div class="col-md-8 my-auto pb-3 ps-3">
+                                        <div class="card-body">
+                                            <span class="card-text fs-4">
+                                                {{orderDetail.product.productName}}
+                                            </span><br>
+                                            <span class="quan fw-bold d-block">
+                                                x{{orderDetail.quantity}}
+                                            </span>
+                                            <span class="text-danger fw-bold new">
+                                                {{orderDetail.price | number:0}} đ
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-3 pb-3 ">
+                                    <div class="col-6 text-start ps-4">
+                                        <span class="fs-6 text-success" ng-if="order.orderStatus == 'Hoàn thành'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-danger" ng-if="order.orderStatus == 'Đã hủy'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                    </div>
+
+                                    <div class="col-6 text-end">
+                                        <a class="btn btn-outline-danger rounded-2 py-2 px-3 me-3"
+                                            ng-click="cancelOrderByUser(order.orderId)"
+                                            ng-if="order.orderStatus == 'Chờ xác nhận'">Hủy đơn</a>
+                                    </div>
+                                    <div class="col-6 mt-3 text-start">
+                                        <span ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng chỉ nhấn "Đã nhận
+                                                    hàng" khi đơn
+                                                    hàng
+                                                    đã
+                                                    được giao đến <br>
+                                                    bạn và sản phẩm nhận được không có vấn đề nào.</span>
+                                            </div>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <div style="padding-left: 13px;">
+                                                <span style="font-size: 14px;">Đã hủy bởi bạn</span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="col-6 pe-4 mt-3 text-end">
+                                        <span ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                ng-click="getOrderSuccessByUser(order.orderId)">Đã
+                                                nhận
+                                                hàng</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Hoàn thành'">
+                                            <a class="btn btn-outline-primary rounded-2 py-2 px-3 border-1 me-2"
+                                                data-bs-toggle="modal" data-bs-target="#review">Đánh
+                                                giá</a>
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 "
+                                                href="/products">Mua
+                                                tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="/products">Mua tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="/products">Mua
+                                                tiếp</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="!ordersAwait || ordersAwait.length === 0">
+                            <div class="bg-white text-center py-5">
+                                <div class="empty-box">
+                                    <img ng-src="/assets/images/status/mobile.png" alt="" width="145px">
+                                </div>
+                                <div class="text-empty-box ">
+                                    <h5 class="">Bạn chưa có đơn Chờ xác nhận</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade " id="vanchuyen" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div ng-show="inTransits && inTransits.length > 0">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in inTransits"
+                                ng-click="purchaseDetail(order.orderId)">
+                                <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
+                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
+                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                            class="w-100" alt="Card title" />
+                                    </div>
+                                    <div class="col-md-8 my-auto pb-3 ps-3">
+                                        <div class="card-body">
+                                            <span class="card-text fs-4">
+                                                {{orderDetail.product.productName}}
+                                            </span><br>
+                                            <span class="quan fw-bold">
+                                                x{{orderDetail.quantity}}
+                                            </span>
+                                            <span class="d-block text-danger fw-bold new">
+                                                {{orderDetail.price | number:0}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-3 pb-3">
+                                    <div class="col-6 text-start ps-4">
+                                        <span class="fs-6 text-success" ng-if="order.orderStatus == 'Hoàn thành'">
+                                            Hoàn thành</span>
+                                        <span class="fs-6 text-danger" ng-if="order.orderStatus == 'Đã hủy'">
+                                            Đã hủy</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ xác nhận'">
+                                            Chờ xác nhận</span>
+                                        <span class="fs-6 text-secondary"
+                                            ng-if="order.orderStatus === 'Chờ vận chuyển'">
+                                            Đã xác nhận</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Đang giao hàng'">
+                                            Chờ giao hàng</span>
+                                    </div>
+
+                                    <div class="col-6 text-end">
+
+                                    </div>
+                                    <div class="col-6 mt-3 text-start">
+                                        <span ng-if="order.orderStatus == 'Đang giao hàng'">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng chỉ nhấn "Đã nhận
+                                                    hàng" khi đơn
+                                                    hàng
+                                                    đã
+                                                    được giao đến <br>
+                                                    bạn và sản phẩm nhận được không có vấn đề nào.</span>
+                                            </div>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <div style="padding-left: 13px;">
+                                                <span style="font-size: 14px;">Đã hủy bởi bạn</span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="col-6 pe-4 mt-3 text-end">
+                                        <a class="btn btn-outline-danger rounded-2 py-2 px-3"
+                                            ng-if="order.orderStatus == 'Chờ xác nhận'">Hủy đơn</a>
+                                        <span ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3">Đã
+                                                nhận
+                                                hàng</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Hoàn thành'">
+                                            <a class="btn btn-outline-primary rounded-2 py-2 px-3 border-1 me-2"
+                                                data-bs-toggle="modal" data-bs-target="#review">Đánh
+                                                giá</a>
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 "
+                                                href="/products">Mua
+                                                tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="/products">Mua tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="/products">Mua
+                                                tiếp</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="!inTransits || inTransits.length === 0">
+                            <div class="bg-white text-center py-5">
+                                <div class="empty-box">
+                                    <img ng-src="/assets/images/status/payment-method.png" alt="" width="145px">
+                                </div>
+                                <div class="text-empty-box ">
+                                    <h5 class="">Bạn chưa có đơn hàng Đã xác nhận</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="chogiaohang" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div ng-show="deliverys && deliverys.length > 0">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in deliverys"
+                                ng-click="purchaseDetail(order.orderId)">
+                                <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
+                                    <div class="col-md-4 purchase-card pb-2 ps-2">
+                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                            class="w-100" alt="Card title" />
+                                    </div>
+                                    <div class="col-md-8 my-auto pb-3 ps-3">
+                                        <div class="card-body">
+                                            <span class="card-text fs-4">
+                                                {{orderDetail.product.productName}}
+                                            </span><br>
+                                            <span class="quan fw-bold">
+                                                x{{orderDetail.quantity}}
+                                            </span>
+                                            <span class="d-block text-danger fw-bold new">
+                                                {{orderDetail.price | number:0}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-3 pb-3">
+                                    <div class="col-6 text-start ps-4">
+                                        <span class="fs-6 text-success" ng-if="order.orderStatus == 'Hoàn thành'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-danger" ng-if="order.orderStatus == 'Đã hủy'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                        <span ng-if="order.orderStatus == 'Đang giao hàng'">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng chỉ nhấn "Đã nhận
+                                                    hàng" khi đơn
+                                                    hàng
+                                                    đã
+                                                    được giao đến <br>
+                                                    bạn và sản phẩm nhận được không có vấn đề nào.</span>
+                                            </div>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-6 text-end">
+                                        <span ng-if="order.orderStatus == 'Đang giao hàng'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 me-3"
+                                                ng-click="getOrdered(order.orderId)">Đã
+                                                nhận
+                                                hàng</a>
+                                        </span>
+                                    </div>
+                                    <div class="col-6 mt-3 text-start">
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <div style="padding-left: 13px;">
+                                                <span style="font-size: 14px;">Đã hủy bởi bạn</span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="col-6 pe-4 mt-3 text-end">
+                                        <a class="btn btn-outline-danger rounded-2 py-2 px-3"
+                                            ng-if="order.orderStatus == 'Chờ xác nhận'">Hủy đơn</a>
+
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="/products">Mua
+                                                tiếp</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="!deliverys || deliverys.length === 0">
+                            <div class="bg-white text-center py-5">
+                                <div class="empty-box">
+                                    <img ng-src="/assets/images/status/courier.png" alt="" width="145px">
+                                </div>
+                                <div class="text-empty-box ">
+                                    <h5 class="">Bạn chưa có đơn chờ giao hàng</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="hoanthanh" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div ng-show="completes && completes.length > 0">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in completes"
+                                ng-click="purchaseDetail(order.orderId)">
+                                <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
+                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
+                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                            class="w-100" alt="Card title" />
+                                    </div>
+                                    <div class="col-md-8 my-auto pb-3 ps-3">
+                                        <div class="card-body">
+                                            <span class="card-text fs-4">
+                                                {{orderDetail.product.productName}}
+                                            </span><br>
+                                            <span class="quan fw-bold">
+                                                x{{orderDetail.quantity}}
+                                            </span>
+                                            <span class="ms-2 text-danger fw-bold new">
+                                                {{orderDetail.price | number:0}} đ
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-3 pb-3">
+                                    <!-- Labels status -->
+                                    <div class="col-6 text-start ps-4">
+                                        <span class="fs-6 text-success" ng-if="order.orderStatus == 'Hoàn thành' ">
+                                            Hoàn thành</span>
+                                        <span class="fs-6 text-danger" ng-if="order.orderStatus == 'Đã hủy'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                    </div>
+
+                                    <!-- Total -->
+                                    <div class="col-6 text-end">
+                                        <span ng-if="order.orderStatus == 'Hoàn thành'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 me-3"
+                                                href="#!products">Mua
+                                                tiếp</a>
+                                        </span>
+                                    </div>
+
+                                    <!-- Notifier -->
+                                    <div class="col-6 mt-3 text-start">
+                                        <span ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng chỉ nhấn "Đã nhận
+                                                    hàng" khi đơn
+                                                    hàng
+                                                    đã
+                                                    được giao đến <br>
+                                                    bạn và sản phẩm nhận được không có vấn đề nào.</span>
+                                            </div>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <div style="padding-left: 13px;">
+                                                <span style="font-size: 14px;">Đã hủy bởi bạn</span>
+                                            </div>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã nhận hàng'">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng đánh giá sản
+                                                    phẩm để cho <br>chúng tôi biết
+                                                    chất lượng sản phẩm.</span>
+                                            </div>
+
+                                        </span>
+                                    </div>
+
+                                    <!-- Set button status -->
+                                    <div class="col-6 pe-4 mt-3 text-end">
+                                        <a class="btn btn-outline-danger rounded-2 py-2 px-3"
+                                            ng-click="cancelOrderByUser(order.orderId)"
+                                            ng-if="order.orderStatus == 'Chờ xác nhận'">Hủy đơn</a>
+                                        <span ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                ng-click="getOrdered(order.orderId)">Đã
+                                                nhận
+                                                hàng</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã nhận hàng'">
+                                            <a class="btn btn-outline-primary rounded-2 py-2 px-3 border-1 me-2"
+                                                data-bs-toggle="modal" data-bs-target="#review"
+                                                ng-click="viewReview(order.orderId)">Đánh
+                                                giá</a>
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 "
+                                                href="#!products">Mua
+                                                tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="#!products">Mua tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="#!products">Mua
+                                                tiếp</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="!completes || completes.length === 0">
+                            <div class="bg-white text-center py-5">
+                                <div class="empty-box">
+                                    <img ng-src="/assets/images/status/box_finish.png" alt="" width="145px">
+                                </div>
+                                <div class="text-empty-box ">
+                                    <h5 class="">Bạn chưa có đơn hàng hoàn thành nào</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="dahuy" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div ng-show="cancel && cancel.length > 0">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in cancel"
+                                ng-click="purchaseDetail(order.orderId)">
+                                <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
+                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
+                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                            class="w-100" alt="Card title" />
+                                    </div>
+                                    <div class="col-md-8 my-auto pb-3 ps-3">
+                                        <div class="card-body">
+                                            <span class="card-text fs-4">
+                                                {{orderDetail.product.productName}}
+                                            </span><br>
+                                            <span class="quan fw-bold">
+                                                x{{orderDetail.quantity}}
+                                            </span>
+                                            <span class="ms-2 text-danger fw-bold new">
+                                                {{orderDetail.price | number:0}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-3 pb-3">
+                                    <div class="col-6 text-start ps-4">
+                                        <span class="fs-6 text-success" ng-if="order.orderStatus == 'Hoàn thành'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-danger" ng-if="order.orderStatus == 'Đã hủy'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            {{order.orderStatus}}</span>
+                                        <span class="fs-6 text-secondary" ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            {{order.orderStatus}}</span>
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <div>
+                                                <span style="font-size: 14px;">Đã hủy bởi bạn</span>
+                                            </div>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-6 text-end">
+                                        <span ng-if="order.orderStatus == 'Đã hủy'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 me-3"
+                                                href="/products">Mua
+                                                tiếp</a>
+                                        </span>
+                                    </div>
+                                    <div class="col-6 mt-3 text-start">
+                                        <span ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            <div class="ps-3">
+                                                <span style="font-size: 11px;">Vui lòng chỉ nhấn "Đã nhận
+                                                    hàng" khi đơn
+                                                    hàng
+                                                    đã
+                                                    được giao đến <br>
+                                                    bạn và sản phẩm nhận được không có vấn đề nào.</span>
+                                            </div>
+                                        </span>
+
+                                    </div>
+                                    <div class="col-6 pe-4 mt-3 text-end">
+                                        <a class="btn btn-outline-danger rounded-2 py-2 px-3"
+                                            ng-if="order.orderStatus == 'Chờ xác nhận'">Hủy đơn</a>
+                                        <span ng-if="order.orderStatus == 'Chờ giao hàng'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3">Đã
+                                                nhận
+                                                hàng</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Hoàn thành'">
+                                            <a class="btn btn-outline-primary rounded-2 py-2 px-3 border-1 me-2"
+                                                data-bs-toggle="modal" data-bs-target="#review">Đánh
+                                                giá</a>
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3 "
+                                                href="/products">Mua
+                                                tiếp</a>
+                                        </span>
+                                        <span ng-if="order.orderStatus == 'Đã xác nhận'">
+                                            <a class="btn btn-outline-secondary rounded-2 py-2 px-3"
+                                                href="/products">Mua tiếp</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="!cancel || cancel.length === 0">
+                            <div class="bg-white text-center py-5">
+                                <div class="empty-box">
+                                    <img ng-src="/assets/images/status/cancelled.png" alt="" width="145px">
+                                </div>
+                                <div class="text-empty-box ">
+                                    <h5 class="">Bạn chưa hủy đơn hàng nào</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

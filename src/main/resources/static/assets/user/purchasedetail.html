@@ -1,0 +1,438 @@
+<body ng-controller="PurchaseOrderController">
+	<div class="body-cart container my-4">
+		<div class="row">
+			<div class="col-3 rounded-1rounded-1 px-0">
+				<div ng-include="'/assets/user/Layouts/side-profile.html'"></div>
+			</div>
+			<div class="col-9">
+				<div
+					class="row bg-white ms-2 rounded-bottom-3 rounded-top-1 px-4 py-3 border-bottom border-secondary-subtle">
+					<div class="col-6">
+						<a href="#!purchase"><i class="fa-solid fa-chevron-left me-2"></i>Trở lại</a>
+					</div>
+					<div class="col-6 text-end">
+						<span class="fs-6 text-primary ps-3 " ng-if="data.orderStatus == 'Chờ xác nhận'">Chờ xác
+							nhận
+						</span>
+						<span class="fs-6 text-primary ps-3 " ng-if="data.orderStatus == 'Chờ vận chuyển'">Đã xác nhận
+						</span>
+						<span class=" fs-6 text-primary ps-3 " ng-if=" data.orderStatus ==='Đánh giá'">
+							Đánh giá sản phẩm chúng tôi
+						</span>
+						<span class=" fs-6 text-primary ps-3 " ng-if=" data.orderStatus ==='Hoàn thành'">
+							Hoàn thành
+						</span>
+						<span class=" fs-6 text-primary ps-3 " ng-if=" data.orderStatus === 'Đang giao hàng'">
+							Chờ giao hàng
+						</span>
+					</div>
+				</div>
+				<!-- Modal review -->
+				<div class=" modal fade" id="review" tabindex="-1" data-bs-backdrop="static">
+					<div class="modal-dialog modal-lg modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5 text-black" id="exampleModalLabel">Đánh giá sản phẩm
+								</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" ng-click="clearForm()"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="carder">
+									<div class="row">
+										<div class="col-2" ng-repeat="x in data.orderDetails">
+											<img ng-src="/assets/images/products/{{x.product.image}}" alt=""
+												class="w-100">
+										</div>
+										<div class="col-10" ng-repeat="x in data.orderDetails">
+											<h6 class="text-black ">{{x.product.productName}}</h6>
+											<span>Phân loại: {{x.product.category.categoryName}}</span>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-4 my-auto">
+											<h6 class="text-secondary mb-0">
+												Chất lượng sản phẩm</h6>
+										</div>
+										<div class=" col-6 rating-star fs-4">
+											<span class="fa fa-star " ng-click="rating(1)"
+												ng-class="{ 'checked': ratingStart >= 1 }"></span>
+											<span class="fa fa-star " ng-click="rating(2)"
+												ng-class="{ 'checked': ratingStart >= 2 }"></span>
+											<span class="fa fa-star " ng-click="rating(3)"
+												ng-class="{ 'checked': ratingStart >= 3 }"></span>
+											<span class="fa fa-star " ng-click="rating(4)"
+												ng-class="{ 'checked': ratingStart >= 4 }"></span>
+											<span class="fa fa-star " ng-click="rating(5)"
+												ng-class="{ 'checked': ratingStart >= 5 }"></span>
+											<span class="fs-5 ps-2 checked"
+												ng-class="{ 'text-danger': ratingStart == undifine }">{{message}}</span>
+										</div>
+									</div>
+									<div class="content">
+										<div class="my-4 pb-2">
+											<textarea class="form-control" name="" id="" rows="3" ng-model="comment"
+												style="min-height: 200px;" ng-class="commentBorder"
+												placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người khác"></textarea>
+											<span class="position-absolute text-danger">{{messageComment}}</span>
+										</div>
+										<div class="file-upload my-3">
+											<div class="file-select input-group">
+												<label for="" class="input-group-text">Chọn ảnh</label>
+												<input type="file" class="form-control" multiple id="fileInput"
+													title="Chọn ảnh" accept="image/x-png, image/gif, image/jpeg"
+													onchange="angular.element(this).scope().saveImages(this.files)">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-2" ng-repeat="x in images">
+												<img ng-src="/assets/images/products/{{x.image}}" alt="Ảnh"
+													class="w-100" />
+											</div>
+										</div>
+										<div class="row" ng-show="images.length > 0">
+											<div class="col-6">
+												<button class="btn bg-secondary mt-2 px-2 py-1 rounded-2 w-25"
+													ng-click="resetImg()">Xóa
+													hết</button>
+											</div>
+										</div>
+										<div class="row justify-content-end">
+											<div class="col-3">
+												<a class="btn btn-primary float-end p-2 rounded-2 "
+													ng-click="completeReview()">Hoàn
+													thành</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End modal review -->
+
+				<!-- Modal cancel order -->
+				<div class="modal fade" id="cancelOrder" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5 text-black" id="exampleModalLabel">Bạn chắc chắn muốn hủy
+									đơn hàng này
+								</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<span class="">Lý do bạn hủy: (*)</span>
+								<div class="form-check">
+									<input class="form-check-input mt-2" type="radio" name="reason" id="l1"
+										ng-model="reason" ng-class="messageBorder" value="1" />
+									<label class="form-check-label" for="l1"> Thay đổi chi tiết đơn hàng(Màu sắc, kích
+										thước, số lượng,...) </label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input mt-2" type="radio" name="reason" id="l2"
+										ng-model="reason" value="2" ng-class="messageBorder" />
+									<label class="form-check-label" for="l2">
+										Thay đổi địa chỉ nhận hàng
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input mt-2" type="radio" name="reason" id="l3"
+										ng-model="reason" value="3" ng-class="messageBorder" />
+									<label class="form-check-label" for="l3">
+										Thay đổi số điện thoại
+									</label>
+								</div>
+								<div class="form-check ">
+									<input class="form-check-input mt-2" type="radio" name="reason" id="l4"
+										ng-model="reason" value="4" ng-class="messageBorder" />
+									<label class="form-check-label" for="l4">
+										Đổi ý, không muốn mua nữa
+									</label>
+								</div>
+								<div class="form-check ">
+									<input class="form-check-input mt-2" type="radio" name="reason" id="l5"
+										ng-model="reason" value="5" ng-class="messageBorder" />
+									<label class="form-check-label" for="l5">
+										Đặt nhầm sản phẩm
+									</label>
+								</div>
+								<div class="form-check ">
+									<input class="form-check-input mt-2" type="radio" name="reason" id="l6"
+										ng-model="reason" value="6" ng-class="messageBorder" />
+									<label class="form-check-label" for="l6">
+										Không gọi được cho shop
+									</label>
+								</div>
+								<div class="form-check mb-2">
+									<input class="form-check-input mt-2" type="radio" name="reason" id="l7"
+										ng-model="reason" value="7" ng-class="messageBorder" />
+									<label class="form-check-label" for="l7">
+										Lý do khác
+									</label>
+									<span class="text-danger position-absolute d-block ">{{message}}</span>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-outline-secondary rounded-1 px-3 py-1"
+									data-bs-dismiss="modal">Đóng</button>
+								<button type="button" class="btn btn-primary rounded-1 px-3 py-1"
+									ng-click="submitCancelOrder()">Đồng ý</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End modal cancel order -->
+				<span ng-show="data.orderStatus != 'Đã hủy'">
+					<div
+						class="row bg-white ms-2 rounded-3 px-4 py-5 pt-5 d-flex justify-content-center border-bottom border-secondary-subtle">
+						<span ng-if="data.orderStatus == 'Chờ xác nhận'">
+							<div class="col-12 progress bg-secondary-subtle mt-3"
+								style="width: 44rem; margin-left: 1.4rem">
+								<div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+									role="progressbar" style="width:25%" aria-valuenow="25" aria-valuemin="0"
+									aria-valuemax="100">
+									<div class="ordered position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: -0.13rem;">
+										<i class="fa-solid fa-receipt fs-4 text-white"></i>
+									</div>
+									<div class="comfirmed position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 10.3rem;">
+										<i class="fa-regular fa-credit-card fs-4 text-white"></i>
+									</div>
+									<div class="shipping position-absolute rounded-pill bg-secondary-subtle"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 21.5rem;">
+										<i class="fa-solid fa-truck fs-4 text-black "></i>
+									</div>
+									<div class="delivery position-absolute rounded-pill bg-secondary-subtle"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 32rem;">
+										<i class="fa-solid fa-box-open fs-4 text-black"></i>
+									</div>
+									<div class="finish-rating position-absolute rounded-pill bg-secondary-subtle"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 41.6rem;">
+										<i class="fa-regular fa-star fs-4 text-black"></i>
+									</div>
+								</div>
+							</div>
+						</span>
+						<span ng-if="data.orderStatus == 'Chờ vận chuyển'">
+							<div class="col-12 progress bg-secondary-subtle mt-3"
+								style="width: 44rem; margin-left: 1.4rem">
+								<div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+									role="progressbar" style="width:50%" aria-valuenow="25" aria-valuemin="0"
+									aria-valuemax="100">
+									<div class="ordered position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: -0.13rem;">
+										<i class="fa-solid fa-receipt fs-4 text-white"></i>
+									</div>
+									<div class="comfirmed position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 10.3rem;">
+										<i class="fa-regular fa-credit-card fs-4 text-white"></i>
+									</div>
+									<div class="shipping position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 21.5rem;">
+										<i class="fa-solid fa-truck fs-4 text-white "></i>
+									</div>
+									<div class="delivery position-absolute rounded-pill bg-secondary-subtle"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 32rem;">
+										<i class="fa-solid fa-box-open fs-4 text-black"></i>
+									</div>
+									<div class="finish-rating position-absolute rounded-pill bg-secondary-subtle"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 41.6rem;">
+										<i class="fa-regular fa-star fs-4 text-black"></i>
+									</div>
+								</div>
+							</div>
+						</span>
+						<span ng-if="data.orderStatus == 'Đang giao hàng'">
+							<div class="col-12 progress bg-secondary-subtle mt-3"
+								style="width: 44rem; margin-left: 1.4rem">
+								<div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+									role="progressbar" style="width:75%" aria-valuenow="25" aria-valuemin="0"
+									aria-valuemax="100">
+									<div class="ordered position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: -0.13rem;">
+										<i class="fa-solid fa-receipt fs-4 text-white"></i>
+									</div>
+									<div class="comfirmed position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 10.3rem;">
+										<i class="fa-regular fa-credit-card fs-4 text-white"></i>
+									</div>
+									<div class="shipping position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 21.5rem;">
+										<i class="fa-solid fa-truck fs-4 text-white "></i>
+									</div>
+									<div class="delivery position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 32rem;">
+										<i class="fa-solid fa-box-open fs-4 text-white"></i>
+									</div>
+									<div class="finish-rating position-absolute rounded-pill bg-secondary-subtle"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 41.6rem;">
+										<i class="fa-regular fa-star fs-4 text-black"></i>
+									</div>
+								</div>
+							</div>
+						</span>
+						<span ng-if="data.orderStatus == 'Đánh giá'">
+							<div class="col-12 progress bg-secondary-subtle mt-3"
+								style="width: 44rem; margin-left: 1.4rem">
+								<div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+									role="progressbar" style="width:90%" aria-valuenow="25" aria-valuemin="0"
+									aria-valuemax="100">
+									<div class="ordered position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: -0.13rem;">
+										<i class="fa-solid fa-receipt fs-4 text-white"></i>
+									</div>
+									<div class="comfirmed position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 10.3rem;">
+										<i class="fa-regular fa-credit-card fs-4 text-white"></i>
+									</div>
+									<div class="shipping position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 21.5rem;">
+										<i class="fa-solid fa-truck fs-4 text-white "></i>
+									</div>
+									<div class="delivery position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 32rem;">
+										<i class="fa-solid fa-box-open fs-4 text-white"></i>
+									</div>
+									<div class="finish-rating position-absolute rounded-pill bg-secondary-subtle"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 41.6rem;">
+										<i class="fa-regular fa-star fs-4 text-black"></i>
+									</div>
+								</div>
+							</div>
+						</span>
+						<span ng-if="data.orderStatus == 'Hoàn thành'">
+							<div class="col-12 progress bg-secondary-subtle mt-3"
+								style="width: 44rem; margin-left: 1.4rem">
+								<div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+									style="width:100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+									<div class="ordered position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: -0.13rem;">
+										<i class="fa-solid fa-receipt fs-4 text-white"></i>
+									</div>
+									<div class="comfirmed position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 10.3rem;">
+										<i class="fa-regular fa-credit-card fs-4 text-white"></i>
+									</div>
+									<div class="shipping position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 21.5rem;">
+										<i class="fa-solid fa-truck fs-4 text-white "></i>
+									</div>
+									<div class="delivery position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 32rem;">
+										<i class="fa-solid fa-box-open fs-4 text-white"></i>
+									</div>
+									<div class="finish-rating position-absolute rounded-pill bg-success"
+										style="height: 50px; width: 50px;padding-top: 13px;margin-left: 41.6rem;">
+										<i class="fa-solid fa-star fs-4 text-white"></i>
+									</div>
+								</div>
+							</div>
+						</span>
+						<div class="col-12 mt-5 fs-6">
+							<span class="text-black pe-5" style="font-size: 0.8rem;">Đơn hàng đã đặt</span>
+							<span class="text-black pe-5" style="font-size: 0.8rem;">Đã xác nhận thông tin</span>
+							<span class="text-black pe-5" style="font-size: 0.8rem;">Đã giao cho ĐVVC</span>
+							<span class="text-black pe-5" style="font-size: 0.8rem;padding-left: 1rem;">Chờ giao
+								hàng</span>
+							<span class="text-black " style="font-size: 0.8rem; padding-left: 1.8rem;">Đánh
+								giá</span>
+						</div>
+					</div>
+					<div class="row ms-2 rounded-top-3 py-3 px-4 my-auto border-bottom border-secondary-subtle"
+						style="background-color: #fffcf5;">
+						<div class="col-6 my-auto">
+							<span>Đơn hàng được đặt vào ngày {{data.orderDate | date: 'dd/MM/yyyy'}}
+							</span>
+						</div>
+						<div class="col-6 text-end">
+							<span ng-if="data.orderStatus === 'Chờ xác nhận'">
+								<a class="btn btn-outline-danger rounded-2 py-2" ng-click="getOrderId(data.orderId)"
+									data-bs-toggle="modal" data-bs-target="#cancelOrder">Hủy
+									đơn</a>
+							</span>
+							<span ng-if="data.orderStatus === 'Đang giao hàng'">
+								<a class="btn btn-outline-secondary rounded-2 py-2"
+									ng-click="getordered(data.orderId)">Đã nhận hàng</a>
+							</span>
+							<span ng-if="data.orderStatus == 'Hoàn thành'">
+								<a class="btn btn-outline-secondary rounded-2 py-2" href="#!products">Mua tiếp</a>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="ms-4 px-4" style="
+					background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
+					background-position-x: -1.875rem;
+					background-size: 7.25rem .1875rem;
+					height: .1875rem;
+					width: 52rem 
+				"></div>
+					</div>
+					<div class="row bg-white ms-2 p-4">
+						<div class="col-12">
+							<h4 class="text-black mb-4">Địa chỉ nhận hàng</h4>
+							<span class="fs-6 text-black d-block">{{data.account.gender
+								?'Anh':'Chị'}} {{data.account.fullName}}
+							</span>
+							<span class="d-block">Số điện thoại: {{data.account.phone}}</span>
+							<span class="">Địa chỉ: {{data.address}}</span>
+						</div>
+					</div>
+				</span>
+				<span ng-if="data.orderStatus == 'Đã hủy'">
+					<div class="row ms-2 p-4 text-danger rounded-top-2" style="background-color: #fdf7e7;">
+						<h5>Đã hủy đơn hàng</h5>
+					</div>
+				</span>
+				<div class="row ms-2 p-4" style="background-color: #fafafa;" ng-repeat="x in data.orderDetails">
+					<div class="col-2 pb-2 ">
+						<img ng-src="/assets/images/products/{{x.product.image}}" class="w0" width="100px"
+							alt="Card title" />
+					</div>
+					<div class="col-8 my-auto pb-3">
+						<div class="card-body">
+							<span class="card-text fs-4">
+								{{x.product.productName}}
+							</span><br>
+							<span class="quan fw-bold">
+								x{{x.quantity}}
+							</span><br>
+							<span class="text-danger fw-bold new">
+								{{x.price | number:0}} đ
+							</span><br>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="table-responsive pe-2 ms-2">
+						<table class="table table-bordered text-end">
+							<thead>
+								<tr>
+									<td scope="col" width="70%" class="pe-3">Tổng tiền hàng</td>
+									<td scope="col" class="pe-4">
+										{{total | number:0}} đ</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="">
+									<td scope="row" class="pe-3">Phí vận chuyển</td>
+									<td class="pe-4">0 đ</td>
+								</tr>
+								<tr class="">
+									<td scope="row" class="pe-3 ">Thành tiền</td>
+									<td class="pe-4 text-danger fw-bold fs-5">
+										{{total | number:0}} đ</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bảng sản phẩm</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+    <link th:href="@{/assets/vendor/fonts/circular-std/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/libs/css/style.css}">
+    <link rel="stylesheet" th:href=@{/assets/vendor/fonts/fontawesome/css/fontawesome-all.css}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+
+    <!-- table -->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/dataTables.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/buttons.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/select.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/fixedHeader.bootstrap4.css}">
+    <!-- table -->
+
+    <style>
+        td {
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100px;
+            font-size: 14px;
+        }
+
+        th {
+            font-size: 13px;
+        }
+
+        /* Trong tập tin CSS của bạn */
+        textarea {
+            font-family: 'Arial', sans-serif;
+            /* Thay 'Arial' bằng phông chữ mong muốn */
+            font-weight: normal;
+            /* Thay 'normal' bằng 'bold' nếu muốn chữ đậm */
+        }
+
+        .image-upload {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .preview {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 2px dashed #ccc;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .preview img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+
+        .preview::before {
+            content: 'Chọn ảnh';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #777;
+        }
+
+        #imageUpload:hover .preview::before {
+            color: #333;
+        }
+
+        .image-preview {
+            width: 300px;
+            /* Đặt chiều rộng của khung xem trước */
+            height: 250px;
+            /* Đặt chiều cao của khung xem trước */
+            border: 1px solid #ccc;
+            /* Đặt đường viền cho khung */
+            overflow: hidden;
+            /* Ẩn bất kỳ phần nào của ảnh vượt ra khỏi khung */
+        }
+
+        #previewImage {
+            max-width: 100%;
+            /* Ảnh sẽ không vượt quá chiều rộng của khung */
+            max-height: 100%;
+            /* Ảnh sẽ không vượt quá chiều cao của khung */
+            display: block;
+            /* Đảm bảo rằng ảnh sẽ hiển thị đúng */
+            margin: auto;
+            /* Canh giữa ảnh trong khung */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="/admin">TechVortex</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <div id="custom-search" class="top-search-bar">
+                                <input class="form-control" type="text" placeholder="Search..">
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                    class="indicator"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> Notification</div>
+                                    <div class="notification-list">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action active">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            th:src="@{/assets/images/avatar-2.jpg}" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">Jeremy
+                                                            Rakestraw</span>accepted your invitation to join the team.
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            th:src="@{/assets/images/avatar-3.jpg}" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">
+                                                            John Abraham</span>is now following you
+                                                        <div class="notification-date">2 days ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            th:src="@{/assets/images/avatar-4.jpg}" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">Monaan Pechi</span> is
+                                                        watching your main repository
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            th:src="@{/assets/images/avatar-5.jpg}" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">Jessica
+                                                            Caruso</span>accepted your invitation to join the team.
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                                <li class="connection-list">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    th:src="@{/assets/images/github.png}" alt="">
+                                                <span>Github</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    th:src="@{/assets/images/dribbble.png}" alt="">
+                                                <span>Dribbble</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    th:src="@{/assets/images/dropbox.png}" alt="">
+                                                <span>Dropbox</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    th:src="@{/assets/images/bitbucket.png}" alt="">
+                                                <span>Bitbucket</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    th:src="@{/assets/images/mail_chimp.png}" alt=""><span>Mail
+                                                    chimp</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    th:src="@{/assets/images/slack.png}" alt=""> <span>Slack</span></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="conntection-footer"><a href="#">More</a></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                    src="../assets/images/avatar-1.jpg" alt=""
+                                    class="user-avatar-md rounded-circle"></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                                aria-labelledby="navbarDropdownMenuLink2">
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">
+                                        John Abraham</h5>
+                                    <span class="status"></span><span class="ml-2">Available</span>
+                                </div>
+                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="#">Thống kê</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                Menu
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-1" aria-controls="submenu-1"><i
+                                        class="fa fa-fw fa-user-circle"></i>Thống kê<span
+                                        class="badge badge-success">6</span></a>
+                                <div id="submenu-1" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/doanhthu">Doanh thu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/loinhuan">Lợi nhuận</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/sanphambanchay">Sản phẩm bán chạy nhất</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/sanphamconlai">Sản phẩm còn lại trong kho</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/khachhang">khách hàng mua nhiều nhất</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/donhang">Tổng số lượng đơn hàng đã bán được</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-2" aria-controls="submenu-2"><i
+                                        class="fa fa-fw fa-rocket"></i>Quản Lý</a>
+                                <div id="submenu-2" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/category">Phân loại<span
+                                                    class="badge badge-secondary">New</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/color">Màu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/material">Chất liệu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/brand">Thương hiệu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/reviewsimg">Ảnh đánh giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/reviews">Đánh giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/product">Sản phẩm</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/discount">Giảm giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/favorite">Yêu thích</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/account">Tài khoản</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/role">Role</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/authority">Authority</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/order">Đơn hàng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/order">Đơn hàng chi tiết</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">Sản phẩm</h2>
+                            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce
+                                sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Quản Lý</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!-- validation form -->
+                    <!-- ============================================================== -->
+                  
+                <!-- ============================================================== -->
+                <!-- end validation form -->
+                <!-- ============================================================== -->
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <!-- bang  -->
+    <div class="dashboard-wrapper" style="margin-top: -100px;">
+        <div class="container-fluid  dashboard-content">
+            <!-- ============================================================== -->
+            <!-- pageheader -->
+            <!-- ============================================================== -->
+            <!-- <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title">Table Category</h2>
+                                <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                                <div class="page-breadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Tables</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Data Tables</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+            <div class="row">
+                <!-- ============================================================== -->
+                <!-- data table  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -690px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Dữ liệu bảng sản phẩm</h5>
+                            <a class="btn btn-info" href="/admin/formproduct"
+                            style="width:90px; float: right;margin-top: -30px;" id="submitButton">Thêm</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table  table-bordered second" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tên SP</th>
+                                            <th>Ảnh</th>
+                                            <th>Giá</th>
+                                            <th>Xuất xứ</th>
+                                            <th>Phân loại</th>
+                                            <th>Mô tả sản phẩm</th>
+                                            <th>Chức năng</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="product, stt : ${allProducts}">
+                                            <td th:text="${stt.count}"></td>
+                                            <td th:text="${product.ProductName}"></td>
+
+                                            <td>
+                                                <img th:src="@{'/assets/images/products/' + ${product.Image}}"
+                                                    width="100px" style="border-radius: 10px;">
+                                            </td>
+
+
+                                            <td
+                                                th:text="${#numbers.formatDecimal(product.Price, 0, 'COMMA', 0, 'POINT')} + ' VND'">
+                                            </td>
+
+
+                                            <td th:text="${product.Origin}"></td>
+                                            <td th:text="${product.Category.CategoryName}"></td>
+                                            <td th:text="${product.Description}"></td>
+
+
+                                            <td style="line-height: 40px;width: 25%;">
+                                                <div style="margin-right: 40px;">
+                                                    <a
+                                                     th:href="@{/admin/editproductdetail/{ProductId}(ProductId=${product.productId})}">
+
+
+
+                                                        <button class="btn btn-warning" type="submit"
+                                                            style="width:40px; max-width: 100%; float: right; margin-left: -60px;border-radius: 10px;">
+                                                            <svg style=" vertical-align: middle;margin-left: -5px;"
+                                                                xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="bi bi-eye-slash"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+                                                                <path
+                                                                    d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+                                                                <path
+                                                                    d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+                                                            </svg>
+                                                        </button>
+                                                    </a>
+
+                                                    <a
+                                                        th:onclick="'return confirmDelete(' + *{product.ProductId} + ');'">
+                                                        <button class="btn btn-danger" type="submit"
+                                                            style="width:40px; max-width: 100%;  float: right;margin-right: 50px; border-radius: 10px;">
+                                                            <svg style="margin-left:-5px;margin-bottom: -5px;"
+                                                                xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="bi bi-trash"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                                <path
+                                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                            </svg>
+                                                        </button>
+                                                    </a>
+                                                    <a
+                                                        th:href="'/admin/editproduct/'+ ${product.ProductId}+'?showUpdate=true'">
+                                                        <button class="btn btn-primary" type="submit"
+                                                            style="width:40px; max-width: 100%; float: right; margin-right:10px;border-radius: 10px;">
+                                                            <svg style=" vertical-align: middle;margin-left: -5px;"
+                                                                xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="bi bi-pencil"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                                                            </svg>
+                                                        </button>
+                                                    </a>
+
+                                                </div>
+
+                                            </td>
+
+
+
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tên SP</th>
+                                            <th>Ảnh</th>
+                                            <th>Giá</th>
+                                            <th>Xuất xứ</th>
+                                            <th>Phân loại</th>
+                                            <th>Mô tả sản phẩm</th>
+                                            <th>Chức năng</th>
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end data table  -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- end basic table  -->
+            <!-- ============================================================== -->
+
+            <!-- end bang -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+
+            <!-- <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-left: 250px; width: 100%;">
+                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
+                        </div>                 
+                    </div>
+                </div>
+            </div> -->
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script th:src="@{/assets/vendor/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/assets/vendor/slimscroll/jquery.slimscroll.js}"></script>
+    <script th:src="@{/assets/vendor/parsley/parsley.js}"></script>
+    <script th:src="@{/assets/libs/js/main-js.js}"></script>
+
+
+    <script>
+        document.getElementById('imageFile').addEventListener('change', function (event) {
+            displayImage(event);
+        });
+
+        function displayImage(event) {
+            var file = event.target.files[0];
+            var imageType = /image.*/;
+
+            if (file && file.type.match(imageType)) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var previewImage = document.getElementById('previewImage');
+                    previewImage.src = e.target.result;
+                }
+
+                reader.readAsDataURL(file);
+
+                var fileNameElement = document.getElementById('fileName');
+                fileNameElement.textContent = file.name;
+            } else {
+                var previewImage = document.getElementById('previewImage');
+                previewImage.src = '';
+                var fileNameElement = document.getElementById('fileName');
+                fileNameElement.textContent = '';
+            }
+        }
+
+    </script>
+
+
+    <script>
+
+        function confirmDelete(ProductId) {
+            Swal.fire({
+                title: 'Bạn có chắc muốn xóa không?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                    window.location.href = '/admin/delete/' + ProductId;
+                }
+            });
+
+            // Trả về false để ngăn chặn hành động mặc định của liên kết
+            return false;
+        }
+
+
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+        var successMessage = 'Lưu sản phẩm thành công';
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành  công!',
+            text: successMessage,
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    </script>
+
+    <!-- <script>
+    // Kiểm tra và hiển thị thông báo lỗi bằng SweetAlert2
+    th:text="${errorimageFile}" ? Swal.fire({
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Vui lòng chọn ảnh sản phẩm.'
+    }) : null;
+</script> -->
+
+
+
+    <script th:if="${not #strings.isEmpty(errorMessage)}">
+        var errorMessage = /*[[${errorMessage}]]*/ 'Tên sản phẩm đã tồn tại';
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: errorMessage,
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    </script>
+
+    <script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo xóa thành công
+        var successMessage = 'Xóa sản phẩm thành công';
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: successMessage,
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    </script>
+
+    <script th:if="${not #strings.isEmpty(deleteerrorMessage)}"> // thông báo xóa thất bại
+        var errorMessage = 'Xóa sản phẩm thất bại';
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: errorMessage,
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    </script>
+
+
+    <script th:src="@{/node_modules/sweetalert2/dist/sweetalert2.all.min.js}"></script>
+    <script th:src="@{/assets/vendor/multi-select/js/jquery.multi-select.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/assets/vendor/datatables/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/assets/vendor/datatables/js/buttons.bootstrap4.min.js}"></script>
+    <script th:src="@{/assets/vendor/datatables/js/data-table.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js}"></script>
+    <!-- // table   -->
+</body>
+
+</html>

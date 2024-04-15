@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Form Order</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/libs/css/style.css">
+    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+
+    <!-- table -->
+
+
+    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/buttons.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/select.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+    <!-- table -->
+
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="/admin">TechVortex</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <div id="custom-search" class="top-search-bar">
+                                <input class="form-control" type="text" placeholder="Search..">
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                    class="indicator"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> Notification</div>
+                                    <div class="notification-list">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action active">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            src="../assets/images/avatar-2.jpg" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">Jeremy
+                                                            Rakestraw</span>accepted your invitation to join the team.
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            src="../assets/images/avatar-3.jpg" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">
+                                                            John Abraham</span>is now following you
+                                                        <div class="notification-date">2 days ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            src="../assets/images/avatar-4.jpg" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">Monaan Pechi</span> is
+                                                        watching your main repository
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img
+                                                            src="../assets/images/avatar-5.jpg" alt=""
+                                                            class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">Jessica
+                                                            Caruso</span>accepted your invitation to join the team.
+                                                        <div class="notification-date">2 min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                                <li class="connection-list">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img src="../assets/images/github.png"
+                                                    alt=""> <span>Github</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img src="../assets/images/dribbble.png"
+                                                    alt=""> <span>Dribbble</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img src="../assets/images/dropbox.png"
+                                                    alt=""> <span>Dropbox</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    src="../assets/images/bitbucket.png" alt="">
+                                                <span>Bitbucket</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img
+                                                    src="../assets/images/mail_chimp.png" alt=""><span>Mail
+                                                    chimp</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="#" class="connection-item"><img src="../assets/images/slack.png"
+                                                    alt=""> <span>Slack</span></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="conntection-footer"><a href="#">More</a></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                    src="../assets/images/avatar-1.jpg" alt=""
+                                    class="user-avatar-md rounded-circle"></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                                aria-labelledby="navbarDropdownMenuLink2">
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">
+                                        John Abraham</h5>
+                                    <span class="status"></span><span class="ml-2">Available</span>
+                                </div>
+                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="#">Thống kê</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                Menu
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-1" aria-controls="submenu-1"><i
+                                        class="fa fa-fw fa-user-circle"></i>Thống kê<span
+                                        class="badge badge-success">6</span></a>
+                                <div id="submenu-1" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/doanhthu">Doanh thu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/loinhuan">Lợi nhuận</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/sanphambanchay">Sản phẩm bán chạy nhất</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/sanphamconlai">Sản phẩm còn lại trong kho</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/khachhang">khách hàng mua nhiều nhất</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/donhang">Tổng số lượng đơn hàng đã bán được</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                    data-target="#submenu-2" aria-controls="submenu-2"><i
+                                        class="fa fa-fw fa-rocket"></i>Quản Lý</a>
+                                <div id="submenu-2" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/category">Phân loại<span
+                                                    class="badge badge-secondary">New</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/color">Màu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/material">Chất liệu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/brand">Thương hiệu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/reviewsimg">Ảnh đánh giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/reviews">Đánh giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/product">Sản phẩm</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/discount">Giảm giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/favorite">Yêu thích</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/account">Tài khoản</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/role">Role</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/authority">Authority</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/order">Đơn hàng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/admin/order">Đơn hàng chi tiết</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">Đơn hàng</h2>
+                            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce
+                                sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Quản Lý</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!-- validation form -->
+                    <!-- ============================================================== -->
+                    <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -12px;">
+                            <div class="card">
+                                <h5 class="card-header">Category</h5>
+                                <div class="card-body">
+                                    <form class="needs-validation" novalidate>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: -17px;">
+                                                <label for="validationCustom01"></label>
+                                                <input type="hidden" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom02">Tên phân loại</label>
+                                                <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Thể thao.." required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                          
+                                        </div>
+                                       
+                                           
+                                           
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-left: -15px;">
+                                                <button class="btn btn-primary" type="submit" style="width:90px;"  id="submitButton">Thêm</button>
+                                                <button class="btn btn-secondary" type="submit" style="width:90px;" id="updateButton">Sửa</button>
+                                                <button class="btn btn-danger" type="submit" style="width:90px;">Xóa</button>
+                                                <button class="btn btn-info" type="submit" style="width:90px;">Cập nhật</button>
+                                                <button class="btn btn-dark" type="submit" style="width:90px;">Làm mới</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- ============================================================== -->
+                    <!-- end validation form -->
+                    <!-- ============================================================== -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- bang  -->
+    <div class="dashboard-wrapper" style="margin-top: -750px;">
+        <div class="container-fluid  dashboard-content">
+
+            <div class="row">
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -40px;">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body bg-brand-light">
+                            <h5 class="text-muted">Chờ thanh toán</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1"><span th:text="${pendingPaymentOrders}"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        style="margin-left: 250px; margin-top: -50px;" width="50" height="50"
+                                        fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z" />
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                        <path
+                                            d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12" />
+                                    </svg>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -40px;">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body bg-info-light">
+                            <h5 class="text-muted">Vận chuyển</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1"><span th:text="${shippingOrders}"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        style="margin-left: 250px; margin-top: -50px;" width="50" height="50"
+                                        fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                                    </svg>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -40px;">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body bg-primary-light">
+                            <h5 class="text-muted">Chờ giao hàng</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1"><span th:text="${deliveringOrders}"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        style="margin-left: 250px; margin-top: -50px;" width="50" height="50"
+                                        fill="currentColor" class="bi bi-telephone-outbound" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5" />
+                                    </svg>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -18px;">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body bg-success-light">
+                            <h5 class="text-muted">Hoàn thành</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1"><span th:text="${completedOrders}"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        style="margin-left: 250px; margin-top: -50px;" width="50" height="50"
+                                        fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                                        <path
+                                            d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z" />
+                                    </svg>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -18px;">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body bg-danger-light">
+                            <h5 class="text-muted">Đã hủy</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1"><span th:text="${cancelledOrders}"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        style="margin-left: 250px; margin-top: -50px;" width="50" height="50"
+                                        fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                        <path
+                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                    </svg>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -18px;">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body bg-dark-light">
+                            <h5 class="text-muted">Tổng đơn hàng</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1"><span th:text="${totalOrders}"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        style="margin-left: 250px; margin-top: -50px;" width="50" height="50"
+                                        fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0" />
+                                    </svg>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- data table  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -10px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Dữ liệu bảng đơn hàng</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped table-bordered second"
+                                    style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Username</th>
+                                            <th>Ngày mua hàng</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Trạng thái đơn hàng</th>
+                                            <th>Thay đổi trạng thái</th>
+                                            <th>Chức năng</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body">
+                                        <tr th:each="order, stt : ${allOrder}">
+                                            <td th:text="${stt.count}"></td>
+                                            <td th:text="${order.Account.UserName}"></td>
+                                            <td th:text="${order.OrderDate}"></td>
+                                            <td th:text="${order.Address}"></td>
+                                            <td th:style="'color: ' + 
+                                                    (${order.OrderStatus} == 'Chờ vận chuyển' ? 'DarkCyan' : 
+                                                    (${order.OrderStatus} == 'Chờ xác nhận' ? 'orange' : 
+                                                    (${order.OrderStatus} == 'Đang giao hàng' ? 'blue' : 
+                                                    (${order.OrderStatus} == 'Đánh giá' ? 'DarkCyan' : 
+                                                    (${order.OrderStatus} == 'Hoàn thành' ? 'green' : 
+                                                    (${order.OrderStatus} == 'Đã hủy' ? 'red' : ''))))))">
+                                                <span th:text="${order.OrderStatus}"></span>
+
+                                            </td>
+                                            <td>
+                                                <select class="form-control"
+                                                    th:onchange="'changeOrderStatus(this, ' + ${order.OrderId} + ')'"
+                                                    th:value="${order.OrderStatus}"
+                                                    data-previous-value="${order.OrderStatus}">
+                                                    <option value="Chờ xác nhận"
+                                                        th:selected="${order.OrderStatus == 'Chờ xác nhận'}">Chờ xác
+                                                        nhận</option>
+                                                    <option value="Chờ vận chuyển"
+                                                        th:selected="${order.OrderStatus == 'Chờ vận chuyển'}">Chờ vận
+                                                        chuyển
+                                                    </option>
+                                                    <option value="Đang giao hàng"
+                                                        th:selected="${order.OrderStatus == 'Đang giao hàng'}">Đang giao
+                                                        hàng</option>
+                                                    <option value="Đánh giá"
+                                                        th:selected="${order.OrderStatus == 'Đánh giá'}">Đánh giá
+                                                    </option>
+                                                    <option value="Hoàn thành"
+                                                        th:selected="${order.OrderStatus == 'Hoàn thành'}">Hoàn
+                                                        thành
+                                                    </option>
+                                                    <option value="Đã hủy"
+                                                        th:selected="${order.OrderStatus == 'Đã hủy'}">Đã hủy</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <!-- 
+                                                       
+                                                        <a th:href="@{/admin/editorder/{OrderId}(OrderId=${order.OrderId})}">
+                                                                <button class="btn btn-primary" type="submit" style="width:40px; max-width: 100%; margin-right:10px;border-radius: 10px;">
+                                                                    <svg  style=" vertical-align: middle;margin-left: -5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                                                      </svg>
+                                                                </button>
+                                                             </a>
+     -->
+                                                <a href="/admin/orderdetail">
+                                                    <button class="btn btn-warning" type="submit"
+                                                        style="width:40px;margin-left: 50px; max-width: 100%;border-radius: 10px;">
+                                                        <svg style=" vertical-align: middle;margin-left: -5px;"
+                                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-eye-slash"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+                                                            <path
+                                                                d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+                                                            <path
+                                                                d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+                                                        </svg>
+                                                    </button>
+
+                                                </a>
+
+
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Username</th>
+                                            <th>Ngày mua hàng</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Trạng thái đơn hàng</th>
+                                            <th>Thay đổi trạng thái</th>
+                                            <th>Chức năng</th>
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- đơn hàng chi tiết -->
+
+                    <!-- end đơn hàng chi tiết -->
+
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- end data table  -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- end basic table  -->
+            <!-- ============================================================== -->
+
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="../assets/vendor/parsley/parsley.js"></script>
+    <script src="../assets/libs/js/main-js.js"></script>
+    <script>
+
+
+
+
+
+
+        $('#form').parsley();
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+
+        // table   
+    </script>
+
+    <script>
+        const editButtons = document.querySelectorAll('.edit-button');
+        const updateButton = document.getElementById('updateButton');
+        const submitButton = document.getElementById('submitButton');
+
+        // Lấy tham số từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const showUpdate = urlParams.get("showUpdate");
+
+        // Kiểm tra giá trị tham số và hiển thị nút "Update" nếu cần thiết
+        if (showUpdate === "true") {
+            // Hiển thị nút "Update" và ẩn nút "Submit"
+            updateButton.classList.remove('d-none');
+            submitButton.classList.add('d-none');
+        } else {
+            // Ẩn nút "Update" và hiển thị nút "Submit" mặc định
+            updateButton.classList.add('d-none');
+            submitButton.classList.remove('d-none');
+        }
+
+        editButtons.forEach((button) => {
+            button.addEventListener('click', function () {
+                // Ẩn nút "Submit" và hiển thị nút "Update"
+                submitButton.classList.add('d-none');
+                updateButton.classList.remove('d-none');
+            });
+        });
+
+        updateButton.addEventListener('click', function (event) {
+            // Ẩn nút "Update" và hiển thị nút "Submit"
+            updateButton.classList.add('d-none');
+            submitButton.classList.remove('d-none');
+        });
+    </script>
+
+
+    <!-- Thêm thư viện SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- Thêm đoạn mã JavaScript và Thymeleaf -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function changeOrderStatus(selectElement, orderId) {
+            let previousValue = selectElement.getAttribute('data-previous-value');
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn đổi trạng thái?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let newStatus = selectElement.value;
+
+                    // Sử dụng Ajax để gửi yêu cầu đổi trạng thái và xử lý kết quả
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/updateOrderStatus",
+                        data: {
+                            orderId: orderId,
+                            newStatus: newStatus
+                        },
+                        success: function (response) {
+                            Swal.fire({
+                                title: 'Thành công!',
+                                text: response,
+                                icon: 'success',
+                                showConfirmButton: false, // Không hiển thị nút "OK"
+                                timer: 1500 // Hiển thị thông báo trong 1.5 giây
+                            });
+
+                            // Đợi 1.5 giây rồi mới reload trang
+                            //Cập lại số lượng trong kho nếu mua thành công.
+                            setTimeout(function () {
+                                if (newStatus === 'Hoàn thành') {
+                                    // Nếu trạng thái mới là "hoàn thành", chuyển hướng đến một đường dẫn cụ thể
+                                    window.location.href = '/updateinventory/' + orderId;
+                                } else {
+                                    // Nếu không, reload trang
+                                    location.reload();
+                                }
+                            }, 1500);
+
+                            // Đợi 1.5 giây rồi mới reload trang
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        },
+                        error: function (xhr, status, error) {
+                            let errorMessage = xhr.responseText || 'Đã xảy ra lỗi';
+                            Swal.fire('Lỗi!', errorMessage, 'error');
+                        }
+                    });
+                } else {
+                    // Nếu hủy, đặt giá trị select option về giá trị gốc
+                    // selectElement.value = selectElement.getAttribute('data-previous-value');
+                    // selectElement.value = previousValue;
+                    location.reload();
+                }
+            });
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            // Gửi yêu cầu AJAX để cập nhật trạng thái đơn hàng
+            // Ở đây, bạn có thể sử dụng fetch hoặc các phương thức khác để thực hiện yêu cầu
+            // Sau khi cập nhật thành công, hiển thị thông báo thành công
+            reloadData();
+            Swal.fire('Đổi trạng thái thành công!', '', 'success');
+        }
+        /*]]>*/
+
+    </script>
+
+
+    <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/vendor/datatables/js/data-table.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+    <!-- // table   -->
+</body>
+
+</html>

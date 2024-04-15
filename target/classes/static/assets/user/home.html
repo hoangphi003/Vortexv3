@@ -1,0 +1,711 @@
+<body>
+	<div class="hero">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-lg-12">
+					<div id="carouselExampleIndicators" class="carousel slide ">
+						<div class="carousel-indicators">
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+								class="active" aria-current="true" aria-label="Slide 1"></button>
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+								aria-label="Slide 2"></button>
+						</div>
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img ng-src="/assets/images/slides/1.jpg" class="d-block w-100" alt="...">
+							</div>
+							<div class="carousel-item">
+								<img ng-src="/assets/images/slides/2.jpg" class="d-block w-100" alt="...">
+							</div>
+						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+							data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+							data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Hero Section -->
+	<!-- Start branch -->
+	<div class="branch-products container">
+		<div class="row">
+			<div class="col-12">
+				<div class="item shadow-sm p-3 mb-5  bg-white position-relative mt-3 ps-4">
+					<span ng-repeat="brand in brands  | limitTo : 6">
+						<a href=""><img ng-src="/assets/images/branch/{{brand.brandImage}}" alt="No Image"
+								class="rounded"></a>
+					</span>
+					<span class="rounded position-absolute see-more text-center fw-bold" data-bs-toggle="modal"
+						data-bs-whatever="@getbootstrap" data-bs-target="#exampleModal">Xem tất cả</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" id="exampleModal">
+		<div class="modal-dialog modal-dialog-centered modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Tất cả hãng</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row all-branches">
+						<div class="col-3 pe-1" ng-repeat="brand in brands">
+							<span>
+								<a href=""><img ng-src="/assets/images/branch/{{brand.brandImage}}" alt="No Image"
+										class="rounded w-100"></a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End branch -->
+
+	<!-- Start choose watch -->
+	<div class="appro container">
+		<div class="row">
+			<div class="appro-title text-center">
+				<h2>CHỌN LOẠI ĐỒNG HỒ PHÙ HỢP</h2>
+				<p>Vortex cung cấp đa dạng mẫu đồng hồ theo nhiều phong cách khác nhau
+				</p>
+			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="col-3 post-entry mb-3" ng-repeat="category in categories | limitTo:7">
+				<div class="post-thumbnail">
+					<img class="card-img-top rounded-2" ng-src="/assets/images/categories/{{category.categoryImage}}"
+						alt="Title" />
+					<h6 class="text-black text-center mt-1">{{category.categoryName}}</h6>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="see-all-categories position-relative" data-bs-toggle="modal"
+					data-bs-whatever="@getbootstrap" data-bs-target="#categories">
+					<img class="card-img-top rounded-2 " ng-src="assets/images/categories/10.webp" alt="Title" />
+					<span class="position-absolute text-white fs-5 text-all">Xem tất cả</span>
+				</div>
+			</div>
+			<div class="modal fade" tabindex="-1" id="categories">
+				<div class="modal-dialog modal-dialog-centered modal-md">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Tất cả loại đồng hồ</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="row all-categories">
+								<div class="col-3 pe-1 text-center text-black text-truncate"
+									ng-repeat="category in categories">
+									<a href=""><img ng-src="/assets/images/categories/{{category.categoryImage}}" alt=""
+											class="rounded w-100">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Choose watch -->
+	<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="Id1"
+		aria-labelledby="Enable both scrolling & backdrop">
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="Enable both scrolling & backdrop">
+				So sánh sản phẩm
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body border-bottom">
+			<span ng-show="list.length === 0" class="d-block fs-5 text-black text-center mb-4">Chưa có sản phẩm so
+				sánh</span>
+			<div class="row" ng-repeat="compare in list">
+				<div class="col-4">
+					<img ng-src="/assets/images/products/{{compare.product.image}}" width="100%">
+				</div>
+				<div class="col-8 position-relative">
+					<span class="d-block text-black fs-6 fw-bold">{{compare.product.productName}}</span>
+					<span class="d-block position-absolute bottom-0" ng-click="deleteCompare($index)"><i
+							class="fa-solid fa-trash fs-6 text-danger cursor-pointer"></i></span>
+				</div>
+			</div>
+			<div class="row d-flex ">
+				<div class="col-12 justify-content-center my-2">
+					<a class="btn btn-primary rounded-2 py-2 w-100" ng-click="compareNow()">So sánh</a>
+					<span class="text-danger">{{messages}}</span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="container" style="min-height: 30rem;">
+		<nav>
+			<div class="nav nav-underline  fs-5" id="nav-tab" role="tablist">
+				<li class="nav-link active cursor-pointer" id="nav-home-tab" data-bs-toggle="tab" href="#firstProduct"
+					role="tab" aria-controls="nav-home" aria-selected="true">
+					<a class="">Bán chạy</a>
+				</li>
+				<li class="nav-link cursor-pointer" id="nav-home-tab" data-bs-toggle="tab" href="#secondProduct"
+					role="tab" aria-controls="nav-home" aria-selected="true">
+					<a class="">Mới nhất</a>
+				</li>
+			</div>
+		</nav>
+
+		<div class="tab-content mt-3 rounded-1">
+			<div class="tab-pane fade show active" id="firstProduct" role="tabpanel" aria-labelledby="nav-home-tab">
+				<div class="row my-4 container text-center">
+					<div class="col-2 z-3 px-0 mx-0 position-relative mb-4 items-hover-products"
+						ng-repeat="x in results | limitTo : 6">
+						<a href="#!/detail/{{x.productDetailId}}"><img
+								ng-src="/assets/images/products/{{x.product.image}}"
+								class=" product-thumbnail rounded-2 w-100 "></a>
+						<span ng-click="buyDetail(x.productDetailId)"
+							class="glasses feature-global position-absolute end-0 top-0 d-block bg-white px-2 pt-1 rounded-2">
+							<i class="fa-solid fa-magnifying-glass fs-5 cursor-pointer"></i>
+						</span>
+						<span
+							class="heart-product feature-global position-absolute end-0  d-block bg-white px-2 pt-1 rounded-2 ">
+							<i class="fa-regular fa-heart fs-5 cursor-pointer"></i>
+						</span>
+						<span
+							class="compare feature-global position-absolute end-0 d-block bg-white px-2 pt-1 rounded-2"
+							data-bs-toggle="offcanvas" data-bs-target="#Id1" ng-click="viewCompare(x.productDetailId)">
+							<i class=" fa-solid fa-shuffle fs-5 cursor-pointer"></i>
+						</span>
+						<span ng-click="addToCart(x.productDetailId)"
+							class="position-absolute bg-white fs-6 cursor-pointer fw-bold py-2 text-center add-item ">Thêm
+							vào
+							giỏ hàng</span>
+						<a href="#!/detail/{{x.productDetailId}}">
+							<h3 class="product-title mb-0 mt-5 pt-2 fs-5 d-block text-truncate">
+								{{x.product.productName}}</h3>
+						</a>
+						<strong class="product-price text-danger">{{x.product.price | number:0}} đ</strong><br>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star"></span>
+						<span class="fa fa-star"></span>
+					</div>
+					<!-- End Column 2 -->
+				</div>
+			</div>
+			<div class="tab-pane fade show" id="secondProduct" role="tabpanel" aria-labelledby="nav-home-tab">
+				<div class="row my-4 container text-center">
+					<div class="col-2 z-3 px-0 mx-0 position-relative mb-4 items-hover-products"
+						ng-repeat="x in productDesc | limitTo : 6">
+						<a href="#!/detail/{{x.productDetailId}}"><img
+								ng-src="/assets/images/products/{{x.product.image}}"
+								class=" product-thumbnail rounded-2 w-100 "></a>
+						<span ng-click="buyDetail(x.productDetailId)"
+							class="glasses feature-global position-absolute end-0 top-0 d-block bg-white px-2 pt-1 rounded-2">
+							<i class="fa-solid fa-magnifying-glass fs-5 cursor-pointer"></i>
+						</span>
+						<span
+							class="heart-product feature-global position-absolute end-0  d-block bg-white px-2 pt-1 rounded-2 ">
+							<i class="fa-regular fa-heart fs-5 cursor-pointer"></i>
+						</span>
+						<span
+							class="compare feature-global position-absolute end-0 d-block bg-white px-2 pt-1 rounded-2"
+							data-bs-toggle="offcanvas" data-bs-target="#Id1" ng-click="viewCompare(x.productDetailId)">
+							<i class=" fa-solid fa-shuffle fs-5 cursor-pointer"></i>
+						</span>
+						<span ng-click="addToCart(x.productDetailId)"
+							class="position-absolute bg-white fs-6 cursor-pointer fw-bold py-2 text-center add-item ">Thêm
+							vào
+							giỏ hàng</span>
+						<a href="#!/detail/{{x.productDetailId}}">
+							<h3 class="product-title mb-0 mt-5 pt-2 fs-5 d-block text-truncate">
+								{{x.product.productName}}</h3>
+						</a>
+						<strong class="product-price text-danger">{{x.product.price | number:0}} đ</strong><br>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star"></span>
+						<span class="fa fa-star"></span>
+					</div>
+					<!-- End Column 2 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Start Product Section -->
+	<div class="product-section container">
+		<div class="product-section-item">
+			<h1 class="text-center fw-bold mb-5">Sản phẩm của chúng tôi</h1>
+			<div class="product-section-body">
+				<div class="row my-4 container text-center">
+					<div class="col-2 z-3 px-0 mx-0 position-relative mb-4 items-hover-products"
+						ng-repeat="x in products | limitTo : 6">
+						<a href="#!/detail/{{x.productDetailId}}"><img
+								ng-src="/assets/images/products/{{x.product.image}}"
+								class=" product-thumbnail rounded-2 w-100 "></a>
+						<span ng-click="buyDetail(x.productDetailId)"
+							class="glasses feature-global position-absolute end-0 top-0 d-block bg-white px-2 pt-1 rounded-2">
+							<i class="fa-solid fa-magnifying-glass fs-5 cursor-pointer"></i>
+						</span>
+						<span
+							class="heart-product feature-global position-absolute end-0  d-block bg-white px-2 pt-1 rounded-2 ">
+							<i class="fa-regular fa-heart fs-5 cursor-pointer"></i>
+						</span>
+						<span
+							class="compare feature-global position-absolute end-0 d-block bg-white px-2 pt-1 rounded-2"
+							data-bs-toggle="offcanvas" data-bs-target="#Id1" ng-click="viewCompare(x.productDetailId)">
+							<i class=" fa-solid fa-shuffle fs-5 cursor-pointer"></i>
+						</span>
+						<span ng-click="addToCart(x.productDetailId)"
+							class="position-absolute bg-white fs-6 cursor-pointer fw-bold py-2 text-center add-item ">Thêm
+							vào
+							giỏ hàng</span>
+						<a href="#!/detail/{{x.productDetailId}}">
+							<h3 class="product-title mb-0 mt-5 pt-2 fs-5 d-block text-truncate">
+								{{x.product.productName}}</h3>
+						</a>
+						<strong class="product-price text-danger">{{x.product.price | number:0}} đ</strong><br>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star"></span>
+						<span class="fa fa-star"></span>
+					</div>
+					<!-- End Column 2 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Product Section -->
+
+	<!-- Self introduce -->
+	<div class="self-intro bg-favorite mt-3">
+		<div class="row p-4">
+			<div class="col-6">
+				<img ng-src="/assets/images/banner/2.webp" alt="" class=" w-100 ">
+			</div>
+			<div class="col-6">
+				<div class="text-center text-white">
+					<div class="spacing-intro">
+						<h1 class="card-title text-uppercase mb-3 text-white ">Vortex</h1>
+						<h4 class="text-capitalize mt-4">Thế giới đồng hồ chính hãng</h4>
+						<p class="mb-4">
+							Được thành lập vào năm 2024, trải qua vài tháng hoạt động và phát triển, Vortex trở
+							thành đại lý ủy quyền cho nhiều thương hiệu đến từ Nhật Bản, Thụy Sỹ chuyên bán đồng
+							hồ chính hãng.
+						</p>
+						<p class="mt-2">
+							Chính sách bảo hành 5 năm cùng với các chương trình giảm giá tốt sẽ giúp bạn mua sắm dễ
+							dàng. Với đội ngũ nhân viên tận tình, am hiểu về đồng hồ, WatchStore rất vui được phục
+							vụ
+							quý khách.
+						</p>
+						<button class="btn btn-outline-info">Xem thêm</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- End self introduce -->
+
+	<!-- Start Popular Product -->
+	<div class="popular-product mt-5">
+		<div class="container">
+			<div class="row my-4 container  text-center">
+				<div class="col-3 z-3 px-0 mx-0 position-relative mb-4 items-hover-products"
+					ng-repeat="x in products | limitTo: 16">
+					<a href="#!/detail/{{x.productDetailId}}"><img ng-src="/assets/images/products/{{x.product.image}}"
+							class=" product-thumbnail rounded-2 w-100 "></a>
+					<span ng-click="buyDetail(x.productDetailId)"
+						class="glasses feature-global position-absolute end-0 top-0 d-block bg-white px-2 pt-1 rounded-2">
+						<i class="fa-solid fa-magnifying-glass fs-5 cursor-pointer"></i>
+					</span>
+					<span
+						class="heart-product feature-global position-absolute end-0  d-block bg-white px-2 pt-1 rounded-2 ">
+						<i class="fa-regular fa-heart fs-5 cursor-pointer"></i>
+					</span>
+					<span class="compare feature-global position-absolute end-0 d-block bg-white px-2 pt-1 rounded-2"
+						data-bs-toggle="offcanvas" data-bs-target="#Id1">
+						<i class=" fa-solid fa-shuffle fs-5 cursor-pointer"></i>
+					</span>
+					<span ng-click="addToCart(x.productDetailId)"
+						class="position-absolute bg-white fs-6 cursor-pointer fw-bold py-2 text-center add-item ">Thêm
+						vào
+						giỏ hàng</span>
+					<a href="#!/detail/{{x.productDetailId}}">
+						<h3 class="product-title mb-0 mt-5 pt-2 fs-5 d-block text-truncate">
+							{{x.product.productName}}</h3>
+					</a>
+					<strong class="product-price text-danger">{{x.product.price | number:0}} đ</strong><br>
+					<div class="rating-star-checked text-secondary">
+						<span ng-if="calculateAverageRating(x.product.reviews) == 5">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+						</span>
+						<span ng-if="calculateAverageRating(x.product.reviews) == 4">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star "></span>
+						</span>
+						<span ng-if="calculateAverageRating(x.product.reviews) == 3">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+						</span>
+						<span ng-if="calculateAverageRating(x.product.reviews) == 2">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+						</span>
+						<span ng-if="calculateAverageRating(x.product.reviews) == 1">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+						</span>
+						<span ng-if="countAverageRating(x.product.reviews) == 0">
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+							<span class="fa fa-star "></span>
+						</span>
+						<span>({{ countAverageRating(x.product.reviews) }})</span>
+					</div>
+				</div>
+				<!-- End Column 2 -->
+			</div>
+			<div class="row d-flex justify-content-center">
+				<div class="col-3 d-flex justify-content-center">
+					<a class="btn btn-primary rounded-3" href="#!products">Xem thêm</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- End Popular Product -->
+
+	<!-- Start Why Choose Us Section -->
+	<div class="why-choose-section">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-lg-6">
+					<h2 class="section-title">Tại sao chọn chúng tôi</h2>
+					<p>Nếu bạn đang tìm kiếm một trang web để mua và bán hàng đồ đồng trực tuyến thì Vortex là một
+						sự lựa
+						chọn tuyệt vời dành cho bạn.</p>
+
+					<div class="row my-5">
+						<div class="col-6 col-md-6">
+							<div class="feature">
+								<div class="icon">
+									<img ng-src="/assets/images/icons/truck.svg" alt="Image" class="imf-fluid">
+								</div>
+								<h3>Vận chuyển nhanh & miễn phí
+								</h3>
+								<p>Có nhiều phương thức vận chuyển nhanh, phí vận chuyển thấp và hổ trợ vận chuyểncho
+									khách hàng.</p>
+							</div>
+						</div>
+
+						<div class="col-6 col-md-6">
+							<div class="feature">
+								<div class="icon">
+									<img ng-src="/assets/images/icons/bag.svg" alt="Image" class="imf-fluid">
+								</div>
+								<h3>Dễ dàng mua sắm</h3>
+								<p>Giao diện thân thiện, đơn giản, dễ sử dụng. Bạn sẽ dễ dàng thấy được ngay những sản
+									phẩm nổi bật.
+								</p>
+							</div>
+						</div>
+
+						<div class="col-6 col-md-6">
+							<div class="feature">
+								<div class="icon">
+									<img ng-src="assets/images/icons/support.svg" alt="Image" class="imf-fluid">
+								</div>
+								<h3>Hỗ trợ 24/7</h3>
+								<p>Có đội ngũ chuyên viên tư vấn 24/7, giải đáp thắc mắc, khó khăn cho khách hàng.</p>
+							</div>
+						</div>
+
+						<div class="col-6 col-md-6">
+							<div class="feature">
+								<div class="icon">
+									<img ng-src="assets/images/icons/return.svg" alt="Image" class="imf-fluid">
+								</div>
+								<h3>Hoàn trả miễn phí</h3>
+								<p>Vortex sẽ chỉ hoàn tiền cho Người mua khi sản phẩm
+									có vấn đề trong quá trình vận chuyển và sản phẩm lỗi.</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="img-wrap">
+						<img ng-src="assets/images/banner/4.jpg" alt="Image" class="img-fluid w-100">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Why Choose Us Section -->
+
+	<!-- Start We Help Section -->
+	<div class="we-help-section mb-4">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-lg-7 mb-5 mb-lg-0">
+					<div class="imgs-grid">
+						<div class="row">
+							<div class="col-12">
+								<img ng-src="assets/images/banner/4.webp" alt="Untree.cor" class="w-100 shadow">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 ps-lg-5">
+					<h2 class="section-title mb-4">Chúng tôi có những đồng hồ phù hợp nhất với bạn</h2>
+					<p>Đồng hồ của chúng tôi được thiết kế với sự tinh tế và chất lượng cao. Chúng có khả năng thể hiện
+						phong cách cá nhân của bạn và đồng thời giữ cho bạn luôn theo dõi thời gian một cách chính xác
+						và đẳng cấp. Bạn sẽ cảm nhận được sự sang trọng và đẳng cấp mỗi khi đeo đồng hồ của chúng tôi.
+					</p>
+
+					<ul class="list-unstyled custom-list my-4">
+						<li>Chúng tôi cam kết mang đến sự hài lòng cho bạn với dòng sản phẩm đồng hồ chất lượng cao.
+						</li>
+						<li>Đồng hồ của chúng tôi không chỉ là một món phụ kiện, mà còn là biểu tượng của thành công.
+						</li>
+						<li>Với sự đa dạng về kiểu dáng và chất liệu, chúng tôi tự tin rằng có một chiếc đồng hồ hoàn
+							hảo.</li>
+						<li>Hãy trải nghiệm cảm giác đặc biệt và lịch lãm mỗi khi bạn đeo một chiếc đồng hồ của chúng
+							tôi.</li>
+					</ul>
+				</div>
+				<div class="row">
+					<div class="col-12 d-flex justify-content-center mt-4">
+						<p><a herf="#" class="btn ex ">Khám phá ngay</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End We Help Section -->
+	<div class="collections">
+		<div class="card-fake text-start container">
+			<h1 class="text-center">Bộ sưu tập</h1>
+			<div class="row mt-4">
+				<div class="col-3">
+					<div class="card-fake text-start">
+						<img class="card-img-top" ng-src="assets/images/collections/6.png" alt="Title" />
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="card-fake text-start">
+						<img class="card-img-top" ng-src="assets/images/collections/7.png" alt="Title" />
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="card-fake text-start">
+						<img class="card-img-top" ng-src="assets/images/collections/8.png" alt="Title" />
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="card-fake text-start">
+						<img class="card-img-top" ng-src="assets/images/collections/9.png" alt="Title" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Start Blog Section -->
+	<div class="blog-section">
+		<div class="container bg-white rounded-3 pt-4">
+			<div class="row mb-5">
+				<div class="col-md-6">
+					<h2 class="section-title">Tin tức gần đây</h2>
+				</div>
+				<div class="col-md-6 text-start text-md-end">
+					<a href="#" class="more text-decoration-none">Xem tất cả bài viết</a>
+				</div>
+			</div>
+			<div class="row pb-5">
+				<div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a href="#" class="post-thumbnail">
+							<img ng-src="assets/images/collections/7.png" alt="Image" class="img-fluid"></a>
+						<div class="post-content-entry">
+							<h3><a href="#">First Time Home Owner Ideas</a></h3>
+							<div class="meta">
+								<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19,
+										2021</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a href="#" class="post-thumbnail">
+							<img ng-src="assets/images/collections/7.png" alt="Image" class="img-fluid"></a>
+						<div class="post-content-entry">
+							<h3><a href="#">First Time Home Owner Ideas</a></h3>
+							<div class="meta">
+								<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19,
+										2021</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a href="#" class="post-thumbnail">
+							<img ng-src="assets/images/collections/7.png" alt="Image" class="img-fluid"></a>
+						<div class="post-content-entry">
+							<h3><a href="#">First Time Home Owner Ideas</a></h3>
+							<div class="meta">
+								<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19,
+										2021</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a href="#" class="post-thumbnail">
+							<img ng-src="assets/images/collections/7.png" alt="Image" class="img-fluid"></a>
+						<div class="post-content-entry">
+							<h3><a href="#">First Time Home Owner Ideas</a></h3>
+							<div class="meta">
+								<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19,
+										2021</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 post-entry">
+					<div class="card post-thumbnail">
+						<img ng-src="assets/images/banner/2.webp" alt="Image" class="  img-fluid rounded-2 w-100"></a>
+						<div class="card-body bg-my-body rounded-2">
+							<h4 class="card-title">Seiko 5 7S26 - Cha đẻ của dòng máy 7S trên đồng hồ</h4>
+							<p class="card-text">Khái quát chung về bộ máy Seiko 5 7S26Seiko 7S26 là bộ máy đồng hồ được
+								giới thiệu vào năm 1996 với một loạt các biến thể gồm 7S26A (1996), 7S26B (2006) và
+								7S26C (2011) chỉ có những thay đổi...</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="row">
+						<div class="col-12">
+							<div class="card mb-3 bg-my-body">
+								<div class="row news ">
+									<div class="col-md-4">
+										<img ng-src="assets/images/banner/2.webp" alt="Image"
+											class="img-fluid rounded-2 w-100"></a>
+									</div>
+									<div class="col-md-8">
+										<div class="card- p-1">
+											<h4 class="card-title">Seiko 5 7S26 - Cha đẻ của dòng máy 7S trên đồng hồ
+											</h4>
+											<p class="card-text">Khái quát chung về bộ máy Seiko 5 7S26Seiko 7S26 là bộ
+												máy đồng hồ được
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="card mb-3 bg-my-body">
+								<div class="row news ">
+									<div class="col-md-4">
+										<img ng-src="assets/images/banner/2.webp" alt="Image"
+											class="img-fluid rounded-2 w-100"></a>
+									</div>
+									<div class="col-md-8">
+										<div class="card- p-1">
+											<h4 class="card-title">Seiko 5 7S26 - Cha đẻ của dòng máy 7S trên đồng hồ
+											</h4>
+											<p class="card-text">Khái quát chung về bộ máy Seiko 5 7S26Seiko 7S26 là bộ
+												máy đồng hồ được
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-12">
+							<div class="card mb-3 bg-my-body">
+								<div class="row news ">
+									<div class="col-md-4">
+										<img ng-src="assets/images/banner/2.webp" alt="Image"
+											class="img-fluid rounded-2 w-100"></a>
+									</div>
+									<div class="col-md-8">
+										<div class="card- p-1">
+											<h4 class="card-title">Seiko 5 7S26 - Cha đẻ của dòng máy 7S trên đồng hồ
+											</h4>
+											<p class="card-text">Khái quát chung về bộ máy Seiko 5 7S26Seiko 7S26 là bộ
+												máy đồng hồ được
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-12">
+							<div class="card mb-3 bg-my-body">
+								<div class="row news ">
+									<div class="col-md-4">
+										<img ng-src="assets/images/banner/2.webp" alt="Image"
+											class="img-fluid rounded-2 w-100"></a>
+									</div>
+									<div class="col-md-8">
+										<div class="card- p-1">
+											<h4 class="card-title">Seiko 5 7S26 - Cha đẻ của dòng máy 7S trên đồng hồ
+											</h4>
+											<p class="card-text">Khái quát chung về bộ máy Seiko 5 7S26Seiko 7S26 là bộ
+												máy đồng hồ được
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-3 pb-5">
+				<div class="col-12 text-center">
+					<button class="btn btn-primary ex">Xem thêm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

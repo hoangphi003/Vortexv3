@@ -1,0 +1,221 @@
+<body>
+	<div class="body-cart container my-4">
+		<div class="row mt-3">
+			<div class="col-12 bg-white rounded-1">
+				<div class=" py-4 px-4">
+					<h5 class="text-danger">
+						<i class="fa-solid fa-location-dot text-danger pe-1"></i> Địa chỉ nhận hàng
+					</h5>
+					<div class="address mt-3">
+						<div class="row mb-3">
+							<div class="col-4">
+								<div class="mb-4">
+									<input type="text" class="form-control h-50px" name="" id=""
+										aria-describedby="helpId" placeholder="Họ tên" ng-model="fullName"
+										ng-class="messageFullNameBorder" />
+									<span class="text-danger position-absolute">{{messageFullName}}</span>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="mb-3">
+									<input type="number" class="form-control h-50px" min="0" aria-describedby="helpId"
+										placeholder="Số điện thoại" ng-model="phoneNumber"
+										ng-class="messagePhoneNumberBorder" />
+									<span class="text-danger position-absolute">{{messagePhoneNumber}}</span>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="mb-3">
+									<input type="text" class="form-control h-50px" name="" id=""
+										aria-describedby="helpId" placeholder="Ví dụ: 138 đường Hoàng Quốc Việt"
+										ng-model="address" ng-class="messageAddressBorder" />
+									<span class="text-danger position-absolute">{{messageAddress}}</span>
+								</div>
+							</div>
+						</div>
+						<div class="row my-3">
+							<div class="col-4">
+								<div class="mb-3">
+									<select class="form-select form-select h-50px" ng-class="messageProvinceBorder"
+										ng-model="province" ng-options="provider.full_name for provider in providers"
+										ng-change="getProviderId()" ng-init="province = null">
+										<option value="" class="d-none">Chọn tỉnh/thành phố</option>
+									</select>
+									<span class="text-danger position-absolute">{{messageProvince}}</span>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="mb-3">
+									<select class="form-select form-select h-50px" ng-model="district"
+										ng-class="messageDistrictBorder"
+										ng-options="district.full_name for district in districts" ng-change="getWard()"
+										ng-init="district = null">
+										<option value="" class="d-none">Chọn quận/huyện</option>
+									</select>
+									<span class="text-danger position-absolute">{{messageDistrict}}</span>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="mb-3">
+									<select class="form-select form-select h-50px" ng-class="messageWardBorder"
+										ng-model="ward" ng-options="ward.full_name for ward in wards"
+										ng-init="ward = null">
+										<option value="" class="d-none">Chọn xã/phường</option>
+									</select>
+									<span class="text-danger position-absolute">{{messageWard}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-12 bg-white rounded-1">
+				<div class="row mb-3">
+					<div class="col-12 bg-white rounded-1">
+						<div class="row p-2">
+							<div class="col-4 ps-0">
+								<div class="form-check">
+									<label class="form-check-label  ps-2 fs-5" for="defaultCheck1">
+										Sản phẩm
+									</label>
+								</div>
+							</div>
+							<div class="col-2 text-center">
+								<span class="form-check-label  ps-2" for="defaultCheck1">
+									Đơn giá
+								</span>
+							</div>
+							<div class="col-2 text-center">
+								<span class="form-check-label   ps-2" for="defaultCheck1">
+									Số lượng
+								</span>
+							</div>
+							<div class="col-2 text-center">
+								<span class="form-check-label   ps-2" for="defaultCheck1">
+									màu
+								</span>
+							</div>
+							<div class="col-2 text-center">
+								<span class="form-check-label   ps-2" for="defaultCheck1">
+									Tổng tiền hàng
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-3" ng-repeat="cart in listCart">
+					<div class="col-4 my-auto">
+						<div class="mb-3">
+							<div class="row g-0">
+								<div class="col-md-3  my-auto ">
+									<img ng-src="/assets/images/products/{{cart.productDetails.product.image}}"
+										class="img-fluid rounded-start" alt="Card title" />
+								</div>
+								<div class="col-md-8 ">
+									<div class="card-body">
+										<p class="card-text">
+											{{cart.productDetails.product.productName}}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-2 text-center">
+						<span class="form-check-label ps-2" for="defaultCheck1">
+							<span class="old-price fw-bold text-danger">
+								{{cart.productDetails.product.price | number:0 }} đ
+							</span>
+						</span>
+					</div>
+					<div class="col-2 text-center">
+						<span>x{{cart.quantity}}</span>
+					</div>
+					<div class="col-2 text-center">
+						<span class="form-check-label" for="defaultCheck1">
+							<span class="color">{{cart.productDetails.color.colorName}}</span>
+						</span>
+					</div>
+					<div class="col-2 text-center">
+						<span class="form-check-label" for="defaultCheck1">
+							<span class="amout fw-bold text-danger">{{cart.productDetails.product.price * cart.quantity
+								| number:0}}
+								đ</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3 ">
+			<div class="col-12 bg-white rounded-1 " style="padding-left: 29px;">
+				<h5 class="text-black mt-3 mb-4">Chọn phương thức thanh toán</h5>
+				<div class="form-check mb-4" style="margin-left: 10px;">
+					<input class="form-check-input fs-5 " type="radio" name="payment" id="cash" ng-model="paymentmethod"
+						value="cashPay" ng-class="messagePaymentmethodBorder" />
+					<label class="form-check-label fs-6" for="cash"><img ng-src="/assets/images/payment/cash.png"
+							width="40px" alt="" class="pe-2">Thanh toán tiền
+						mặt khi nhận
+						hàng</label>
+				</div>
+				<div class="form-check mb-4" style="margin-left: 10px;">
+					<input class="form-check-input fs-5" type="radio" name="payment" id="momo" ng-model="paymentmethod"
+						value="payPal" ng-class="messagePaymentmethodBorder" />
+					<label class="form-check-label fs-6" for="momo"><img ng-src="/assets/images/payment/paypal.svg"
+							width="35px" alt="" class="pe-2">Thanh toán bằng ví PayPal</label></label>
+				</div>
+				<div class="form-check mb-5" style="margin-left: 10px;">
+					<input class="form-check-input fs-5" type="radio" name="payment" id="vnpay" ng-model="paymentmethod"
+						value="vnPay" ng-class="messagePaymentmethodBorder" />
+					<label class="form-check-label fs-6" for="vnpay"><img ng-src="/assets/images/payment/vnpay.png"
+							width="40px" alt="" class="pe-2">Thanh toán bằng VNPAY</label></label>
+					<span class="text-danger position-absolute d-block "
+						style="margin-left: -30px;">{{messagePaymentmethod}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="row" id="bill">
+					<div class="col-12 bg-white rounded-1 shadow-lg bg-secondary p-3">
+						<div class="row border-bottom">
+							<div class="col-6"></div>
+							<div class="col-6">
+								<div class="row">
+									<div class="col-8" style="padding-left: 13rem;">
+										<h6>Tạm tính</h6>
+										<h6>Giảm giá</h6>
+										<h6>Tổng thanh toán</h6>
+									</div>
+									<div class="col-4 text-end">
+										<h6 class="">{{sum | number:0}} đ</h6>
+										<h6 class="text-success"><span ng-if="sumAfterDiscount">-</span> {{
+											sumAfterDiscount ?
+											sumAfterDiscount:0 | number:0}} đ</h6>
+										<h6 class="text-danger fw-bold">{{total | number:0}} đ</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12 text-end">
+								<input type="text" class="rounded-2 me-2 ps-2" style="outline: none;
+								border: 1px solid gray; 
+							" ng-model="discountModel"><a class="btn px-3 py-1 rounded-3" ng-click="enterDiscountCode()">Áp
+									dụng</a>
+							</div>
+						</div>
+						<div class="row ps-1 border-top">
+							<div class="col-12 text-end ">
+								<a class="btn btn-private rounded-3 px-4 bg-favorite text-white mt-3"
+									ng-click="placeAnOrder()">
+									Đặt hàng</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

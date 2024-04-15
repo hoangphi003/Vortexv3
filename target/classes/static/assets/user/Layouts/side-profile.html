@@ -1,0 +1,56 @@
+<body>
+    <div class="side-profile card" style="background-color: #eff2f1">
+        <div class="pt-3">
+            <div class="row g-0 border-bottom-0 pb-3">
+                <div class="col-md-3 my-auto ps-3">
+                    <img ng-src="/assets/avatarprofile/{{ profile.avatar }}" class="img-fluid rounded-pill "
+                        alt="Card title" ng-if="profile.avatar" />
+                    <img src="/assets/avatarprofile/anonymous.png" class="img-fluid rounded-pill " alt="Default Avatar"
+                        ng-if="!profile.avatar">
+                </div>
+                <div class="col-md-8 my-auto ms-2">
+                    <a href="" class="text-decoration-none">
+                        <div class="car">
+                            <span class="f">{{ profile.fullName }}</span><br>
+                            <span class="fw- "><i class="fa-solid fa-pencil"></i> Sửa hồ sơ</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="accordion accordion-flush w-100" id="accordionFlushExample">
+            <div class="accordion-item border-top border-secondary-subtle">
+                <div class="accordion-button collapsed ps-3 border-bottom-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" style="background-color: #eff2f1;" aria-expanded="false"
+                    aria-controls="flush-collapseOne">
+                    Tài khoản
+                </div>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                    style="background-color: #eff2f1; ">
+                    <div class="accordion-body text-center">
+                        <a href="#!profile" class="text-decoration-none">Profile</a><br>
+                        <a href="#!changepassword" class="text-decoration-none">Đổi mật khẩu</a><br>
+                        <a href="#!user/logout" class="text-decoration-none">Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 ms-3">
+                <a class="fs-6 text-black text-decoration-none" href="#!purchase">
+                    Đơn mua
+                </a>
+            </div>
+            <hr>
+            <div class=" ms-3">
+                <a class="fs-6 text-black text-decoration-none" href="#!contact">
+                    Liên hệ
+                </a>
+            </div>
+            <hr>
+            <div class=" ms-3 mb-3">
+                <a class="fs-6 text-black text-decoration-none" href="#!faqs">
+                    FAQs
+                </a>
+            </div>
+        </div>
+    </div>
+</body>

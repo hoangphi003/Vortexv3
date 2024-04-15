@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/component/head.html::head-user}"></head>
+
+<body>
+    <div class="wrapper-auth height-account">
+        <div class="container position-absolute top-50 start-50 translate-middle">
+            <div th:if="${messageSuccess}" id="success-alert"
+                class="alert alert-light alert-dismissible fade show text-success position-absolute" role="alert"
+                style="margin-left: -1.5rem;">
+                <strong>[[${messageSuccess}]].</strong>
+            </div>
+            <div th:if="${messageFail}" id="success-alert" style="margin-left: -1.5rem;"
+                class="alert alert-light alert-dismissible fade show text-danger position-absolute" role="alert">
+                <strong>Fail!</strong> [[${messageFail}]].
+            </div>
+            <div class="row d-flex justify-content-center ">
+                <div class="col-12 col-md-6 col-xl-5 ">
+                    <div class="card border-0 rounded-4 shadow-sm  ">
+                        <div class="card-body p-xl-5">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-4">
+                                        <h3 class="text-center text-uppercase">administrator</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <form method="post" th:action="@{/auth/UserLogin}" th:object="${account}"
+                                style="height: 15rem;">
+                                <div class="row gy-3">
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            <input type="text" class="form-control h-50px" placeholder="Username"
+                                                name="username" id="username">
+                                            <span class="text-red d-none position-absolute" id="uservalid">Invalid
+                                                username</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            <input type="password" class="form-control z-3 h-50px"
+                                                placeholder="Password" name="password" id="password">
+                                            <span class="text-red d-none position-absolute" id="passwordvalid">Invalid
+                                                password</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-grid mb-2">
+                                            <button class="btn btn-primary rounded-3" type="submit"
+                                                onclick="isCheckEmpty(event)">Login now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const successAlert = document.getElementById('success-alert'); // Updated to get the success alert by ID
+        setTimeout(function () {
+            successAlert.style.display = 'none';
+        }, 3000);
+
+        function isCheckEmpty(event) {
+            const userName = document.getElementById('username');
+            const password = document.getElementById('password');
+            const userValid = document.getElementById('uservalid');
+            const passwordvalid = document.getElementById('passwordvalid');
+
+            //reset message and style
+            userName.style.border = 'none';
+            userValid.classList.add('d-none');
+            password.style.border = 'none';
+            passwordvalid.classList.add('d-none');
+
+            // Lắng nghe sự kiện khi người dùng nhập vào trường input
+            userName.addEventListener('input', function () {
+                // Kiểm tra nếu giá trị trường input không còn là chuỗi rỗng
+                if (userName.value !== '') {
+                    // Nếu có nội dung, thay đổi màu viền thành màu mong muốn
+                    userName.style.border = '1px solid #3b5d50';
+                    // Ẩn thông báo lỗi
+                    userValid.classList.add('d-none');
+                } else {
+                    userName.style.border = '1px solid red';
+                    userValid.classList.remove('d-none');
+                    event.preventDefault();
+                }
+            });
+
+            if (userName.value === '') {
+                userName.style.border = '1px solid red';
+                userValid.classList.remove('d-none');
+                event.preventDefault();
+            }
+
+            password.addEventListener('input', function () {
+                // Kiểm tra nếu giá trị trường input không còn là chuỗi rỗng
+                if (password.value.length > 0) {
+                    password.style.border = '1px solid #3b5d50';
+                    passwordvalid.classList.add('d-none');
+                }
+                else {
+                    // Nếu là chuỗi rỗng, giữ màu viền mặc định và hiển thị thông báo lỗi
+                    password.style.border = '1px solid red'; // Có thể đặt lại màu viền mặc định
+                    password.classList.remove('d-none');
+                    event.preventDefault();
+                }
+            });
+
+            if (password.value === "") {
+                password.style.border = '1px solid red';
+                passwordvalid.classList.remove('d-none');
+                event.preventDefault();
+            }
+
+            // success login
+        }
+    </script>
+</body>
+
+
+</html>

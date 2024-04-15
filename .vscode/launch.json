@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-VortexApplication<vortex>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.techvortex.vortex.VortexApplication",
+            "projectName": "vortex",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

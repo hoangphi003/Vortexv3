@@ -1,0 +1,149 @@
+<header>
+    <nav class="custom-navbar navbar navbar-expand navbar-dark position-fixed" arial-label=" navigation bar">
+        <div class="container">
+            <a class="navbar-brand text-black text-white" href="/">Vortex<span></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="search-content" style="width: 65%;">
+                <div class="align-items-center position-relative w-100" ng-controller="ProductsSearch">
+                    <input type="text" class="form-control-primary border-0 rounded-5 py-0 ps-4 w-100"
+                        placeholder="Nhập sản phẩm muốn tìm..." ng-model="keyword">
+                    <a class="btn btn-primary rounded-5 position-absolute px-3 end-0 top-0 py-2 mt-1 me-1 bg-primary-luxury"
+                        type="button" ng-click="searchKeyword()" href="#!search/">
+                        <i class="fa fa-search position-relative fs-5"></i>
+                    </a>
+                </div>
+            </div>
+            <div id="navbarsFurni">
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ">
+                    <li class=""><a class="nav-link pb-0" href="#!favorite">
+                            <i class="fa-regular fa-heart text-white fs-5"></i>
+                        </a></li>
+                    <div class="dropdonwn" ng-if="!getUser()">
+                        <a class="nav-link pb-0" data-bs-toggle="dropdown" href="#">
+                            <i class="fa-regular fa-user text-white fs-5"></i></a>
+                        <ul class="dropdown-menu acc">
+                            <li><a class="dropdown-item" href="#!login">Đăng nhập</a></li>
+                            <li><a class="dropdown-item" href="#!register">Đăng ký</a></li>
+                            <li><a class="dropdown-item forget-pass" href="#!forgetpassword">Quên mật
+                                    khẩu</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdonwn" ng-if="getUser()">
+                        <a class="nav-link pb-0" href="#" data-bs-toggle="dropdown">
+                            <i class="fa-regular fa-user-circle text-white fs-4 "></i></a>
+                        <ul class="dropdown-menu acc">
+                            <li><a class="dropdown-item" href="#!profile">Tài khoản</a></li>
+                            <li><a class="dropdown-item" href="#!purchase">Đơn mua</a></li>
+                            <li><a class="dropdown-item forget-pass" href="#!changepassword">Đổi mật
+                                    khẩu</a></li>
+                            <li><a class="dropdown-item cursor-pointer" ng-click="logoff()">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                    <li class="nav-item cart-hover mt-1 position-relative ">
+                        <a class="nav-link pt-0 my-1 pb-0" href="#!cart">
+                            <i class="fa-solid fa-cart-shopping fs-5 text-white"></i>
+                            <span class="cart-number position-absolute text-black badge
+                                    rounded-circle bg-secondary-subtle" ng-if="getUser()">{{$root.qtyItem}}
+                            </span>
+                        </a>
+                        <div class="triangle cart-item end-20 position-fixed"></div>
+                        <ul class="dropdown-menu border-0 shadow cart-item end-0 cart-color-hover">
+                            <li class="" ng-if="getUser()">
+                                <span class="text-body ms-">Sản phẩm mới
+                                    thêm</span>
+                                <a class="dropdown-item" href="cart">
+                                    <div class="row mt-3 mb-4 " th:each="x : ${findAll}">
+                                        <div class="col-2 px-0"><img
+                                                th:src="@{|/assets/images/products/${x.ProductDetails.Product.Image}|}"
+                                                class="w-75"></div>
+                                        <div class="col-7 text-truncate ps-0 pe-2 text-black">
+                                            [[${x.ProductDetails.Product.ProductName}]]
+                                        </div>
+                                        <div class="col-3 text-center ps-2 text-primary">
+                                            [[*{#numbers.formatDecimal(x.ProductDetails.Product.Price,0,'COMMA',0,'POINT')}]]
+                                            đ</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary py-2 px-3 rounded-2 float-end me-2 " href="#!cart">Xem
+                                    giỏ
+                                    hàng</a>
+                            </li>
+                            <div class="text-center" ng-if="getUser()">
+                                <span class="rounded-circle py-5">
+                                    <img ng-src="/assets/images/avatar/bag-empty.png" alt="" class="img p-4 "
+                                        width="120px">
+                                </span>
+                                <span class="d-block pb-2 text-black fs-6">Chưa có sản phẩm</span>
+                            </div>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="menu-nd bg-primary-luxury-light">
+        <nav class="navbar navbar-expand-sm container ">
+            <div class="container-fluid ">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse pt-0" id="navbarNavDropdown" style="margin-bottom: -7px;
+                ">
+                    <ul class="navbar-nav ben ">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="" data-bs-toggle="dropdown">
+                                <i class=" fa-solid fa-list me-2 text-white"></i>Danh mục
+                            </a>
+                            <ul class="dropdown-menu menu-dn">
+                                <li><a class="dropdown-item cursor-pointer" ng-repeat="category in categories">
+                                        {{category.categoryName}}</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#!products"><i
+                                    class="fa-brands fa-shopify me-2 text-white"></i>Sản
+                                phẩm</a>
+                        </li>
+                        <li class="nav-item dropdown " ng-repeat="category in categories | limitTo: 4">
+                            <a class="nav-link text-white " href="" data-bs-toggle="dropdown">
+                                {{category.categoryName}} </a>
+                        </li>
+                        <li class="nav-item">
+
+                        </li>
+                        <li class="nav-item" ng-if="getUser()">
+                            <a class="nav-link text-white" ng-click="logoff()" href=""><i
+                                    class="fa-solid fa-arrow-right-from-bracket me-2"></i>Đăng xuất</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" id="btn-to2">
+                                <i class="fa-solid fa-life-ring me-2"></i>Chăm sóc khách hàng
+                            </a>
+                            <ul class="dropdown-menu menu-dn2">
+                                <li><a class="dropdown-item " href="faqs"><i
+                                            class="fa-solid fa-circle-question me-2"></i>Hỏi đáp</a></li>
+                                <li><a class="dropdown-item" href="about"><i
+                                            class="fa-solid fa-circle-info me-2"></i>Giới thiệu</a></li>
+                                <li><a class="dropdown-item" href="contact"><i
+                                            class="fa-solid fa-envelope me-2"></i>Liên
+                                        hệ</a></li>
+                                <li><a class="dropdown-item" href="blog"><i
+                                            class="fa-solid fa-newspaper-o me-2"></i>Blog
+                                    </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

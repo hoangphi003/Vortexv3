@@ -1,0 +1,88 @@
+<body>
+	<div class="body-cart container my-4">
+		<div class="row">
+			<div class="col-3 rounded-1   px-0" style="background-color: #eff2f1">
+				<div ng-include="'/assets/user/Layouts/side-profile.html'"></div>
+			</div>
+			<div class="col-9" ng-controller="AccountController">
+				<div class="row bg-white ms-3 rounded-1">
+					<div class="col-6 border-end py-3 ps-4 border-bottom">
+						<span class="fs-5">Thông tin cá nhân</span>
+						<div class="row">
+							<div class="col-12">
+								<div class="row mt-4">
+									<input type="hidden" class="form-control" ng-model="profile.userName">
+									<!-- <input type="hidden" class="form-control" ng-model="profile.active"> -->
+									<!-- <input type="text" class="form-control" ng-model="profile.password"> -->
+									<div class="col-4 my-auto">Họ & tên</div>
+									<div class="col-8">
+										<input type="text" class="form-control" ng-model="profile.fullName">
+									</div>
+
+								</div>
+								<div class="row mt-4">
+									<div class="col-4">Giới tính</div>
+									<div class="col-8">
+										<div class="form-check form-check-inline wins">
+											<input class="form-check-input" type="radio" name="gender" id="gender_male"
+												value="true" ng-model="profile.gender"
+												ng-checked="profile.gender === true" />
+											<label class="form-check-label" for="gender_male">Nam</label>
+										</div>
+										<div class="form-check form-check-inline wins">
+											<input class="form-check-input" type="radio" name="gender"
+												id="gender_female" value="false" ng-model="profile.gender"
+												ng-checked="profile.gender === false" />
+											<label class="form-check-label" for="gender_female">Nữ</label>
+										</div>
+									</div>
+								</div>
+								<div class="row mt-4">
+									<div class="col-4 my-auto">Ngày sinh</div>
+									<div class="col-8">
+										<input type="date" class="form-control" id="date" ng-model="profile.birth">
+									</div>
+								</div>
+								<div class="row mt-4">
+									<div class="col-4 my-auto">Email</div>
+									<div class="col-8">
+										<input type="text" class="form-control" ng-model="profile.email">
+										<div class="text-danger mt-1" ng-show="errorMessageEmail">{{ errorMessageEmail
+											}}</div>
+									</div>
+								</div>
+								<div class="row mt-4">
+									<div class="col-4 my-auto">Số điện thoại</div>
+									<div class="col-8">
+										<input type="text" class="form-control" ng-model="profile.phone">
+										<div class="text-danger mt-1" ng-show="errorMessagePhone">{{ errorMessagePhone
+											}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-6 text-center avatar-img border-bottom ">
+						<div class="row mt-4 d-flex justify-content-center">
+							<div class="col-10">
+								<!-- Hiển thị ảnh nếu có -->
+								<img ng-src="/assets/avatarprofile/{{ profile.avatar }}" id="avatarImage"
+									class="img-fluid rounded-pill w-25" alt="Card title" ng-if="profile.avatar" />
+								<img src="/assets/avatarprofile/anonymous.png" id="defaultAvatarImage"
+									class="img-fluid rounded-pill w-25" alt="Default Avatar" ng-if="!profile.avatar">
+								<input type="file" class="form-control-file"
+									onchange="angular.element(this).scope().fileChanged(this)"
+									style="margin-top: 10px;">
+							</div>
+						</div>
+					</div>
+
+					<div class="text-center my-4">
+						<button class="btn btn-primary" ng-click="updateAccount()">Lưu thay đổi</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

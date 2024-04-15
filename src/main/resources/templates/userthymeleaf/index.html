@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TechVortex">
+
+<head>
+    <div ng-include="'/assets/user/Layouts/head.html'"></div>
+    <!-- <base href="/"> -->
+</head>
+
+<body ng-controller="HomeController" ng-cloak>
+    <header ng-include="'/assets/user/Layouts/header.html'"></header>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
+    <!-- <span ng-if="!getUser()">
+        <div id="g_id_onload" data-client_id="255778985361-8gf6jubbr4tvebijg0r6bo1o7oe5gs0d.apps.googleusercontent.com"
+            data-context="use" data-login_uri="https://localhost/" data-itp_support="true"
+            data-callback="handleCredentialResponse">
+        </div>
+    </span> -->
+    <ng-view></ng-view>
+    <span onclick="topFunction()" id="myBtn" title="Go to top">
+        <span class="bg-favorite shadow-sm ">&#129129;</span>
+    </span>
+    <footer ng-include="'/assets/user/Layouts/footer.html'" ng-cloak></footer>
+
+    <script src="/assets/js/embedded/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/embedded/angular.min.js"></script>
+    <script src="/assets/js/embedded/jquery-3.7.1.min.js"></script>
+    <script src="/assets/js/embedded/angular-route.min.js"></script>
+
+    <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/route.config.js"></script>
+    <script src="/assets/js/function/cart/index.js"></script>
+    <script src="/assets/js/function/login/index.js"></script>
+    <script src="/assets/js/function/login/facebook.js"></script>
+    <script src="/assets/js/function/login/google.js"></script>
+    <script src="/assets/js/function/login/googleForm.js"></script>
+    <script src="/assets/js/function/cart/CountProduct.js"></script>
+    <script src="/assets/js/function/productdetail/index.js"></script>
+    <script src="/assets/js/function/productdetail/slide.js"></script>
+    <script src="/assets/js/function/productdetail/index.js"></script>
+    <script src="/assets/js/function/productdetail/service.js"></script>
+    <script src="/assets/js/function/order/purchase.js"></script>
+    <script src="/assets/js/function/checkout/index.js"></script>
+    <script src="/assets/js/function/purchasedetail/index.js"></script>
+    <script src="/assets/js/function/review/index.js"></script>
+    <script src="/assets/js/function/register/index.js"></script>
+    <script src="/assets/js/function/compare/index.js"></script>
+    <script src="/assets/js/function/favorite/index.js"></script>
+    <script src="/assets/js/function/logoffbyclosetab/index.js"></script>
+    <script src="/assets/js/function/chatbox/chatbox.js"></script>
+    <script src="/assets/js/function/forgotpassword/index.js"></script>
+    <script src="/assets/js/function/profile/profile.js"></script>
+    <script src="/assets/js/function/profile/profileService.js"></script>
+    <script src="/assets/js/function/product/index.js"></script>
+    <script src="/assets/js/function/product/search.js"></script>
+    <script src="/assets/js/function/changepassword/doimk.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+</body>
+
+</html>

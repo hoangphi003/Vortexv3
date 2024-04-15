@@ -1,0 +1,871 @@
+<body ng-controller="ProductDetailController">
+    <div class="detail container mt-3 mb-4">
+        <span class="homeurl">Vortex > {{detail.product.productName}}</span>
+        <div class="row bg-white mt-3 rounded-1 pb-4 pt-4">
+            <div class="col-6">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img ng-src="/assets/images/products/{{detail.product.image}}" class="d-block w-100"
+                                alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img ng-src="/assets/images/products/{{detail.product.image2}}" class="d-block w-100"
+                                alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon bg-secondary-subtle" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon bg-secondary-subtle" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="carousel-desc mt-4 d-flex justify-content-center">
+                    <img ng-src="/assets/images/products/{{detail.product.image}}" class="img-thumbnail carousel-image"
+                        alt="..." data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0">
+                    <img ng-src="/assets/images/products/{{detail.product.image2}}" class="img-thumbnail carousel-image"
+                        alt="..." data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1">
+                    <img ng-src="/assets/images/products/{{detail.product.image}}" class="img-thumbnail carousel-image"
+                        alt="..." data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2">
+                    <img ng-src="/assets/images/products/{{detail.product.image}}" class="img-thumbnail carousel-image"
+                        alt="..." data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-start">
+                    <div class="content-body">
+                        <h4 class="card-title">{{detail.product.productName}}</h4>
+                        <div class="d-flex mt-4 ">
+                            <div class="border-end pe-4">
+                                <div class="avenger-star-checked">
+                                    <span ng-if="avgreview.length == 0">
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                    </span>
+                                    <span ng-show="avgreview == 1">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                    </span>
+                                    <span ng-show="avgreview == 2">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                    </span>
+                                    <span ng-show="avgreview == 3">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star "></span>
+                                        <span class="fa fa-star "></span>
+                                    </span>
+                                    <span ng-show="avgreview == 4">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star "></span>
+                                    </span>
+                                    <span ng-show="avgreview == 5">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="time-rate px-4">
+                                <span class="text-capitalize">
+                                    <span class="fs-6 text-black text-decoration-underline">{{counter}}</span>
+                                    đánh giá</span>
+                            </div>
+                            <div class="favorite-product cursor-pointer" ng-click="addFavorite(detail.productDetailId)">
+                                <i class="fa-regular fa-heart fs-6 text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-2">
+                                <span>Giá</span>
+                            </div>
+                            <div class="col-9 text-start">
+                                <span class="fw-bold fs-4 text-danger">
+                                    {{detail.product.price | number:0}}
+                                    đ</span>
+                            </div>
+                        </div>
+                        <div class="row mt-4 choose-color">
+                            <div class="col-3 pe-0">
+                                <span>Thương hiệu</span>
+                            </div>
+                            <div class="col-2 ps-0">
+                                <span class="card p-1 text-center">{{detail.brand.brandName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4 choose-color">
+                        <div class="col-3 my-auto pe-0">
+                            <span class="">Chọn màu</span>
+                        </div>
+                        <div class="col-2 text-center ps-0">
+                            <span class="card p-1 color-c hecked">
+                                {{detail.color.colorName}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-3 pe-0">
+                            <span>Số lượng</span>
+                        </div>
+                        <div class="col-7 ps-0">
+                            <div class="xml">
+                                <input type="number" class="rounded-2 ps-2" ng-model="qtyDetail"
+                                    ng-change="validateQty(qtyDetail)" min="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                <span class="ms-3" ng-show="detail.inventoryQuantity > 0">Còn
+                                    {{detail.inventoryQuantity}} sản phẩm trong kho
+                                </span>
+                                <span class="ms-3 text-danger" ng-show="detail.inventoryQuantity === 0">Còn
+                                    Tạm thời hết hàng
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="add-to-cart-group">
+                            <a class="btn btn-outline-primary" ng-click="addToCart(detail.productDetailId)">
+                                <i class="fa-solid fa-cart-plus me-1"></i>
+                                Thêm vào giỏ hàng
+                            </a>
+                            <a class="btn btn-primary ms-3 addToCartButton" ng-click="buyNow(detail.productDetailId)">
+                                Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="feature-more mt-4 d-flex justify-content-start">
+
+                            <div class="compare-product ms-5">
+                                <a href="" data-bs-toggle="offcanvas" data-bs-target="#Id1"
+                                    ng-click="viewCompare(detail.productDetailId)"><i
+                                        class=" fa-solid fa-code-compare text-blue me-1 "></i>So sánh</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" desc-products bg-white mb-4 rounded-1 container">
+        <h5 class="text-uppercase pt-3">mô tả sản phẩm</h5>
+        <div class="post pb-4">
+            <span>- {{detail.product.description }}.</span>
+            <br>
+            <!-- <span>- Đồng Hồ Nam FOURRON sở hữu thiết kế sang trọng với các chi tiết được chế
+                tác tinh xảo, góp phần nâng
+                tầm
+                phong cách của người đeo.</span>
+            <br>
+            <span>- Bên cạnh đó, phần kim và số được thể hiện rõ ràng nhưng cũng không kém
+                phần tinh tế, vừa đáp ứng nhu
+                cầu
+                quản lý thời gian vừa tô điểm thêm cho set trang phục của bạn.</span>
+            <br>
+            <span> - Với chiếc Đồng Hồ Nam FOURRON, các bạn nam có thể sử dụng trong mọi
+                dịp, từ đi làm, đi chơi hay
+                tham dự
+                những buổi tiệc.</span> -->
+        </div>
+    </div>
+
+    <div class="review-post container bg-white mb-4 rounded-1 ps-4 pe-4 pb-4">
+        <h5 class="pt-4 text-black text-uppercase">Đánh giá sản phẩm</h5>
+        <div class=" card mb-4 mt-3" style="background: #fffbf8;">
+            <div class="row py-5 ps-1">
+                <div class="col-2 pe-0 text-center">
+                    <span class="fs-2 text-danger fw-bold"> {{avgreview}}
+                    </span>
+                    <span class="fs-5 text-danger"> sao</span> <br>
+                    <div class="avenger-star-checked text-secondary">
+                        <span ng-if="avgreview == 5">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </span>
+                        <span ng-if="avgreview == 4">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star "></span>
+                        </span>
+                        <span ng-if="avgreview == 3">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                        </span>
+                        <span ng-if="avgreview == 2">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                        </span>
+                        <span ng-if="avgreview == 1">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                        </span>
+                        <span ng-if="avgreview.length == 0">
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-10 ps-0 text-capitalize">
+                    <ul class="nav nav-pills" id="myTab" role="tablist">
+                        <li class="" role="presentation">
+                            <a class=" active btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="home-tab"
+                                data-bs-toggle="tab" data-bs-target="#allStart" type="button" role="tab"
+                                aria-controls="home" aria-selected="true">
+                                tất cả
+                            </a>
+                        </li>
+                        <li class="" role="presentation">
+                            <a class="btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
+                                data-bs-toggle="tab" data-bs-target="#fiveStart" type="button" role="tab"
+                                ng-click="chooseStart(5)" aria-controls="profile" aria-selected="false">
+                                5 sao
+                            </a>
+                        </li>
+                        <li class=" " role="presentation">
+                            <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
+                                data-bs-toggle="tab" data-bs-target="#fourStart" type="button" role="tab"
+                                ng-click="chooseStart(4)" aria-controls="profile" aria-selected="false">
+                                4 sao
+                            </a>
+                        </li>
+                        <li class=" " role="presentation">
+                            <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
+                                data-bs-toggle="tab" data-bs-target="#threeStart" type="button" role="tab"
+                                ng-click="chooseStart(3)" aria-controls="profile" aria-selected="false">
+                                3 sao
+                            </a>
+                        </li>
+                        <li class=" " role="presentation">
+                            <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
+                                data-bs-toggle="tab" data-bs-target="#twoStart" type="button" role="tab"
+                                aria-controls="profile" aria-selected="false" ng-click="chooseStart(2)">
+                                2 sao
+                            </a>
+                        </li>
+                        <li class=" " role="presentation">
+                            <a class="  btn btn-outline-danger px-4 py-1 text-center rounded-0 me-1" id="profile-tab"
+                                data-bs-toggle="tab" data-bs-target="#oneStart" type="button" role="tab"
+                                aria-controls="profile" aria-selected="false" ng-click="chooseStart(1)">
+                                1 sao
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Nav tabs -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0 pb-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-0">
+                        <h6>Tất cả đáng giá</h6>
+                        <div class="carder pt-2">
+                            <div class="row" ng-repeat="review in detail.product.reviews | limitTo: 6">
+                                <div class="col-1 px-0 text-center">
+                                    <img ng-src="/assets/images/avatar/{{review.account.avatar}}" alt=""
+                                        class="rounded-circle" width="50px">
+                                </div>
+                                <div class="col-10 ps-0">
+                                    <span class="name">{{review.account.fullName}}</span>
+                                    <div class="rating-star-checked text-secondary">
+                                        <span ng-show="{{review.rating}} == 1">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star "></span>
+                                            <span class="fa fa-star "></span>
+                                            <span class="fa fa-star "></span>
+                                            <span class="fa fa-star "></span>
+                                        </span>
+                                        <span ng-show="{{review.rating}} == 2">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star "></span>
+                                            <span class="fa fa-star "></span>
+                                            <span class="fa fa-star "></span>
+                                        </span>
+                                        <span ng-show="{{review.rating}} == 3">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star "></span>
+                                            <span class="fa fa-star "></span>
+                                        </span>
+                                        <span ng-show="{{review.rating}} == 4">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star "></span>
+                                        </span>
+                                        <span ng-show="{{review.rating}} == 5">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                        </span>
+                                    </div>
+                                    <small>{{review.reviewDate | date:'dd-MM-yyyy'}}</small>
+                                    <div class="content">
+                                        <span>{{review.comment}}.</span>
+                                    </div>
+                                    <div class="img-drop-fee my-2">
+                                        <div class="row">
+                                            <div class="col-1 px-0" ng-repeat="x in review.reviewImgs">
+                                                <img ng-src="/assets/images/review/{{x.image}}" alt="" class="w-100">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="allStart" role="tabpanel" aria-labelledby="home-tab">
+                <div class="carder mx-3">
+                    <div class=" row" ng-repeat="review in detail.product.reviews | limitTo: 6">
+                        <div class="col-1 px-0 text-center">
+                            <img ng-src="/assets/images/avatar/{{review.account.avatar}}" alt="" class="rounded-circle"
+                                width="50px">
+                        </div>
+                        <div class="col-10 ps-0">
+                            <span class="name">{{review.account.fullName}}</span>
+                            <div class="rating-star-checked text-secondary">
+                                <span ng-show="{{review.rating}} == 1">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 2">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 3">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 4">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 5">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </span>
+                            </div>
+                            <small>{{review.reviewDate | date:'dd-MM-yyyy'}}</small>
+                            <div class="content">
+                                <span>{{review.comment}}.</span>
+                            </div>
+                            <div class="img-drop-fee my-2">
+                                <div class="row">
+                                    <div class="col-1 px-0 ms-2" ng-repeat="x in review.reviewImgs">
+                                        <img ng-src="/assets/images/review/{{x.image}}" alt="" class="w-100"
+                                            height="120px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-4">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="fiveStart" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="carder mx-3">
+                    <div class=" row" ng-repeat="review in startsData | limitTo: 6">
+                        <div class="col-1 px-0 text-center">
+                            <img ng-src="/assets/images/avatar/{{review.account.avatar}}" alt="" class="rounded-circle"
+                                width="50px">
+                        </div>
+                        <div class="col-10 ps-0">
+                            <span class="name">{{review.account.fullName}}</span>
+                            <div class="rating-star-checked text-secondary">
+                                <span ng-show="{{review.rating}} == 1">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 2">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 3">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 4">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 5">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </span>
+                            </div>
+                            <small>{{review.reviewDate | date:'dd-MM-yyyy'}}</small>
+                            <div class="content">
+                                <span>{{review.comment}}.</span>
+                            </div>
+                            <div class="img-drop-fee my-2">
+                                <div class="row">
+                                    <div class="col-1 px-0" ng-repeat="x in review.reviewImgs">
+                                        <img ng-src="/assets/images/review/{{x.image}}" alt="" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-4">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="fourStart" role="tabpanel" aria-labelledby="messages-tab">
+                <div class="carder   mx-3">
+                    <div class=" row" ng-repeat="review in startsData | limitTo: 6">
+                        <div class="col-1 px-0 text-center">
+                            <img ng-src="/assets/images/avatar/{{review.account.avatar}}" alt="" class="rounded-circle"
+                                width="50px">
+                        </div>
+                        <div class="col-10 ps-0">
+                            <span class="name">{{review.account.fullName}}</span>
+                            <div class="rating-star-checked text-secondary">
+                                <span ng-show="{{review.rating}} == 1">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 2">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 3">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 4">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 5">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </span>
+                            </div>
+                            <small>{{review.reviewDate | date:'dd-MM-yyyy'}}</small>
+                            <div class="content">
+                                <span>{{review.comment}}.</span>
+                            </div>
+                            <div class="img-drop-fee my-2">
+                                <div class="row">
+                                    <div class="col-1 px-0" ng-repeat="x in review.reviewImgs">
+                                        <img ng-src="/assets/images/review/{{x.image}}" alt="" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-4">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="threeStart" role="tabpanel" aria-labelledby="messages-tab">
+                <div class="carder  mx-3">
+                    <div class=" row" ng-repeat="review in startsData | limitTo: 6">
+                        <div class="col-1 px-0 text-center">
+                            <img ng-src="/assets/images/avatar/{{review.account.avatar}}" alt="" class="rounded-circle"
+                                width="50px">
+                        </div>
+                        <div class="col-10 ps-0">
+                            <span class="name">{{review.account.fullName}}</span>
+                            <div class="rating-star-checked text-secondary">
+                                <span ng-show="{{review.rating}} == 1">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 2">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 3">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 4">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 5">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </span>
+                            </div>
+                            <small>{{review.reviewDate | date:'dd-MM-yyyy'}}</small>
+                            <div class="content">
+                                <span>{{review.comment}}.</span>
+                            </div>
+                            <div class="img-drop-fee my-2">
+                                <div class="row">
+                                    <div class="col-1 px-0" ng-repeat="x in review.reviewImgs">
+                                        <img ng-src="/assets/images/review/{{x.image}}" alt="" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-4">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="twoStart" role="tabpanel" aria-labelledby="messages-tab">
+                <div class="carder  mx-3">
+                    <div class=" row" ng-repeat="review in startsData | limitTo: 6">
+                        <div class="col-1 px-0 text-center">
+                            <img ng-src="/assets/images/avatar/{{review.account.avatar}}" alt="" class="rounded-circle"
+                                width="50px">
+                        </div>
+                        <div class="col-10 ps-0">
+                            <span class="name">{{review.account.fullName}}</span>
+                            <div class="rating-star-checked text-secondary">
+                                <span ng-show="{{review.rating}} == 1">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 2">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 3">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 4">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 5">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </span>
+                            </div>
+                            <small>{{review.reviewDate | date:'dd-MM-yyyy'}}</small>
+                            <div class="content">
+                                <span>{{review.comment}}.</span>
+                            </div>
+                            <div class="img-drop-fee my-2">
+                                <div class="row">
+                                    <div class="col-1 px-0" ng-repeat="x in review.reviewImgs">
+                                        <img ng-src="/assets/images/review/{{x.image}}" alt="" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-4">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="oneStart" role="tabpanel" aria-labelledby="messages-tab">
+                <div class="carder  mx-3">
+                    <div class=" row" ng-repeat="review in startsData | limitTo: 6">
+                        <div class="col-1 px-0 text-center">
+                            <img ng-src="/assets/images/avatar/{{review.account.avatar}}" alt="" class="rounded-circle"
+                                width="50px">
+                        </div>
+                        <div class="col-10 ps-0">
+                            <span class="name">{{review.account.fullName}}</span>
+                            <div class="rating-star-checked text-secondary">
+                                <span ng-show="{{review.rating}} == 1">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 2">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 3">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 4">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star "></span>
+                                </span>
+                                <span ng-show="{{review.rating}} == 5">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </span>
+                            </div>
+                            <small>{{review.reviewDate | date:'dd-MM-yyyy'}}</small>
+                            <div class="content">
+                                <span>{{review.comment}}.</span>
+                            </div>
+                            <div class="img-drop-fee my-2">
+                                <div class="row">
+                                    <div class="col-1 px-0" ng-repeat="x in review.reviewImgs">
+                                        <img ng-src="/assets/images/review/{{x.image}}" alt="" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-4">
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center pb-3" ng-show="detail.product.reviews.length > 0">
+                <div class="col-2">
+                    <a class="btn btn-primary py-2 px-4 rounded-2" data-bs-toggle="modal" data-bs-target="#modalId">Xem
+                        hết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="Id1"
+        aria-labelledby="Enable both scrolling & backdrop">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="Enable both scrolling & backdrop">
+                So sánh sản phẩm
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body border-bottom">
+            <span ng-show="list.length === 0" class="d-block fs-5 text-black text-center mb-4">Chưa có sản phẩm so
+                sánh</span>
+            <div class="row" ng-repeat="compare in list">
+                <div class="col-4">
+                    <img ng-src="/assets/images/products/{{compare.product.image}}" width="100%">
+                </div>
+                <div class="col-8 position-relative">
+                    <span class="d-block text-black fs-6 fw-bold">{{compare.product.productName}}</span>
+                    <span class="d-block position-absolute bottom-0" ng-click="deleteCompare($index)"><i
+                            class="fa-solid fa-trash fs-6 text-danger cursor-pointer"></i></span>
+                </div>
+            </div>
+            <div class="row d-flex ">
+                <div class="col-12 justify-content-center my-2">
+                    <a class="btn btn-primary rounded-2 py-2 w-100" ng-click="compareNow()">So sánh</a>
+                    <span class="text-danger">{{messages}}</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="popular-product container my-3 bg-white rounded p-1">
+        <h3 class="text-black p-3">Có thể bạn cũng thích</h3>
+        <div class="row my-4 container  text-center">
+            <div class="col-3 z-3 px-0 mx-0 position-relative mb-4 items-hover-products shadow-sm"
+                ng-repeat="x in products | limitTo: 4">
+                <a href="#!/detail/{{x.productDetailId}}"><img ng-src="/assets/images/products/{{x.product.image}}"
+                        class=" product-thumbnail rounded-2 w-100 "></a>
+                <span ng-click="buyDetail(x.productDetailId)"
+                    class="glasses feature-global position-absolute end-0 top-0 d-block bg-body px-2 pt-1 rounded-2">
+                    <i class="fa-solid fa-magnifying-glass fs-5 cursor-pointer"></i>
+                </span>
+                <span ng-click="addFavorite(x.product.productId)"
+                    class="heart-product feature-global position-absolute end-0  d-block bg-body px-2 pt-1 rounded-2 ">
+                    <i class="fa-regular fa-heart fs-5 cursor-pointer "></i>
+                </span>
+                <span class="compare feature-global position-absolute end-0 d-block bg-body px-2 pt-1 rounded-2"
+                    data-bs-toggle="offcanvas" data-bs-target="#Id1" ng-click="viewCompare(x.productDetailId)">
+                    <i class=" fa-solid fa-shuffle fs-5 cursor-pointer"></i>
+                </span>
+                <span ng-click="addToCart(x.productDetailId)"
+                    class="position-absolute bg-secondary text-white fs-6 cursor-pointer fw-bold py-2 text-center add-item ">Thêm
+                    vào
+                    giỏ hàng</span>
+                <a href="#!/detail/{{x.productDetailId}}">
+                    <h3 class="product-title mb-0 mt-5 pt-2 fs-5 d-block text-truncate">
+                        {{x.product.productName}}</h3>
+                </a>
+                <strong class="product-price text-danger">{{x.product.price | number:0}} đ</strong><br>
+                <div class="rating-star-checked text-secondary">
+                    <span ng-if="calculateAverageRating(x.product.reviews) == 5">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                    </span>
+                    <span ng-if="calculateAverageRating(x.product.reviews) == 4">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star "></span>
+                    </span>
+                    <span ng-if="calculateAverageRating(x.product.reviews) == 3">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                    </span>
+                    <span ng-if="calculateAverageRating(x.product.reviews) == 2">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                    </span>
+                    <span ng-if="calculateAverageRating(x.product.reviews) == 1">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                    </span>
+                    <span ng-if="countAverageRating(x.product.reviews) == 0">
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                        <span class="fa fa-star "></span>
+                    </span>
+                    <span>({{ countAverageRating(x.product.reviews) }})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

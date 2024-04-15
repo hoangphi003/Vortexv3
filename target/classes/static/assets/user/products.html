@@ -1,0 +1,193 @@
+<body ng-controller="ProductsController">
+    <div class="body-products container mb-5">
+        <div class="row bg-white mt-4 rounded-1">
+            <div class="col-3">
+                <div ng-include="'/assets/user/Layouts/side-product.html'"></div>
+            </div>
+            <div class="col-9">
+                <!-- Start Popular Product -->
+                <div class="branch-products">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="item mb-2 position-relative mt-3">
+                                <a href="" ng-click="Brand()"><img src="assets/images/branch/1.jpeg" alt=""
+                                        class="rounded"></a>
+                                <a href="" ng-click="Brand1()"><img src="assets/images/branch/7.webp" alt=""
+                                        class="rounded"></a>
+                                <a href="" ng-click="Brand2()"><img src="assets/images/branch/3.webp" alt=""
+                                        class="rounded"></a>
+                                <a href="" ng-click="Brand3()"><img src="assets/images/branch/4.webp" alt=""
+                                        class="rounded"></a>
+                                <span class="rounded position-absolute see-more text-center fw-bold"
+                                    data-bs-toggle="modal" data-bs-whatever="@getbootstrap"
+                                    data-bs-target="#exampleModal">Xem tất cả</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" tabindex="-1" id="exampleModal">
+                        <div class="modal-dialog modal-dialog-centered modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Tất cả hãng</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row all-branches">
+                                        <div class="col-3  pe-1">
+                                            <a href=""><img src="assets/images/branch/1.jpeg" alt=""
+                                                    class=" rounded w-100" ng-click="Brand()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/2.jpeg" alt=""
+                                                    class="rounded w-100" ng-click="Brand6()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/3.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand2()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/4.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand3()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/5.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand4()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/6.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand5()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/7.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand1()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/8.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand7()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/9.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand8()"></a>
+                                        </div>
+                                        <div class="col-3 pe-1">
+                                            <a href=""><img src="assets/images/branch/10.webp" alt=""
+                                                    class="rounded w-100" ng-click="Brand9()"></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-product mt-1">
+                    <div class="container">
+
+                        <div class="sort-by">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Tổng số lượng sản phẩm: {{ totalProducts }}
+                                    </h5>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input focus-form" type="checkbox" value=""
+                                                    id="Casio">
+                                                <label class="form-check-label fs-6" for="Casio">
+                                                    Giảm giá
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input focus-form" type="checkbox" value=""
+                                                    id="Casio" ng-click="findmoinhat()">
+                                                <label class="form-check-label fs-6" for="Casio">
+                                                    Mới nhất
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input focus-form" type="checkbox" value=""
+                                                    id="Casio" ng-click="findcunhat()">
+                                                <label class="form-check-label fs-6" for="Casio">
+                                                    Cũ nhất
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn-normal dropdown-toggle rounded"
+                                            data-bs-toggle="dropdown">
+                                            Sắp xếp theo
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" ng-click="fetchProductsSortedByPriceDesc()">Giá
+                                                    cao đến thấp</a></li>
+                                            <li><a class="dropdown-item" ng-click="fetchProductsSortedByPriceAsc()">Giá
+                                                    thấp đến cao</a></li>
+                                            <li><a class="dropdown-item" ng-click="fetchProductsSortedByNameAsc()">Tên
+                                                    sản phẩm (A - Z)</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-3 bg-white rounded">
+                        <div class="col-3 mt-3" ng-repeat="x in products">
+                            <div class="card text-center">
+                                <img src="/assets/images/products/{{x.product.image}}" class="card-img-top"
+                                    width="100px" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{x.product.productName}}</h5>
+                                    <del>
+                                        <span class="price">100.000đ</span>
+                                    </del><br>
+                                    <span class="price-new fw-bold fs-5">{{x.product.price | number:0}}</span>
+                                    <div class="review">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="rating">11</span>
+                                    </div>
+                                    <p class="card-text"><a href="">Xem thêm</a></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Popular Product -->
+            <nav aria-label="..." class="d-flex justify-content-center pagi-edit">
+                <p class="card-text"><a href="" ng-click="loadMore()">Xem thêm</a></p>
+                <!-- <ul class="pagination">
+                    <li class="page-item">
+                        <button class="page-link" ng-click="loadMore()" >First</button>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">2</span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <button class="page-link" href="#" ng-click="next()" ng-disabled="page === totalPages - 1">Last</button>
+                    </li>
+                </ul> -->
+            </nav>
+        </div>
+
+    </div>
+    <span onclick="topFunction()" id="myBtn" title="Go to top">
+        <span class="bg-favorite shadow-sm ">&#129129;</span>
+    </span>
+</body>
+
+</html>
