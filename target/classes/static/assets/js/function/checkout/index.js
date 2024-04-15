@@ -13,6 +13,7 @@ TechVortex.controller(
     $scope.sum = 0;
 
     $scope.orderDetails = [];
+    $scope.discountId = null;
 
     // apis provider and wards
     $http
@@ -107,11 +108,11 @@ TechVortex.controller(
               address:
                 $scope.address +
                 ", " +
-                $scope.ward.full_name +
+                $scope.ward?.full_name +
                 ", " +
-                $scope.district.full_name +
+                $scope.district?.full_name +
                 ", " +
-                $scope.province.full_name,
+                $scope.province?.full_name,
               orderDate: new Date(),
               orderStatus: "Chờ xác nhận",
               account: {
@@ -119,6 +120,7 @@ TechVortex.controller(
               },
               orderDetails: $scope.orderDetails,
               payMent: $scope.paymentmethod,
+              discount: $scope.discountId,
             };
             if (validate()) {
               if ($scope.paymentmethod === "vnPay") {
@@ -126,27 +128,11 @@ TechVortex.controller(
                   .get("/create_payment/" + idUserName.userName)
                   .then((Response) => {
                     location.href = Response.data.url;
-                    if ($scope.discountId) {
-                      $http
-                        .post(
-                          `/addorderdiscount/` + $scope.discountId,
-                          $scope.order,
-                          {
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                          },
-                        )
-                        .then((Response) => {})
-                        .catch((error) => console.log(error));
-                    } else {
-                      $http
-                        .post(`/addorder/`, $scope.order, {
-                          headers: { "Content-Type": "application/json" },
-                        })
-                        .then((Response) => {})
-                        .catch((error) => console.log(error));
-                    }
+
+                     localStorage.setItem(
+                       "checkoutVortex",
+                       JSON.stringify($scope.order),
+                     );
                   })
                   .catch((error) => console.error("Error:", error));
               }
@@ -154,25 +140,11 @@ TechVortex.controller(
               if ($scope.paymentmethod === "payPal") {
                 let number = $scope.sum / 25000;
                 location.href = "/paypal/" + parseFloat(number.toFixed(1));
-                if ($scope.discountId) {
-                  $http
-                    .post(
-                      `/addorderdiscount/` + $scope.discountId,
-                      $scope.order,
-                      {
-                        headers: { "Content-Type": "application/json" },
-                      },
-                    )
-                    .then((Response) => {})
-                    .catch((error) => console.log(error));
-                } else {
-                  $http
-                    .post(`/addorder/`, $scope.order, {
-                      headers: { "Content-Type": "application/json" },
-                    })
-                    .then((Response) => {})
-                    .catch((error) => console.log(error));
-                }
+
+                localStorage.setItem(
+                  "checkoutVortex",
+                  JSON.stringify($scope.order),
+                );
               }
 
               if ($scope.paymentmethod === "cashPay") {

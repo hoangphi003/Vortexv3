@@ -1,8 +1,16 @@
-http://localhost:8080/?vnp_Amount=30000000&vnp_BankCode=NCB&
-vnp_BankTranNo=VNP14379270&vnp_CardType=ATM&vnp_OrderInfo=
-Thanh+toan+don+hang%3A01881263&vnp_PayDate=20240415145103&
-vnp_ResponseCode=00&vnp_TmnCode=OGBXY5WZ&vnp_TransactionNo=14379270&
-vnp_TransactionStatus=00&vnp_TxnRef=01881263&vnp_SecureHash=
+http://localhost:8080/?
+vnp_Amount=30000000
+&vnp_BankCode=NCB
+&vnp_BankTranNo=VNP14379270
+&vnp_CardType=ATM
+&vnp_OrderInfo=
+Thanh+toan+don+hang%3A01881263
+&vnp_PayDate=20240415145103
+&vnp_ResponseCode=00
+&vnp_TmnCode=OGBXY5WZ
+&vnp_TransactionNo=14379270&
+vnp_TransactionStatus=00
+&vnp_TxnRef=01881263&vnp_SecureHash=
 afdf20372439286f528272ac06842fb48efbcd4c5c087792fad70541109fc9ff7d7e38be99c0d1fbcdd27ce7a852f0c082c9ed32c42eef55b2f921e0765e33d7#!/
 
 Thất bại

@@ -21,6 +21,9 @@ TechVortex.config(function ($routeProvider, $locationProvider) {
           $controller("GoogleController", {
             $scope: $scope,
           });
+          $controller("vnPayController", {
+            $scope: $scope,
+          });
         },
       ],
     })
@@ -259,6 +262,10 @@ TechVortex.config(function ($routeProvider, $locationProvider) {
     .when("/compare", {
       templateUrl: "/assets/user/compare.html",
       controller: "CompareController",
+    })
+    .when("/vnpaysuccess", {
+      templateUrl: "/assets/user/vnpaysuccess.html",
+      controller: "vnPayController",
     })
     .when("/changepassword", {
       templateUrl: "/assets/user/changepassword.html",
