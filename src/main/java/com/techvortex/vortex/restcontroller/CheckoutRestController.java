@@ -27,7 +27,7 @@ public class CheckoutRestController {
 
     @PostMapping("/addorder/")
     public ResponseEntity<Order> addorder(@RequestBody Order order) {
-
+        System.out.println(order.getPaymentMethod());
         checkoutService.save(order);
 
         for (OrderDetail x : order.getOrderDetails()) {
@@ -54,12 +54,12 @@ public class CheckoutRestController {
 
         checkoutService.save(order);
 
+        OrderDiscount orderDiscount = new OrderDiscount();
+        Discount discount = new Discount();
         for (OrderDetail x : order.getOrderDetails()) {
 
             OrderDetail orderDetail = new OrderDetail();
             Product product = new Product();
-            OrderDiscount orderDiscount = new OrderDiscount();
-            Discount discount = new Discount();
 
             discount.setDiscountId(discountid);
 

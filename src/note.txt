@@ -1,7 +1,7 @@
 http://localhost:8080/?
 vnp_Amount=30000000
 &vnp_BankCode=NCB
-&vnp_BankTranNo=VNP14379270
+&vnp_BankTranNo=VNP14379270 
 &vnp_CardType=ATM
 &vnp_OrderInfo=
 Thanh+toan+don+hang%3A01881263
@@ -27,3 +27,20 @@ http://localhost:8080/
 &vnp_TxnRef=32252541&
 vnp_SecureHash=ff8e632680af01dceaf0daececa73537b7c319b7d89b6c1fce798416a6945aae4d7868daa51d061
 dca3235f5983d726a25f4cf9df925ce7f560194fdace0956d#!/
+
+
+
+
+
+
+
+
+
+
+
+paypal 
+thành công
+http://localhost:8080/pay/success?
+paymentId=PAYID-MYPCRJI9CE94506C9766623L
+&token=EC-5MP99389UT221843Y
+&PayerID=L8HCS9VGA5KP8

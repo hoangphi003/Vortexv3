@@ -23,18 +23,13 @@ import org.slf4j.LoggerFactory;
 @Controller
 public class PaymentController {
 
-    public static final String URL_PAYPAL_SUCCESS = "pay/success";
-    public static final String URL_PAYPAL_CANCEL = "pay/cancel";
+    public static final String URL_PAYPAL_SUCCESS = "PaymentSuccess";
+    public static final String URL_PAYPAL_CANCEL = "PaymentFail";
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private PaypalService paypalService;
-
-    @GetMapping("/paypals")
-    public String index() {
-        return "/userthymeleaf/com.html";
-    }
 
     @GetMapping("/paypal/{price}")
     public String pay(HttpServletRequest request, @PathVariable("price") Double price) {
@@ -63,8 +58,7 @@ public class PaymentController {
 
     @GetMapping(URL_PAYPAL_CANCEL)
     public String cancelPay() {
-
-        return "userthymeleaf/cl";
+        return "userthymeleaf/PaymentFail";
     }
 
     @GetMapping(URL_PAYPAL_SUCCESS)

@@ -267,6 +267,10 @@ TechVortex.config(function ($routeProvider, $locationProvider) {
       templateUrl: "/assets/user/vnpaysuccess.html",
       controller: "vnPayController",
     })
+    .when("/vnpayfail", {
+      templateUrl: "/assets/user/vnpayfail.html",
+      controller: "vnPayController",
+    })
     .when("/changepassword", {
       templateUrl: "/assets/user/changepassword.html",
       controller: "ChangePasswordController",

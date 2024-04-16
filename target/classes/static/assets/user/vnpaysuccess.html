@@ -1,12 +1,87 @@
 <body ng-controller="vnPayController">
     <div class="wrapper-login height-account">
         <div class="container">
-            <div class="row d-flex justify-content-center mt-5">
-                <div class="col-6">
+            <div class="row d-flex justify-content-center my-5">
+                <div class="col-9">
                     <h1 class="text-center"><i class="fa-regular fa-circle-check text-success"></i></h1>
                     <h1 class="text-center text-black pb-5 pt-2">Cảm ơn bạn đã thanh toán!</h1>
                     <div class="card border-0 rounded-2 shadow-sm pt-2">
-                        <div class="card-body p-xl-4 ">
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="">
+                                        <tr>
+                                            <th>Tên</th>
+                                            <th>Giá trị</th>
+                                            <th>Mô tả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        <tr class="">
+                                            <td scope="row">Mã giao dịch</td>
+                                            <td>{{transactionBankTranNo}}</td>
+                                            <td>Mã giao dịch tại trang Vortex</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thông tin đơn hàng</td>
+                                            <td>{{vnp_OrderInfo}}</td>
+                                            <td>Nội dung thanh toán</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số tiền</td>
+                                            <td>{{vnp_Amount | number:0}}</td>
+                                            <td>Số tiền đã thanh toán</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngày giờ thanh toán</td>
+                                            <td>{{vnp_PayDate}}</td>
+                                            <td>Thời gian thực hiện giao dịch</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Đơn vị tiền</td>
+                                            <td>VND</td>
+                                            <td>Đơn vị tiền tệ được thanh toán</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mã kết quả</td>
+                                            <td>{{vnp_TransactionStatus}}</td>
+                                            <td>Trạng thái giao dịch</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thông báo</td>
+                                            <td>{{message}}</td>
+                                            <td>Thông báo thanh toán từ cổng VNPay</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mã giao dịch tạo VNPay</td>
+                                            <td>
+                                                {{transactionStatus}}
+                                            </td>
+                                            <td>Mã giao dịch trên cổng VNPay</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Loại thẻ</td>
+                                            <td>{{vnp_CardType}}</td>
+                                            <td>Thẻ thanh toán</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngân hàng</td>
+                                            <td>{{vnp_BankCode}}</td>
+                                            <td>Ngân hàng giao dịch</td>
+                                        </tr>
+                                        <tr class="">
+                                            <th class="border-bottom-0"></th>
+                                            <th class="border-bottom-0"></th>
+                                            <th class="border-bottom-0 text-end">Tổng giá: {{vnp_Amount | number:0}}
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                 </div>
