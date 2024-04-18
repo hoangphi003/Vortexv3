@@ -10,18 +10,20 @@
 						<div class="row mb-3">
 							<div class="col-4">
 								<div class="mb-4">
-									<input type="text" class="form-control h-50px" name="" id=""
-										aria-describedby="helpId" placeholder="Họ tên" ng-model="fullName"
-										ng-class="messageFullNameBorder" />
-									<span class="text-danger position-absolute">{{messageFullName}}</span>
+									<input type="text" class="form-control h-50px" name="" aria-describedby="helpId"
+										placeholder="Họ tên" ng-model="fullName" ng-class="messageFullNameBorder" />
+									<span class="text-danger position-absolute ">{{messageFullName}}</span>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="mb-3">
 									<input type="number" class="form-control h-50px" min="0" aria-describedby="helpId"
-										placeholder="Số điện thoại" ng-model="phoneNumber"
+										placeholder="Số điện thoại" ng-model="phoneNumber" id="phone"
 										ng-class="messagePhoneNumberBorder" />
 									<span class="text-danger position-absolute">{{messagePhoneNumber}}</span>
+									<span class="text-danger position-absolute d-none" id="errorPhone">Số điện thoại
+										không hợp
+										lệ</span>
 								</div>
 							</div>
 							<div class="col-4">

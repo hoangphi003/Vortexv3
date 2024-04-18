@@ -2,6 +2,7 @@ package com.techvortex.vortex.restcontroller;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.crypto.SecretKey;
 
@@ -16,6 +17,7 @@ import com.techvortex.vortex.entity.Authority;
 import com.techvortex.vortex.service.LoginService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -42,6 +44,9 @@ public class LoginRestController {
         return ResponseEntity.ok(user);
     }
 
-  
+    @GetMapping("/getPhoneNumber/{phone}")
+    public ResponseEntity<List<Account>> getPhoneNumber(@PathVariable("phone") String phone) {
+        return ResponseEntity.ok(loginService.getAllPhonNumber(phone));
+    }
 
 }

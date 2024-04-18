@@ -120,8 +120,8 @@ a.more {
 .custom-navbar .custom-navbar-cta {
   margin-left: 0 !important;
   -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
+  /* -webkit-box-direction: normal;
+  -ms-flex-direction: row; */
   flex-direction: row;
 }
 @media (min-width: 768px) {
@@ -361,7 +361,7 @@ a.more {
   bottom: 15px;
   left: 50%;
   -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
+  /* -ms-transform: translateX(-50%); */
   transform: translateX(-50%);
   margin-bottom: -17.5px;
   border-radius: 50%;
@@ -376,7 +376,7 @@ a.more {
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  /* -ms-transform: translate(-50%, -50%); */
   transform: translate(-50%, -50%);
 }
 .hot {
@@ -423,7 +423,7 @@ a.more {
   background-repeat: no-repeat;
   background-size: contain;
   -webkit-transform: translate(-40%, -40%);
-  -ms-transform: translate(-40%, -40%);
+  /* -ms-transform: translate(-40%, -40%); */
   transform: translate(-40%, -40%);
   z-index: -1;
 }
@@ -466,7 +466,7 @@ a.more {
   background-size: contain;
   background-repeat: no-repeat;
   -webkit-transform: translate(-40%, -40%);
-  -ms-transform: translate(-40%, -40%);
+  /* -ms-transform: translate(-40%, -40%); */
   transform: translate(-40%, -40%);
   z-index: -1;
 }
@@ -623,18 +623,7 @@ a.more {
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
-.footer-section .subscription-form .form-control::-webkit-input-placeholder {
-  font-size: 14px;
-}
-.footer-section .subscription-form .form-control::-moz-placeholder {
-  font-size: 14px;
-}
-.footer-section .subscription-form .form-control:-ms-input-placeholder {
-  font-size: 14px;
-}
-.footer-section .subscription-form .form-control:-moz-placeholder {
-  font-size: 14px;
-}
+
 .footer-section .subscription-form .btn {
   border-radius: 10px !important;
 }
@@ -727,9 +716,6 @@ a.more {
 .form-control::-moz-placeholder {
   font-size: 14px;
 }
-.form-control:-ms-input-placeholder {
-  font-size: 14px;
-}
 .form-control:-moz-placeholder {
   font-size: 14px;
 }
@@ -740,7 +726,7 @@ a.more {
 .service .service-icon {
   border-radius: 10px;
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 50px;
+  /* -ms-flex: 0 0 50px; */
   flex: 0 0 50px;
   height: 50px;
   line-height: 50px;
@@ -1346,4 +1332,9 @@ input[type="number"]::-webkit-outer-spin-button {
   border: solid #ddd;
   border-width: 0 2px;
   text-align: center;
+}
+
+df-messenger {
+  --df-messenger-button-titlebar-color: #3b5d50;
+  --df-messenger-send-icon: #3b5d50;
 }

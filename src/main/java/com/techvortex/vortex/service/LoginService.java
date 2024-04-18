@@ -1,5 +1,7 @@
 package com.techvortex.vortex.service;
 
+import java.util.List;
+
 import com.techvortex.vortex.entity.Account;
 
 public interface LoginService {
@@ -9,4 +11,6 @@ public interface LoginService {
     Account findByUserNameAndPassword(String userName, String password);
 
     Account save(Account account);
+
+    List<Account> getAllPhonNumber(String phone);
 }

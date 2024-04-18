@@ -1,5 +1,7 @@
 package com.techvortex.vortex.serviceimplement;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +28,10 @@ public class LoginServiceImp implements LoginService {
     @Override
     public Account save(Account account) {
         return loginDao.save(account);
+    }
+
+    @Override
+    public List<Account> getAllPhonNumber(String phone) {
+         return loginDao.getAllPhoneNumber(phone);
     }
 }

@@ -1,11 +1,15 @@
 package com.techvortex.vortex.restcontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techvortex.vortex.entity.Account;
+import com.techvortex.vortex.service.LoginService;
 import com.techvortex.vortex.service.RegisterService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +21,9 @@ public class RegisterRestController {
 
     @Autowired
     RegisterService registerService;
+
+    @Autowired
+    LoginService loginService;
 
     @PostMapping("/registerform")
     public ResponseEntity<Account> postRegisterForm(@RequestBody Account account) {
@@ -71,6 +78,23 @@ public class RegisterRestController {
             return ResponseEntity.ok(newAccount);
         }
 
+        {
+            return ResponseEntity.ok(user);
+        }
+    }
+
+    @PostMapping("/phonenumberform/{phone}")
+    public ResponseEntity<Account> LoginByPhoneNumber(@PathVariable("phone") String phone) {
+        Account user = registerService.insertUserByPhoneNumber(phone);
+        if (user == null) {
+            Account newAccount = new Account();
+            newAccount.setUserName(phone);
+            newAccount.setAvatar("anonymous.png");
+            newAccount.setActive(true);
+            newAccount.setPhone(phone);
+            registerService.save(newAccount);
+            return ResponseEntity.ok(newAccount);
+        }
         {
             return ResponseEntity.ok(user);
         }

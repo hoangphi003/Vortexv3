@@ -62,4 +62,9 @@ public class RegisterServiceImp implements RegisterService {
     public Account findByUserNameG(String userName) {
         return registerDao.findByUserNameG(userName);
     }
+
+    @Override
+    public Account insertUserByPhoneNumber(String phone) {
+        return registerDao.insertUserByPhoneNumber(phone);
+    }
 }

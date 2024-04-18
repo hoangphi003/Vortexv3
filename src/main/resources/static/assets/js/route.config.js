@@ -24,6 +24,9 @@ TechVortex.config(function ($routeProvider, $locationProvider) {
           $controller("vnPayController", {
             $scope: $scope,
           });
+          $controller("loginByPhoneController", {
+            $scope: $scope,
+          });
         },
       ],
     })
@@ -207,6 +210,7 @@ TechVortex.config(function ($routeProvider, $locationProvider) {
           });
           $controller("PurchaseOrderController", {
             $scope: $scope,
+            $routeParams: $routeParams,
           });
         },
       ],
@@ -226,14 +230,17 @@ TechVortex.config(function ($routeProvider, $locationProvider) {
         },
       },
     })
-    .when("/purchasedetail", {
+    .when("/purchasedetail/:id", {
       templateUrl: "/assets/user/purchasedetail.html",
       controller: [
         "$scope",
         "$controller",
         "$routeParams",
         function ($scope, $controller, $routeParams) {
-          $controller("PurchaseOrderController", { $scope: $scope });
+          $controller("PurchaseOrderController", {
+            $scope: $scope,
+            $routeParams: $routeParams,
+          });
           $controller("ReviewProductController", {
             $scope: $scope,
             $routeParams: $routeParams,
@@ -270,6 +277,42 @@ TechVortex.config(function ($routeProvider, $locationProvider) {
     .when("/vnpayfail", {
       templateUrl: "/assets/user/vnpayfail.html",
       controller: "vnPayController",
+    })
+    .when("/loginbyphone", {
+      templateUrl: "/assets/user/loginbyphone.html",
+      controller: "loginByPhoneController",
+      // Resolve chỉ định phần được giải quyết
+      resolve: {
+        auth: function ($location, $q) {
+          let deferred = $q.defer();
+          if (!localStorage.getItem("token")) {
+            //đã có token cho phép chuyển trang chỉ định
+            deferred.resolve();
+          } else {
+            deferred.reject();
+          }
+          // Khi tạo ra promise khi trả về cũng là promise
+          return deferred.promise;
+        },
+      },
+    })
+    .when("/loginotp", {
+      templateUrl: "/assets/user/loginotp.html",
+      controller: "loginByPhoneController",
+      // Resolve chỉ định phần được giải quyết
+      resolve: {
+        auth: function ($location, $q) {
+          let deferred = $q.defer();
+          if (!localStorage.getItem("token")) {
+            //đã có token cho phép chuyển trang chỉ định
+            deferred.resolve();
+          } else {
+            deferred.reject();
+          }
+          // Khi tạo ra promise khi trả về cũng là promise
+          return deferred.promise;
+        },
+      },
     })
     .when("/changepassword", {
       templateUrl: "/assets/user/changepassword.html",

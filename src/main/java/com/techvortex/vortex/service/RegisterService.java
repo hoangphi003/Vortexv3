@@ -14,4 +14,6 @@ public interface RegisterService {
 
     Account findByUserNameG(String userName);
 
+    Account insertUserByPhoneNumber(String phone);
+
  }

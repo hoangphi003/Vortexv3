@@ -7,25 +7,22 @@ TechVortex.controller(
     const userID = JSON.parse(atob(userToken));
 
     if (userToken) {
-      $scope.purchaseDetail = function (id) {
-        $http
-          .get("/findOrderDetail/" + userID.userName + "/" + id)
-          .then((Response) => {
-            let total = 0;
-            $rootScope.data = Response.data;
-            Response.data.orderDetails.map((item) => {
-              $rootScope.productInfo = item;
-              total += item.total;
-            });
-            $rootScope.total = total;
-          })
-          .catch((error) => console.log(error));
-        $location.path("/purchasedetail");
-      };
-
-      $scope.getOrderId = function (id) {
-        $rootScope.orderId = id;
-      };
+      if (!$routeParams.id) {
+        return;
+      }
+      $http
+        .get("/findOrderDetail/" + userID.userName + "/" + $routeParams.id)
+        .then((Response) => {
+          let total = 0;
+          $rootScope.data = Response.data;
+          Response.data.orderDetails.map((item) => {
+            $rootScope.productInfo = item;
+            total += item.total;
+          });
+          $rootScope.total = total;
+        })
+        .catch((error) => console.log(error));
+      // $location.path("/purchasedetail");
 
       $scope.submitCancelOrder = function () {
         const form = {
@@ -38,13 +35,13 @@ TechVortex.controller(
           $("#cancelOrder").modal("hide");
           clear();
           $http
-            .get(`/cancelorder/` + $rootScope.orderId, {
+            .get(`/cancelorder/` + $routeParams.id, {
               headers: { "Content-Type": "application/json" },
             })
             .then((Response) => {
-              $scope.purchaseDetail($rootScope.orderId);
+              $scope.purchaseDetail($routeParams.id);
               $http
-                .post(`/sendmailcancelorder/` + $rootScope.orderId, jsonData, {
+                .post(`/sendmailcancelorder/` + $routeParams.id, jsonData, {
                   headers: { "Content-Type": "application/json" },
                 })
                 .then((Response) => {});

@@ -19,4 +19,7 @@ public interface RegisterDao extends JpaRepository<Account, String> {
     @Query("select a from Account a where a.UserName = :name")
     Account findByUserNameG(@Param("name") String userName);
 
+    @Query("select a from Account a where a.Phone = :phone")
+    Account insertUserByPhoneNumber(String phone);
+
 }

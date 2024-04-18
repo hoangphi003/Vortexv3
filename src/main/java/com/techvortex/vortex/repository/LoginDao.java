@@ -15,4 +15,7 @@ public interface LoginDao extends JpaRepository<Account, String> {
     @Transactional
     @Query("select a from Account a where a.UserName = :username and a.Password = :password")
     Account findByUserNameAndPassword(@Param("username") String userName, @Param("password") String password);
+
+    @Query("select a from Account a where a.Phone = :phone")
+    List<Account> getAllPhoneNumber(@Param("phone") String phone);
 }

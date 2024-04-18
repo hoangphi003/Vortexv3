@@ -57,7 +57,6 @@ TechVortex.controller(
     $scope.logoff = function () {
       localStorage.removeItem("token");
       localStorage.removeItem("compare");
-      localStorage.removeItem("TechVortexCart");
       $route.reload();
     };
     $scope.qtyDetail = 1;
@@ -73,41 +72,41 @@ TechVortex.controller(
           $rootScope.qtyItem = Response.data;
         })
         .catch((error) => console.log(error));
-
-      // Add to cart
-      $scope.addToCart = function (id) {
-        // Get user
-        if (idUser) {
-          $scope.cart = {
-            account: {
-              userName: Info.userName,
-            },
-            productDetails: {
-              productDetailId: id,
-            },
-            quantity: $scope.qtyDetail,
-          };
-
-          $http
-            .post("/addtocart/", $scope.cart, {
-              headers: { "Content-Type": "application/json" },
-            })
-            .then((Response) => {
-              $http
-                .get(`/countcart/` + Info.userName)
-                .then((response) => {
-                  $rootScope.qtyItem = response.data;
-                })
-                .catch((error) => console.log(error));
-
-              $scope.alertCartSuccess();
-            })
-            .catch((error) => {});
-        } else {
-          $location.path("/login");
-        }
-      };
     }
+    // Add to cart
+    $scope.addToCart = function (id) {
+      // Get user
+      if (idUser) {
+        const Info = JSON.parse(atob(idUser));
+        $scope.cart = {
+          account: {
+            userName: Info.userName,
+          },
+          productDetails: {
+            productDetailId: id,
+          },
+          quantity: $scope.qtyDetail,
+        };
+
+        $http
+          .post("/addtocart/", $scope.cart, {
+            headers: { "Content-Type": "application/json" },
+          })
+          .then((Response) => {
+            $http
+              .get(`/countcart/` + Info.userName)
+              .then((response) => {
+                $rootScope.qtyItem = response.data;
+              })
+              .catch((error) => console.log(error));
+
+            $scope.alertCartSuccess();
+          })
+          .catch((error) => {});
+      } else {
+        $location.path("/login");
+      }
+    };
 
     $http
       .get("/findAllBrand")

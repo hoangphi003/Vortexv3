@@ -119,13 +119,13 @@ TechVortex.controller(
                 userName: idUserName.userName,
               },
               orderDetails: $scope.orderDetails,
-              paymentMethod: $scope.paymentmethod,
+              payMent: $scope.paymentmethod,
               discount: $scope.discountId,
             };
             if (validate()) {
               if ($scope.paymentmethod === "vnPay") {
                 $http
-                  .get("/create_payment/" + idUserName.userName)
+                  .get("/create_payment/" + $scope.total)
                   .then((Response) => {
                     location.href = Response.data.url;
 
@@ -138,7 +138,7 @@ TechVortex.controller(
               }
 
               if ($scope.paymentmethod === "payPal") {
-                let number = $scope.sum / 25000;
+                let number = $scope.total / 25000;
                 location.href = "/paypal/" + parseFloat(number.toFixed(1));
 
                 localStorage.setItem(
@@ -173,6 +173,25 @@ TechVortex.controller(
         })
         .catch((error) => error);
     }
+
+    const errorPhone = document.getElementById("errorPhone");
+    const phone = document.getElementById("phone");
+
+    phone.addEventListener("input", function () {
+      const inputValue = phone.value; // Lấy giá trị và loại bỏ khoảng trắng ở đầu và cuối
+      if (
+        inputValue.length !== 10 ||
+        inputValue.charAt(0) !== "0" ||
+        !/^\d+$/.test(inputValue)
+      ) {
+        phone.style.border = "1px solid red";
+        errorPhone.classList.remove("d-none");
+        return;
+      } else {
+        phone.style.border = "1px solid #3b5d50";
+        errorPhone.classList.add("d-none");
+      }
+    });
 
     function validate() {
       if ($scope.fullName === "") {

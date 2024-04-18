@@ -194,18 +194,22 @@
                 <div class="tab-content mt-3 rounded-1">
                     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div ng-show="orders && orders.length > 0">
-                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in ordersStand">
-                                <div class="row g-0 mb-3 position-relative" ng-click="purchaseDetail(order.orderId)"
+                            <div class="mb-3 pt-4 bg-white " ng-repeat="order in ordersStand">
+                                <div class="row g-0 mb-3 position-relative"
                                     ng-repeat="orderDetail in order.orderDetails">
-                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
-                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
-                                            class="w-100" alt="Card title" />
+                                    <div class="col-md-4 purchase-card pb-2 ps-2">
+                                        <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                            <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                                class="w-100" alt="Card title" />
+                                        </a>
                                     </div>
                                     <div class="col-md-8 my-auto pb-3 ps-3 ">
                                         <div class="card-body">
-                                            <span class="card-text fs-4">
-                                                {{orderDetail.product.productName}}
-                                            </span><br>
+                                            <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                                <span class="card-text fs-4">
+                                                    {{orderDetail.product.productName}}
+                                                </span>
+                                            </a><br>
                                             <span class="quan fw-bold">
                                                 x{{orderDetail.quantity}}
                                             </span>
@@ -316,18 +320,21 @@
 
                     <div class="tab-pane fade" id="dangcho" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div ng-show="ordersAwait && ordersAwait.length > 0">
-                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in ordersAwait"
-                                ng-click="purchaseDetail(order.orderId)">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in ordersAwait">
                                 <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
-                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
-                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
-                                            class="w-100" alt="Card title" />
+                                    <div class="col-md-4 purchase-card pb-2 ps-2">
+                                        <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                            <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                                class="w-100" alt="Card title" />
+                                        </a>
                                     </div>
                                     <div class="col-md-8 my-auto pb-3 ps-3">
                                         <div class="card-body">
-                                            <span class="card-text fs-4">
-                                                {{orderDetail.product.productName}}
-                                            </span><br>
+                                            <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                                <span class="card-text fs-4">
+                                                    {{orderDetail.product.productName}}
+                                                </span>
+                                            </a><br>
                                             <span class="quan fw-bold d-block">
                                                 x{{orderDetail.quantity}}
                                             </span>
@@ -416,18 +423,19 @@
 
                     <div class="tab-pane fade " id="vanchuyen" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div ng-show="inTransits && inTransits.length > 0">
-                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in inTransits"
-                                ng-click="purchaseDetail(order.orderId)">
+                            <div class="mb-3 pt-4 bg-white" ng-repeat="order in inTransits">
                                 <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
                                     <div class="col-md-4 purchase-card  pb-2 ps-2">
-                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
-                                            class="w-100" alt="Card title" />
+                                        <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                            <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                                class="w-100" alt="Card title" /></a>
                                     </div>
                                     <div class="col-md-8 my-auto pb-3 ps-3">
                                         <div class="card-body">
-                                            <span class="card-text fs-4">
-                                                {{orderDetail.product.productName}}
-                                            </span><br>
+                                            <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                                <span class="card-text fs-4">
+                                                    {{orderDetail.product.productName}}
+                                                </span></a><br>
                                             <span class="quan fw-bold">
                                                 x{{orderDetail.quantity}}
                                             </span>
@@ -513,20 +521,22 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane fade " id="chogiaohang" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div ng-show="deliverys && deliverys.length > 0">
-                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in deliverys"
-                                ng-click="purchaseDetail(order.orderId)">
+                            <div class="mb-3 pt-4 bg-white " ng-repeat="order in deliverys">
                                 <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
                                     <div class="col-md-4 purchase-card pb-2 ps-2">
-                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
-                                            class="w-100" alt="Card title" />
+                                        <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                            <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                                class="w-100" alt="Card title" /></a>
                                     </div>
                                     <div class="col-md-8 my-auto pb-3 ps-3">
                                         <div class="card-body">
-                                            <span class="card-text fs-4">
-                                                {{orderDetail.product.productName}}
-                                            </span><br>
+                                            <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                                <span class="card-text fs-4">
+                                                    {{orderDetail.product.productName}}
+                                                </span></a><br>
                                             <span class="quan fw-bold">
                                                 x{{orderDetail.quantity}}
                                             </span>
@@ -600,20 +610,23 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane fade " id="hoanthanh" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div ng-show="completes && completes.length > 0">
-                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in completes"
+                            <div class="mb-3 pt-4 bg-white" ng-repeat="order in completes"
                                 ng-click="purchaseDetail(order.orderId)">
                                 <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
-                                    <div class="col-md-4 purchase-card  pb-2 ps-2">
-                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
-                                            class="w-100" alt="Card title" />
+                                    <div class="col-md-4 purchase-card pb-2 ps-2">
+                                        <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                            <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                                class="w-100" alt="Card title" /></a>
                                     </div>
                                     <div class="col-md-8 my-auto pb-3 ps-3">
                                         <div class="card-body">
-                                            <span class="card-text fs-4">
-                                                {{orderDetail.product.productName}}
-                                            </span><br>
+                                            <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                                <span class="card-text fs-4">
+                                                    {{orderDetail.product.productName}}
+                                                </span></a><br>
                                             <span class="quan fw-bold">
                                                 x{{orderDetail.quantity}}
                                             </span>
@@ -721,18 +734,20 @@
                     </div>
                     <div class="tab-pane fade " id="dahuy" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div ng-show="cancel && cancel.length > 0">
-                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in cancel"
-                                ng-click="purchaseDetail(order.orderId)">
+                            <div class="mb-3 pt-4 bg-white cursor-pointer" ng-repeat="order in cancel">
                                 <div class="row g-0 mb-2" ng-repeat="orderDetail in order.orderDetails">
                                     <div class="col-md-4 purchase-card  pb-2 ps-2">
-                                        <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
-                                            class="w-100" alt="Card title" />
+                                        <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                            <img ng-src="/assets/images/products/{{orderDetail.product.image}}"
+                                                class="w-100" alt="Card title" />
+                                        </a>
                                     </div>
                                     <div class="col-md-8 my-auto pb-3 ps-3">
                                         <div class="card-body">
-                                            <span class="card-text fs-4">
-                                                {{orderDetail.product.productName}}
-                                            </span><br>
+                                            <a href="#!purchasedetail/{{order.orderId}}" class="p-0">
+                                                <span class="card-text fs-4">
+                                                    {{orderDetail.product.productName}}
+                                                </span></a><br>
                                             <span class="quan fw-bold">
                                                 x{{orderDetail.quantity}}
                                             </span>

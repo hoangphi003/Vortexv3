@@ -39,19 +39,19 @@ public class VnPayRestcontroller {
     @Autowired
     CartService cartService;
 
-    @GetMapping("/create_payment/{username}")
-    public ResponseEntity<VnPay> CreatePayment(@PathVariable("username") String username)
+    @GetMapping("/create_payment/{totalCheckout}")
+    public ResponseEntity<VnPay> CreatePayment(@PathVariable("totalCheckout") Long totalCheckout)
             throws UnsupportedEncodingException {
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
 
-        long total = 0;
-        for (Cart x : cartService.findAll(username)) {
-            total += x.getQuantity() * x.getProductDetails().getProduct().getPrice();
-        }
-        long amount = total * 100;
+        // long total = 0;
+        // for (Cart x : cartService.findAll(username)) {
+        // total += x.getQuantity() * x.getProductDetails().getProduct().getPrice();
+        // }
+        long amount = totalCheckout * 100;
         String bankCode = "NCB";
 
         String vnp_TxnRef = ConfigVnPay.getRandomNumber(8);
