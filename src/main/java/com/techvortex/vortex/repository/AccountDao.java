@@ -11,10 +11,10 @@ import com.techvortex.vortex.entity.Account;
 
 @Repository
 public interface AccountDao extends JpaRepository<Account, String> {
-    @Query("SELECT a FROM Account a JOIN a.authorities auth JOIN auth.role r WHERE r.RoleName = 'Staff'")
+    @Query("SELECT a FROM Account a JOIN a.authorities auth JOIN auth.role r WHERE r.RoleId = 'Staff'")
     List<Account> findStaffAccounts();
 
-    @Query("SELECT a FROM Account a JOIN a.authorities auth JOIN auth.role r WHERE r.RoleName = 'Customer'")
+    @Query("SELECT a FROM Account a JOIN a.authorities auth JOIN auth.role r WHERE r.RoleId = 'Customer'")
     List<Account> findAllCustomerAccounts();
 
     @Query("SELECT DISTINCT a FROM Authority ar" +
