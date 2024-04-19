@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -28,25 +29,34 @@ import lombok.NoArgsConstructor;
 public class Account implements Serializable {
     @Id
     @Nationalized
+    @Column(name = "user_name")
     private String UserName;
 
     @Nationalized
+    @Column(name = "full_name")
     private String FullName;
 
+    @Column(name = "password")
     private String Password;
 
     // Dùng kiểu String để lưu được số 0
+    @Column(name = "phone")
     private String Phone;
 
+    @Column(name = "email")
     private String Email;
 
+    @Column(name = "active")
     private Boolean Active;
 
+    @Column(name = "birth")
     @Temporal(TemporalType.DATE)
     private Date Birth;
 
+    @Column(name = "gender")
     private Boolean Gender;
 
+    @Column(name = "avatar")
     private String Avatar;
 
     @JsonIgnore

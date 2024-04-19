@@ -1,6 +1,7 @@
 package com.techvortex.vortex.admincontroller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.techvortex.vortex.entity.Order;
 import com.techvortex.vortex.entity.OrderDetail;
 import com.techvortex.vortex.service.AccountService;
 import com.techvortex.vortex.service.DiscountService;
+import com.techvortex.vortex.service.OrderDetailServiceAdmin;
 import com.techvortex.vortex.service.OrderService;
 import com.techvortex.vortex.service.OrderServiceAdmin;
 
@@ -34,6 +36,9 @@ public class OrderController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    OrderDetailServiceAdmin orderdetailService;
 
     @Autowired
     DiscountService discountService;
@@ -98,7 +103,7 @@ public class OrderController {
 
     @PostMapping("/updateOrderStatus")
     public ResponseEntity<String> updateOrderStatus(@RequestParam Integer orderId, @RequestParam String newStatus) {
-        
+
         return orderService.updateOrderStatus(orderId, newStatus);
     }
 
@@ -118,5 +123,74 @@ public class OrderController {
     // model.addAttribute("orderDetail", new OrderDetail());
     // return "admin/pages/OrderDetail";
     // }
+
+    @GetMapping("/orderdetail/{orderId}")
+    public String showOrderDetail(@PathVariable("orderId") Integer orderId, Model model) {
+        Order order = orderService.findById(orderId);
+
+        if (order == null) {
+            model.addAttribute("errorMessage", "Không tìm thấy thông tin đơn hàng");
+            return "redirect:/admin/order";
+        }
+
+        model.addAttribute("order", order);
+        // Lấy danh sách các mục trong đơn hàng chi tiết của đơn hàng này
+        List<OrderDetail> orderDetails = order.getOrderDetails();
+        model.addAttribute("allOrderDetail", orderDetails);
+
+        // Tính tổng số tiền của đơn hàng
+        float totalAmount = 0;
+        for (OrderDetail orderDetail : orderDetails) {
+            totalAmount += orderDetail.getTotal();
+        }
+        model.addAttribute("totalAmount", totalAmount);
+
+        return "admin/pages/OrderDetail";
+    }
+
+    @GetMapping("/orderdate")
+    public String getOrderDate(Model model,
+            @RequestParam(value = "selectedYear", required = false) Integer selectedYear,
+            @RequestParam(value = "selectedMonth", required = false) Integer selectedMonth,
+            @RequestParam(value = "selectedDay", required = false) Integer selectedDay) {
+        // Lấy danh sách các năm từ cơ sở dữ liệu
+        List<Integer> distinctYears = orderService.findDistinctYears();
+        model.addAttribute("distinctYears", distinctYears);
+
+        // Thêm giá trị mặc định của năm (năm hiện tại) vào model nếu không được chọn
+        if (selectedYear == null) {
+            selectedYear = Calendar.getInstance().get(Calendar.YEAR);
+        }
+        model.addAttribute("selectedYear", selectedYear);
+        // Truyền các giá trị tháng và ngày vào model nếu có
+        model.addAttribute("selectedMonth", selectedMonth);
+        model.addAttribute("selectedDay", selectedDay);
+
+        // Lấy danh sách đơn hàng nếu có
+        if (selectedYear != null && selectedMonth != null && selectedDay != null) {
+            List<Order> orders = orderService.findOrdersByDate(selectedDay, selectedMonth, selectedYear);
+            model.addAttribute("orders", orders);
+        }
+
+        return "admin/pages/OrderReport";
+    }
+
+    @GetMapping("/orderdate/result")
+    public String getOrderDateResult(
+            @RequestParam("selectedYear") Integer selectedYear,
+            @RequestParam("selectedMonth") Integer selectedMonth,
+            @RequestParam("selectedDay") Integer selectedDay,
+            RedirectAttributes redirectAttributes) {
+        // Lấy danh sách đơn hàng từ service dựa trên ngày, tháng và năm đã chọn
+        List<Order> orders = orderService.findOrdersByDate(selectedDay, selectedMonth, selectedYear);
+
+        // Truyền lại các giá trị đã chọn vào form bằng cách sử dụng RedirectAttributes
+        redirectAttributes.addAttribute("selectedYear", selectedYear);
+        redirectAttributes.addAttribute("selectedMonth", selectedMonth);
+        redirectAttributes.addAttribute("selectedDay", selectedDay);
+
+        // Redirect về trang "orderdate" thay vì "ordertotal"
+        return "redirect:/admin/orderdate";
+    }
 
 }

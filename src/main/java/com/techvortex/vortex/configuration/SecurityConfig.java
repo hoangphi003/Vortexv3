@@ -33,6 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(username -> {
             try {
                 Account user = loginService.findById(username);
+                if (user.getActive() == false) {
+                    throw new UsernameNotFoundException(username + "Not Active");
+                }
                 String password = pe.encode(user.getPassword());
                 String[] roles = user.getAuthorities().stream().map(er -> er.getRole().getRoleId())
                         .collect(Collectors.toList()).toArray(new String[0]);

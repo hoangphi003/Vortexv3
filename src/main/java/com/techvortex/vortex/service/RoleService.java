@@ -13,5 +13,7 @@ public interface RoleService {
     public Role findById(String RoleId);
 
     public void delete(Role role);
-    
+
+    void deleteById(String roleId);
+
 }

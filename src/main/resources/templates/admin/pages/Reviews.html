@@ -8,17 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Form Category</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/libs/css/style.css">
-    <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+    <link th:href="@{/assets/vendor/fonts/circular-std/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/libs/css/style.css}">
+    <link rel="stylesheet" th:href=@{/assets/vendor/fonts/fontawesome/css/fontawesome-all.css}>
 
     <!-- table -->
   
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/dataTables.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/buttons.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/select.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/dataTables.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/buttons.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/select.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/fixedHeader.bootstrap4.css}">
     <!-- table -->
 </head>
 <style>
@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">Đánh giá</h2>
+                            <h2 class="pageheader-title" style="margin-top:60px;">Đánh giá</h2>
                             <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
@@ -57,98 +57,18 @@
                         </div>
                     </div>
                 </div>
+
+                
                 <!-- ============================================================== -->
                 <!-- end pageheader -->
                 <!-- ============================================================== -->
              
                     <div class="row">
+                        
                         <!-- ============================================================== -->
                         <!-- validation form -->
                         <!-- ============================================================== -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -12px;">
-                            <div class="card">
-                                <h5 class="card-header">Đánh giá</h5>
-                                <div class="card-body">
-                                    <form class="needs-validation" novalidate>
-                                        <div class="row">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: -17px;">
-                                                <label for="validationCustom01"></label>
-                                                <input type="hidden" class="form-control" id="validationCustom01" placeholder="First name" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                                                <label for="validationCustom02">Tài khoản</label>
-                                                <input type="text" class="form-control" disabled="true" id="validationCustom02" placeholder="Tài khoản" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: 5px;">
-                                                <label for="validationCustom02">Ảnh tài khoản</label>
-                                                <input type="text" class="form-control" disabled="true" id="validationCustom02" placeholder="Ảnh tài khoản" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: 5px;">
-                                                <label for="validationCustom02">Đánh giá</label>
-                                                <input type="text" class="form-control" disabled="true" id="validationCustom02" placeholder="Đánh giá" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: 5px;">
-                                                <label for="validationCustom02">Sao đánh giá</label>
-                                                <input type="text" class="form-control" disabled="true" id="validationCustom02" placeholder="Sao đánh giá" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: 5px;">
-                                                <label for="validationCustom02">Tên sản phẩm</label>
-                                                <input type="text" class="form-control" disabled="true" id="validationCustom02" placeholder="Tên sản phẩm" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: 5px;">
-                                                <label for="validationCustom02">Ngày đánh giá</label>
-                                                <input type="text" class="form-control" disabled="true" id="validationCustom02" placeholder="Ngày đánh giá" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-top: 5px;">
-                                                <label for="validationCustom02">Ảnh đánh giá</label>
-                                                <input type="text" class="form-control" disabled="true" id="validationCustom02" placeholder="Ảnh đánh giá" value="" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                           
-                                        </div>
-                                                                        
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="form-group">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-     
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="margin-left: -15px;">
-                                                <!-- <button class="btn btn-primary" type="submit" style="width:90px;"  id="submitButton">Thêm</button>
-                                                <button class="btn btn-secondary" type="submit" style="width:90px;" id="updateButton">Sửa</button>
-                                                <button class="btn btn-danger" type="submit" style="width:90px;">Xóa</button>                             -->
-                                                <button class="btn btn-info" type="submit" style="width:90px;">Làm mới</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                       
                         <!-- ============================================================== -->
                         <!-- end validation form -->
                         <!-- ============================================================== -->
@@ -156,12 +76,17 @@
                 </div>                   
           </div>
            
+          
             </div>
+
+            
 
 
             <!-- bang  -->
-            <div class="dashboard-wrapper" style="margin-top: -110px;">
+            <div class="dashboard-wrapper" style="margin-top: -690px;">
                 <div class="container-fluid  dashboard-content">
+
+                    
                     <!-- ============================================================== -->
                     <!-- pageheader -->
                     <!-- ============================================================== -->
@@ -182,11 +107,120 @@
                             </div>
                         </div>
                     </div> -->
+                    
                     <div class="row">
+
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -40px;">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body ">
+                                        <h5 class="text-muted">Đánh giá<img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;"></h5>  
+                                        <div class="metric-value d-inline-block">
+                                            <h2 class="mb-1"><span id="one-star-count"></span>                                 
+                                            </h2>
+                                        </div>
+            
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -40px;">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body ">
+                                        <h5 class="text-muted">Đánh giá
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                        </h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h2 class="mb-1">
+                                                <!-- Trong phần HTML -->
+                                                <span id="two-star-count"></span>
+                                          
+                                            </h2>
+                                        </div>
+            
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -40px;">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body ">
+                                        <h5 class="text-muted">Đánh giá
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                        </h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h2 class="mb-1"><span id="three-star-count"></span>
+                                               
+                                            </h2>
+                                        </div>
+            
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -18px;">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body ">
+                                        <h5 class="text-muted">Đánh giá
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                        </h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h2 class="mb-1"><span id="four-star-count"></span>
+                                                
+                                            </h2>
+                                        </div>
+            
+                                    </div>
+                                </div>
+                            </div>
+            
+            
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -18px;">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body ">
+                                        <h5 class="text-muted">Đánh giá
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                            <img th:src="@{'/assets/images/icons/star1.png'}" style="margin-left: 5px; margin-top: -5px;">
+                                        </h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h2 class="mb-1"><span id="five-star-count"></span>
+                                                
+                                            </h2>
+                                        </div>
+            
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-sm-12 col-12" style="margin-top: -18px;">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body ">
+                                        <h5 class="text-muted">Tổng sao đánh giá</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h2 class="mb-1">
+                                                <span class="average-rating" id="average-rating-value"></span>
+                                                <span>/ 5.0</span><img th:src="@{'/assets/images/icons/star1.png'}" style="margin-top: -7px;margin-left: 5px;">
+                                               
+                                            </h2>
+                                        </div>
+            
+                                    </div>
+                                </div>
+                            </div>
+                        
                         <!-- ============================================================== -->
                         <!-- data table  -->
                         <!-- ============================================================== -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -35px;">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -10px;">
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="mb-0">Dữ liệu bảng đánh giá</h5>                                  
@@ -195,62 +229,58 @@
                                     <div class="table-responsive">
                                         <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                             <thead>
-                                                <tr>
-                                                    <th>ID</th>
+                                                <tr >
+                                                    <th>STT</th>
                                                     <th>Tài khoản</th>  
                                                     <th>Ảnh tài khoản</th> 
                                                     <th>Đánh giá</th>
                                                     <th>Sao đánh giá</th>
-                                                    <th>Tên sản phẩm</th>                  
+                                                    <th>Tên sản phẩm</th> 
+                                                    <th>Ảnh sản phẩm</th>                 
                                                     <th>Ngày đánh giá</th> 
-                                                    <th>Ảnh đánh giá</th>
-                                                    <th>Edit</th>
-                                                                                               
+                                                             
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>2018</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    
-                                                    
-                                                     <td style="line-height: 40px;">
-                                                        <!-- <a href="./cards.html">
-                                                 <button class="btn btn-danger" type="submit" style="width:60px; float: right;">   
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                                  </svg>         
-                                                </button> 
-                                            </a> -->
-                                                 <a href="?showUpdate=true">
-                                                    <button class="btn btn-primary" type="submit" style="width:60px; float: right; margin-right: 7px;">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                                                          </svg>
-                                                    </button>
-                                                 </a>
-                                                </td> 
-                 
-                                                </tr>             
+                                                <tr th:each="review, stt : ${allReview}">
+                                                    <td th:text="${stt.count}"></td>
+                                                    <td th:text="${review.account.UserName}"></td>
+                                                    <td>
+                                                        <img th:src="@{'/assets/images/avatar/' + ${review.account.Avatar}}"
+                                                            width="50px" style="border-radius: 50%;margin-left:22px;">
+                                                    </td>
+                                                    <td th:text="${review.Comment}"></td>
+                                                    <td>
+                                                        <span th:switch="${review.Rating}">
+                                                            <span th:case="1" style="color: #ffcc00;">★</span>
+                                                            <span th:case="2" style="color: #ffcc00;">★★</span>
+                                                            <span th:case="3" style="color: #ffcc00;">★★★</span>
+                                                            <span th:case="4" style="color: #ffcc00;">★★★★</span>
+                                                            <span th:case="5" style="color: #ffcc00;">★★★★★</span>
+                                                        </span>
+                                                    </td>                                                    
+                                                    <td th:text="${review.product.ProductName}"></td>
+                                                    <td>
+                                                        <img th:src="@{'/assets/images/products/' + ${review.product.Image}}"
+                                                            width="70px" style="border-radius: 50%;margin-left:22px;">
+                                                    </td>
+                                                    <td th:text="${review.ReviewDate}"></td>
+                                                
+                                                </tr>  
+                                        
+                                            
                                             </tbody>
-                                            <tfoot>
+                                            <tfoot>                       
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th>STT</th>
                                                     <th>Tài khoản</th>  
                                                     <th>Ảnh tài khoản</th> 
                                                     <th>Đánh giá</th>
                                                     <th>Sao đánh giá</th>
-                                                    <th>Tên sản phẩm</th>                                                 
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Ảnh sản phẩm</th>                                                    
                                                     <th>Ngày đánh giá</th> 
-                                                    <th>Ảnh đánh giá</th>
-                                                    <th>Edit</th>                                                 
+                                                                                                                                
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -289,11 +319,11 @@
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
-    <script src="../assets/vendor/parsley/parsley.js"></script>
-    <script src="../assets/libs/js/main-js.js"></script>
+    <script th:src="@{/assets/vendor/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/assets/vendor/slimscroll/jquery.slimscroll.js}"></script>
+    <script th:src="@{/assets/vendor/parsley/parsley.js}"></script>
+    <script th:src="@{/assets/libs/js/main-js.js}"></script>
     <script>
 
     
@@ -322,63 +352,238 @@
             });
         }, false);
     })();
-
-   
     // table   
 </script>
-    
 <script>
-    const editButtons = document.querySelectorAll('.edit-button');
-    const updateButton = document.getElementById('updateButton');
-    const submitButton = document.getElementById('submitButton');
-
-    // Lấy tham số từ URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const showUpdate = urlParams.get("showUpdate");
-
-    // Kiểm tra giá trị tham số và hiển thị nút "Update" nếu cần thiết
-    if (showUpdate === "true") {
-        // Hiển thị nút "Update" và ẩn nút "Submit"
-        updateButton.classList.remove('d-none');
-        submitButton.classList.add('d-none');
-    } else {
-        // Ẩn nút "Update" và hiển thị nút "Submit" mặc định
-        updateButton.classList.add('d-none');
-        submitButton.classList.remove('d-none');
+    // Hàm chuyển đổi icon ngôi sao sang số lượng sao
+    function starsToRating(stars) {
+        // Số sao sẽ bằng số lượng kí tự '★' trong chuỗi stars
+        return stars.split('★').length - 1;
     }
 
-    editButtons.forEach((button) => {
-        button.addEventListener('click', function () {
-            // Ẩn nút "Submit" và hiển thị nút "Update"
-            submitButton.classList.add('d-none');
-            updateButton.classList.remove('d-none');
-        });
-    });
+    // Tính trung bình số sao đánh giá và hiển thị trên bảng
+    function calculateAverageRating() {
+        var totalPoints = 0;
+        var totalReviews = 0;
 
-    updateButton.addEventListener('click', function (event) {
-        // Ẩn nút "Update" và hiển thị nút "Submit"
-        updateButton.classList.add('d-none');
-        submitButton.classList.remove('d-none');
-    });
-    </script>
+        // Lặp qua các hàng trong tbody để tính tổng số điểm và số lượng đánh giá
+        var table = document.getElementById("example");
+        var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var ratingCell = rows[i].getElementsByTagName("td")[4]; // Cột chứa icon ngôi sao
+            var stars = ratingCell.textContent.trim(); // Lấy nội dung của ô và loại bỏ các khoảng trắng ở đầu và cuối
+            var rating = starsToRating(stars); // Chuyển đổi icon ngôi sao thành số lượng sao
+
+            totalPoints += rating;
+            totalReviews++;
+        }
+
+        // Kiểm tra nếu không có đánh giá nào
+        if (totalReviews === 0) {
+            console.log("Không có đánh giá nào.");
+            return; // Tránh chia cho 0
+        }
+
+        // Tính trung bình
+        var averageRating = totalPoints / totalReviews;
+
+        // Hiển thị trung bình số sao đánh giá trên bảng
+        var averageRatingCell = document.getElementById("average-rating-value");
+        averageRatingCell.textContent = averageRating.toFixed(1);
+    }
+
+    // Gọi hàm tính trung bình khi trang được tải
+    window.onload = function() {
+        calculateAverageRating();
+    };
+</script>
+<script>
+       // đếm đánh giá 1 sao
+    // Hàm đếm số lượng đánh giá 1 sao
+// Hàm đếm số lượng đánh giá 1 sao
+function countOneStarReviews() {
+    var oneStarCount = 0;
+
+    // Lặp qua các hàng trong tbody để đếm số lượng đánh giá 1 sao
+    var table = document.getElementById("example");
+    var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var ratingCell = rows[i].getElementsByTagName("td")[4]; // Cột chứa icon ngôi sao
+        var stars = ratingCell.textContent.trim(); // Lấy nội dung của ô và loại bỏ các khoảng trắng ở đầu và cuối
+        var rating = starsToRating(stars); // Chuyển đổi icon ngôi sao thành số lượng sao
+
+        if (rating === 1) {
+            oneStarCount++;
+        }
+    }
+
+    // Hiển thị số lượng đánh giá 1 sao trong phần tử HTML
+    var oneStarCountElement = document.getElementById("one-star-count");
+    oneStarCountElement.textContent = oneStarCount;
+}
+
+// Hàm tính trung bình số sao đánh giá và hiển thị trên bảng
+function calculateTotalRating() {
+    var totalPoints = 0;
+    var totalReviews = 0;
+
+    // Lặp qua các hàng trong tbody để tính tổng số điểm và số lượng đánh giá
+    var table = document.getElementById("example");
+    var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var ratingCell = rows[i].getElementsByTagName("td")[4]; // Cột chứa icon ngôi sao
+        var stars = ratingCell.textContent.trim(); // Lấy nội dung của ô và loại bỏ các khoảng trắng ở đầu và cuối
+        var rating = starsToRating(stars); // Chuyển đổi icon ngôi sao thành số lượng sao
+
+        totalPoints += rating;
+        totalReviews++;
+    }
+
+    // Kiểm tra nếu không có đánh giá nào
+    if (totalReviews === 0) {
+        console.log("Không có đánh giá nào.");
+        return; // Tránh chia cho 0
+    }
+
+    // Tính trung bình
+    var averageRating = totalPoints / totalReviews;
+
+    // Hiển thị trung bình số sao đánh giá trên bảng
+    var averageRatingCell = document.getElementById("average-rating-value");
+    averageRatingCell.textContent = averageRating.toFixed(1);
+}
+
+// Gọi hàm đếm số lượng đánh giá 1 sao và tính trung bình số sao khi trang được tải
+window.onload = function() {
+    countOneStarReviews();
+    calculateTotalRating();
+};
+</script>
+<script>
+    // đếm số lượng 2 sao 
+    // Hàm đếm số lượng đánh giá 1 sao
+function countOneStarReviews() {
+    var oneStarCount = 0;
+    var twoStarCount = 0;
+    var threeStarCount = 0;
+    var fourStarCount = 0;
+    var fiveStarCount = 0;
+
+    // Lặp qua các hàng trong tbody để đếm số lượng đánh giá 1 sao
+    var table = document.getElementById("example");
+    var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var ratingCell = rows[i].getElementsByTagName("td")[4]; // Cột chứa icon ngôi sao
+        var stars = ratingCell.textContent.trim(); // Lấy nội dung của ô và loại bỏ các khoảng trắng ở đầu và cuối
+        var rating = starsToRating(stars); // Chuyển đổi icon ngôi sao thành số lượng sao
+
+        if (rating === 1) {
+            oneStarCount++;
+        }
+
+        
+        if (rating === 2) {
+            twoStarCount++;
+        }
+
+        
+        if (rating === 3) {
+            threeStarCount++;
+        }
+
+        if (rating === 4) {
+            fourStarCount++;
+        }
+
+        if (rating === 5) {
+            fiveStarCount++;
+        }
+    }
+
+    // Hiển thị số lượng đánh giá 1 sao trong phần tử HTML
+    var oneStarCountElement = document.getElementById("one-star-count");
+    oneStarCountElement.textContent = oneStarCount;
+
+    // Hiển thị số lượng đánh giá 2 sao trong phần tử HTML
+    var twoStarCountElement = document.getElementById("two-star-count");
+    twoStarCountElement.textContent = twoStarCount;
+
+     // Hiển thị số lượng đánh giá 3 sao trong phần tử HTML
+     var threeStarCountElement = document.getElementById("three-star-count");
+    threeStarCountElement.textContent = threeStarCount;
+
+    // Hiển thị số lượng đánh giá 4 sao trong phần tử HTML
+    var fourStarCountElement = document.getElementById("four-star-count");
+    fourStarCountElement.textContent = fourStarCount;
+
+     // Hiển thị số lượng đánh giá 5 sao trong phần tử HTML
+     var fiveStarCountElement = document.getElementById("five-star-count");
+    fiveStarCountElement.textContent = fiveStarCount;
+}
+
+// Hàm tính trung bình số sao đánh giá và hiển thị trên bảng
+function calculateTotalRating() {
+    var totalPoints = 0;
+    var totalReviews = 0;
+
+    // Lặp qua các hàng trong tbody để tính tổng số điểm và số lượng đánh giá
+    var table = document.getElementById("example");
+    var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var ratingCell = rows[i].getElementsByTagName("td")[4]; // Cột chứa icon ngôi sao
+        var stars = ratingCell.textContent.trim(); // Lấy nội dung của ô và loại bỏ các khoảng trắng ở đầu và cuối
+        var rating = starsToRating(stars); // Chuyển đổi icon ngôi sao thành số lượng sao
+
+        totalPoints += rating;
+        totalReviews++;
+    }
+
+    // Kiểm tra nếu không có đánh giá nào
+    if (totalReviews === 0) {
+        console.log("Không có đánh giá nào.");
+        return; // Tránh chia cho 0
+    }
+
+    // Tính trung bình
+    var averageRating = totalPoints / totalReviews;
+
+    // Hiển thị trung bình số sao đánh giá trên bảng
+    var averageRatingCell = document.getElementById("average-rating-value");
+    averageRatingCell.textContent = averageRating.toFixed(1);
+}
+
+// Gọi hàm đếm số lượng đánh giá 1 sao và tính trung bình số sao khi trang được tải
+window.onload = function() {
+    countOneStarReviews();
+    calculateTotalRating();
+};
+
+</script>
 
 
 
-    <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>  
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-    <script src="../assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="../assets/vendor/datatables/js/data-table.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
-    <script src="https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
-    <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+    
+<script th:src="@{/node_modules/sweetalert2/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/assets/vendor/multi-select/js/jquery.multi-select.js}"></script>
+<script th:src="@{https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/assets/vendor/datatables/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{/assets/vendor/datatables/js/buttons.bootstrap4.min.js}"></script>
+<script th:src="@{/assets/vendor/datatables/js/data-table.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js}"></script>
+<script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js}"></script>
+<script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js}"></script>
+<script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js}"></script>
+<script th:src="@{https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js}"></script>
+<script th:src="@{https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js}"></script>
+<script th:src="@{https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js}"></script>
    <!-- // table   -->
 </body>
  

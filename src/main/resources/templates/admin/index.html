@@ -64,14 +64,14 @@
                                     <h5 class="text-muted">Doanh thu</h5>
                                     <div class="metric-value d-inline-block">
                                         <h3 class="mb-1">
-                                            <span style="color: red;"
-                                                th:utext="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA', 0, 'POINT')} + ' VND'"></span>
-
+                                            <span style="color: red;" th:utext="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA', 0, 'POINT')} + ' VND'"></span>
+                                         
                                         </h3>
                                     </div>
-
+                                   
                                 </div>
                                 <div id="sparkline-revenue"></div>
+                                <a href="admin/showrevenue" style="text-align: center;">Xem chi tiết doanh thu</a>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -82,9 +82,10 @@
                                         <h3 class="mb-1"><span style="color: red;"
                                                 th:text="${totalProductsSold}"></span></h3>
                                     </div>
-
+                                    
                                 </div>
                                 <div id="sparkline-revenue2"></div>
+                                <a href="admin/orderdate" style="text-align: center;">Xem chi tiết sản phẩm</a>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -95,9 +96,10 @@
                                         <h3 class="mb-1"><span style="color: red;" th:text="${totalOrders}"></span>
                                         </h3>
                                     </div>
-
+                                    
                                 </div>
                                 <div id="sparkline-revenue3"></div>
+                                <a href="admin/orderdate" style="text-align: center;">Xem chi tiết đơn hàng</a>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -108,9 +110,10 @@
                                         <h3 class="mb-1"><span style="color: red;"
                                                 th:text="${totalRemainingProducts}"></span></h3>
                                     </div>
-
+                                   
                                 </div>
                                 <div id="sparkline-revenue4"></div>
+                                <a href="admin/inventoryproducts" style="text-align: center;">Xem chi tiết sản phẩm tồn kho</a>
                             </div>
                         </div>
                     </div>
@@ -192,131 +195,131 @@
                                 }
                             });
                         </script> -->
+                        
 
 
+<!-- biểu đồ cũ -->
+ <script th:inline="javascript">
+    /* Dữ liệu thống kê từ Controller */
+    var monthlyOrderCounts = /*[[${monthlyOrderCounts}]]*/[];
 
-                        <!-- biểu đồ cũ -->
-                        <script th:inline="javascript">
-                            /* Dữ liệu thống kê từ Controller */
-                            var monthlyOrderCounts = /*[[${monthlyOrderCounts}]]*/[];
+    /* Tạo mảng với đủ số tháng và gán giá trị 0 cho tháng không có đơn hàng */
+    var completeData = Array.from({ length: 12 }, (_, index) => monthlyOrderCounts[index] || 0);
 
-                            /* Tạo mảng với đủ số tháng và gán giá trị 0 cho tháng không có đơn hàng */
-                            var completeData = Array.from({ length: 12 }, (_, index) => monthlyOrderCounts[index] || 0);
+    /* Tạo biểu đồ cột sử dụng Chart.js */
+    var ctx = document.getElementById('orderChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            datasets: [{
+                label: 'Số lượng đơn hàng',
+                data: completeData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+</script> 
 
-                            /* Tạo biểu đồ cột sử dụng Chart.js */
-                            var ctx = document.getElementById('orderChart').getContext('2d');
-                            var chart = new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-                                    datasets: [{
-                                        label: 'Số lượng đơn hàng',
-                                        data: completeData,
-                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                        borderColor: 'rgba(75, 192, 192, 1)',
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
+<!-- Thêm thẻ canvas để vẽ biểu đồ -->
+<!-- Thêm thẻ canvas để vẽ biểu đồ -->
+               <!-- HTML -->
+<!-- HTML -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<h2 style="margin-top: 20px;">Doanh Thu trong năm</h2>
+<canvas id="myChart" width="1050" height="400"></canvas>
 
-                        </script>
+<script>
+    // Lấy dữ liệu từ endpoint
+    fetch('/admin/monthlyRevenue')
+    .then(response => response.json())
+    .then(data => {
+        // Dữ liệu nhận được là một mảng các giá trị doanh thu của từng tháng
+        // Định dạng số tiền và chèn chữ VNĐ sau cùng để hiển thị trong tooltip
+        var formattedData = data.map(amount => amount.toLocaleString() + ' VNĐ');
 
-                        <!-- Thêm thẻ canvas để vẽ biểu đồ -->
-                        <!-- Thêm thẻ canvas để vẽ biểu đồ -->
-                        <!-- HTML -->
-                        <!-- HTML -->
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-                        <h2 style="margin-top: 20px;">Doanh Thu trong năm</h2>
-                        <canvas id="myChart" width="1070" height="400"></canvas>
+        // Biểu đồ sẽ sử dụng dữ liệu dưới dạng số
+        var numericData = data.map(amount => parseFloat(amount));
 
-                        <script>
-                            // Lấy dữ liệu từ endpoint
-                            fetch('/admin/monthlyRevenue')
-                                .then(response => response.json())
-                                .then(data => {
-                                    // Dữ liệu nhận được là một mảng các giá trị doanh thu của từng tháng
-                                    // Định dạng số tiền và chèn chữ VNĐ sau cùng để hiển thị trong tooltip
-                                    var formattedData = data.map(amount => amount.toLocaleString() + ' VNĐ');
-
-                                    // Biểu đồ sẽ sử dụng dữ liệu dưới dạng số
-                                    var numericData = data.map(amount => parseFloat(amount));
-
-                                    // Vẽ biểu đồ tròn bằng Chart.js
-                                    var ctx = document.getElementById('myChart').getContext('2d');
-                                    var myChart = new Chart(ctx, {
-                                        type: 'doughnut',
-                                        data: {
-                                            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-                                            datasets: [{
-                                                label: 'Doanh thu hàng tháng',
-                                                data: numericData,
-                                                backgroundColor: [
-                                                    'rgba(217, 40, 145, 0.8)', // tháng 1
-                                                    'rgba(175, 255, 25, 0.8)', // tháng 2
-                                                    'rgba(133, 36, 211, 0.8)', // tháng 3
-                                                    'rgba(38, 0, 255, 0.8)', // tháng 4
-                                                    'rgba(37, 229, 229, 0.8)', // tháng 5
-                                                    'rgba(110, 27, 27, 0.95)', // tháng 6
-                                                    'rgba(31, 7, 7, 0.85)', // tháng 7
-                                                    'rgba(29, 203, 147, 0.85)', // tháng 8
-                                                    'rgba(252, 208, 28, 0.85)', // tháng 9
-                                                    'rgba(255, 255, 255, 0.85)', // tháng 10
-                                                    'rgba(0, 0, 0, 0.38)', // tháng 11
-                                                    'rgba(255, 167, 0, 0.88)' // tháng 12
-                                                ],
-                                                borderColor: [
-                                                    'rgba(255, 99, 132, 1)',
-                                                    'rgba(54, 162, 235, 1)',
-                                                    'rgba(255, 206, 86, 1)',
-                                                    'rgba(75, 192, 192, 1)',
-                                                    'rgba(153, 102, 255, 1)',
-                                                    'rgba(255, 159, 64, 1)',
-                                                    'rgba(255, 99, 132, 1)',
-                                                    'rgba(54, 162, 235, 1)',
-                                                    'rgba(255, 206, 86, 1)',
-                                                    'rgba(75, 192, 192, 1)',
-                                                    'rgba(153, 102, 255, 1)',
-                                                    'rgba(255, 159, 64, 1)'
-                                                ],
-                                                borderWidth: 1
-                                            }]
-                                        },
-                                        options: {
-                                            maintainAspectRatio: false,
-                                            responsive: false,
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
-                                                }
-                                            },
-                                            plugins: {
-                                                tooltip: {
-                                                    callbacks: {
-                                                        label: function (context) {
-                                                            var label = 'Doanh thu: ';
-                                                            label += formattedData[context.dataIndex];
-                                                            return label;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    });
-                                });
-
-
-                        </script>
+        // Vẽ biểu đồ tròn bằng Chart.js
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                datasets: [{
+                    label: 'Doanh thu hàng tháng',
+                    data: numericData,
+                    backgroundColor: [
+                        'rgba(217, 40, 145, 0.8)', // tháng 1
+                        'rgba(175, 255, 25, 0.8)', // tháng 2
+                        'rgba(133, 36, 211, 0.8)', // tháng 3
+                        'rgba(38, 0, 255, 0.8)', // tháng 4
+                        'rgba(37, 229, 229, 0.8)', // tháng 5
+                        'rgba(110, 27, 27, 0.95)', // tháng 6
+                        'rgba(31, 7, 7, 0.85)', // tháng 7
+                        'rgba(29, 203, 147, 0.85)', // tháng 8
+                        'rgba(252, 208, 28, 0.85)', // tháng 9
+                        'rgba(255, 255, 255, 0.85)', // tháng 10
+                        'rgba(0, 0, 0, 0.38)', // tháng 11
+                        'rgba(255, 167, 0, 0.88)' // tháng 12
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                var label = 'Doanh thu: ';
+                                label += formattedData[context.dataIndex];
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
 
 
+</script>
 
 
+                        
+                        
 
                         <!-- Thêm một thẻ canvas để vẽ biểu đồ -->
                         <!-- <div style="width: 80%; margin: auto;">
@@ -330,38 +333,38 @@
                     </div>
                 </div>
 
+            
+                    <!-- end category revenue  -->
+                    <!-- ============================================================== -->
 
-                <!-- end category revenue  -->
-                <!-- ============================================================== -->
-
-                <!-- HTML/Thymeleaf -->
+                   <!-- HTML/Thymeleaf -->
+                    </div>
+                </div>
+                
+                        <!-- ============================================================== -->
+                        <!-- end social source  -->
+                        <!-- ============================================================== -->
+                    </div>
+                    
+                 
+                    <!-- ============================================================== -->
+                    <!-- end sales traffice source  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- sales traffic country source  -->
+                    <!-- ============================================================== -->
+                 
+                    <!-- ============================================================== -->
+                    <!-- end sales traffice country source  -->
+                    <!-- ============================================================== -->
+                </div>
             </div>
         </div>
-
-        <!-- ============================================================== -->
-        <!-- end social source  -->
-        <!-- ============================================================== -->
-    </div>
-
-
-    <!-- ============================================================== -->
-    <!-- end sales traffice source  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- sales traffic country source  -->
-    <!-- ============================================================== -->
-
-    <!-- ============================================================== -->
-    <!-- end sales traffice country source  -->
-    <!-- ============================================================== -->
-    </div>
-    </div>
-    </div>
     </div>
     <!-- ============================================================== -->
     <!-- footer -->
     <!-- ============================================================== -->
-
+   
     <!-- ============================================================== -->
     <!-- end footer -->
     <!-- ============================================================== -->

@@ -46,4 +46,7 @@ public interface OrderDaoAdmin extends JpaRepository<Order, Integer> {
     @Query("SELECT COUNT(o) FROM Order o WHERE YEAR(o.OrderDate) = :year")
     long countOrdersByYear(@Param("year") Integer year);
     
+      // select option orderdate
+      @Query("SELECT o FROM Order o WHERE o.OrderDate = :targetDate")
+      List<Order> findOrdersByDate(@Param("targetDate") Date targetDate);
 }

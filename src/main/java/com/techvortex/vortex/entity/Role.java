@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.hibernate.annotations.Nationalized;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -16,11 +19,14 @@ import lombok.Data;
 @Entity
 public class Role implements Serializable {
     @Id
+    @Column(name = "role_id")
     private String RoleId;
 
     @Nationalized
+    @Column(name = "role_name")
     private String RoleName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role")
     List<Authority> authorities;
 }

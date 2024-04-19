@@ -20,6 +20,7 @@ import com.techvortex.vortex.entity.Color;
 import com.techvortex.vortex.entity.Material;
 import com.techvortex.vortex.entity.Product;
 import com.techvortex.vortex.entity.ProductDetail;
+import com.techvortex.vortex.entity.Review;
 import com.techvortex.vortex.service.BrandService;
 import com.techvortex.vortex.service.CategoryService;
 import com.techvortex.vortex.service.ColorService;
@@ -96,20 +97,17 @@ public class ProductController {
         // model.addAttribute("allProducts", productService.findAll());
         // return "admin/pages/Product";
         // }
-    
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("allProducts", productService.findAll());
             model.addAttribute("allCategorys", categoryService.findAll());
             return "admin/pages/FormProduct";
         }
 
-
-
         String imageName = product.getImage().replaceAll(",", "");
         product.setImage(imageName);
         // categoryService.create(category);
         productService.create(product);
-     
 
         redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
         redirectAttributes.addFlashAttribute("operation", "add"); // Thêm thông điệp động
@@ -141,12 +139,13 @@ public class ProductController {
         // Lấy ra ProductId từ đối tượng Product
         // Integer productIdi = product.getProductId();
         // Truy vấn tất cả các chi tiết sản phẩm của sản phẩm đó
-        // List<ProductDetail> productDetail = productdetailService.findAllByProductId(productIdi);
+        // List<ProductDetail> productDetail =
+        // productdetailService.findAllByProductId(productIdi);
         // model.addAttribute("productDetail", productDetail);
-
+        // Lấy danh sách các mục trong đơn hàng chi tiết của đơn hàng này
         model.addAttribute("product", product);
-        model.addAttribute("allProducts", productService.findAll()); // Nếu không sử dụng thì có thể loại bỏ
-        model.addAttribute("productDetail", new ProductDetail());
+        List<ProductDetail> productdetails = product.getProductDetails();
+        model.addAttribute("allProductdetail", productdetails);
 
         return "admin/pages/ProductDetails";
     }
@@ -165,6 +164,24 @@ public class ProductController {
         // Chuyển hướng người dùng đến trang hiển thị danh sách loại sản phẩm hoặc trang
         // chính của trang quản trị
         return "redirect:/admin/product";
+    }
+
+    // edit đánh giá
+    @GetMapping("/reviews/{ProductId}")
+    public String showReviwsProduct(@PathVariable("ProductId") Integer ProductId, Model model) {
+        Product product = productService.findById(ProductId);
+
+        if (product == null) {
+            model.addAttribute("errorMessage", "Không tìm thấy thông tin sản phẩm");
+            return "redirect:/admin/order";
+        }
+
+        model.addAttribute("product", product);
+        // Lấy danh sách các mục trong đơn hàng chi tiết của đơn hàng này
+        List<Review> reviews = product.getReviews();
+        model.addAttribute("allReview", reviews);
+
+        return "admin/pages/Reviews";
     }
 
 }

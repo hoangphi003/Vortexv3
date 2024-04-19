@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thống kê đơn hàng</title>
+</head>
+<body>
+    <form method="get" action="/admin/orderstatistic">
+        <label for="day">Chọn ngày:</label>
+        <select name="day" id="day">
+            <!-- JavaScript sẽ thêm các option cho ngày -->
+        </select>
+        <label for="month">Chọn tháng:</label>
+        <select name="month" id="month">
+            <!-- JavaScript sẽ thêm các option cho tháng -->
+        </select>
+        <label for="year">Chọn năm:</label>
+        <select name="year" id="year">
+            <!-- Dữ liệu năm sẽ được lấy từ cơ sở dữ liệu -->
+        </select>
+        <button type="submit">Thống kê</button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ngày đặt hàng</th>
+                <th>Tên khách hàng</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dữ liệu đơn hàng sẽ được thêm bằng JavaScript -->
+        </tbody>
+    </table>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Tạo option cho ngày (1-31)
+        for (var i = 1; i <= 31; i++) {
+            $('#day').append($('<option>', {
+                value: i,
+                text: i
+            }));
+        }
+
+        // Tạo option cho tháng (1-12)
+        for (var i = 1; i <= 12; i++) {
+            $('#month').append($('<option>', {
+                value: i,
+                text: i
+            }));
+        }
+
+        // Lấy danh sách các năm từ cơ sở dữ liệu và thêm vào select option cho năm
+        $.get('/admin/getYears', function(data) {
+            $.each(data, function(index, year) {
+                $('#year').append($('<option>', {
+                    value: year,
+                    text: year
+                }));
+            });
+        });
+
+        // Xử lý sự kiện khi người dùng thay đổi các select option
+        $('#day, #month, #year').change(function() {
+            // Gửi yêu cầu thống kê khi người dùng thay đổi các select option
+            $('form').submit();
+        });
+
+        // Hiển thị dữ liệu đơn hàng sau khi nhận phản hồi từ server
+        $('form').submit(function(event) {
+            event.preventDefault();
+            var form = $(this);
+            $.get(form.attr('action'), form.serialize(), function(data) {
+                var tbody = $('tbody');
+                tbody.empty();
+                $.each(data, function(index, order) {
+                    var row = $('<tr>');
+                    row.append($('<td>').text(order.id));
+                    row.append($('<td>').text(order.orderDate));
+                    row.append($('<td>').text(order.customerName));
+                    row.append($('<td>').text(order.totalAmount));
+                    tbody.append(row);
+                });
+            });
+        });
+    });
+</script>
+</html>

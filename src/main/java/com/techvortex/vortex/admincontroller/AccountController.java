@@ -13,12 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.techvortex.vortex.entity.Account;
+import com.techvortex.vortex.repository.AccountDao;
 import com.techvortex.vortex.service.AccountService;
 
 import java.util.List;
 import javax.servlet.annotation.MultipartConfig;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,21 +33,38 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    AccountDao dao;
+
     @GetMapping("/account")
     public String account(Model model) {
         // Tạo một đối tượng Account để binding với form
         model.addAttribute("account", new Account());
-        model.addAttribute("allAccounts", accountService.findAll());
+        model.addAttribute("allAccounts", dao.findStaffAccounts());
 
         return "admin/pages/Account";
     }
 
-    // @GetMapping("/activeform")
-    // public String OrderForm(Model model) {
-    // model.addAttribute("account", new Account());
-    // model.addAttribute("allAccounts", accountService.findAll());
-    // return "admin/pages/ActiveForm";
-    // }
+    @GetMapping("/formstaff")
+    public String Formstaff(Model model) {
+        // Tạo một đối tượng Account để binding với form
+        model.addAttribute("account", new Account());
+        model.addAttribute("allAccounts", dao.findAllCustomerAccounts());
+
+        return "admin/pages/FormStaff";
+    }
+
+    @GetMapping("/customer")
+    public String Customer(Model model) {
+        // Tạo một đối tượng Account để binding với form
+        model.addAttribute("account", new Account());
+        model.addAttribute("allAccounts", dao.findAllCustomerAccounts());
+
+        return "admin/pages/Customer";
+    }
+
+
+
 
     // edit account
     @GetMapping("/editaccount/{Username}")
@@ -58,57 +80,46 @@ public class AccountController {
         // Thêm account vào model
         model.addAttribute("account", account);
         // Lấy danh sách accounts để giữ nguyên dữ liệu dưới bảng (nếu cần)
-        model.addAttribute("allAccounts", accountService.findAll());
+        model.addAttribute("allAccounts", dao.findStaffAccounts());
         // Trả về fragment của form
-        return "admin/pages/Account";
+        return "admin/pages/FormStaff";
     }
 
     private static String UPLOAD_DIRECTORY = System.getProperty("user.dir")
             + "/src/main/resources/static/assets/images/products/";
+  
+            @PostMapping("/saveStaff")
+            public String saveStaff(@Validated @ModelAttribute("account") Account account,
+                    BindingResult bindingResult,
+                    RedirectAttributes redirectAttributes, Model model) {
+                
+                // if (materialService.existsByNameIgnoreCase(material.getMaterialName())) {
+                // bindingResult.rejectValue("MaterialName", "error.material", "Tên chất liệu đã tồn tại.");
+                //  }
+                // if (acc.existsByNameIgnoreCase(material.getMaterialName())) {
+                //     bindingResult.rejectValue("materialName", "error.material", "Tên chất liệu đã tồn tại.");
+                //     model.addAttribute("errorMessage", bindingResult.getFieldError("materialName").getDefaultMessage());
+                //     model.addAttribute("allMaterial", materialService.findAll());
+                //     return "admin/pages/FormMaterial";
+                // }
+            
+                // if (bindingResult.hasErrors()) {
+                //     model.addAttribute("allMaterial", materialService.findAll());
+                //     return "admin/pages/Material";
+                // }
+                if (bindingResult.hasErrors()) {
+                    // model.addAttribute("errorMessagee", "Chất liệu không được bỏ trống");
+                    model.addAttribute("allAccounts", dao.findStaffAccounts());
+                    return "admin/pages/FormStaff";
+                }
+                
+                accountService.create(account);
+        
+                redirectAttributes.addFlashAttribute("successMessage", "Lưu tài khoản thành công!");
+                redirectAttributes.addFlashAttribute("operation", "add"); // Thêm thông điệp động
+        
+                return "redirect:/admin/formstaff"; // Chuyển hướng đến trang danh sách accounts
+            }
 
-    // @PostMapping("/saveAccount")
-    // public String saveAccount(@ModelAttribute("account") Account account, Model
-    // model,
-    // @RequestParam("status") String status) {
-
-    // try {
-
-    // if (account.getUserName() == null) {
-    // throw new IllegalArgumentException("Username không được null");
-    // }
-
-    // Account existingAccount = accountService.findById(account.getUserName());
-    // if (existingAccount != null) {
-
-    // account.setActive("true".equalsIgnoreCase(status));
-
-    // accountService.updateStatus(account.getUserName(), account.getActive());
-
-    // model.addAttribute("account", account);
-    // model.addAttribute("allAccounts", accountService.findAll());
-    // model.addAttribute("successMessage", "Cập nhật trạng thái tài khoản thành
-    // công!");
-    // System.out.println("Received POST request for /saveAccount");
-    // } else {
-    // throw new IllegalArgumentException("Không tìm thấy tài khoản với username: "
-    // + account.getUserName());
-    // }
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // // Xử lý ngoại lệ nếu có
-    // model.addAttribute("errorMessage", "Lỗi khi cập nhật trạng thái tài khoản: "
-    // + e.getMessage());
-    // }
-
-    // return "admin/pages/Account";
-    // }
-
-    // Trong controller, không cần chuyển đổi kiểu dữ liệu từ String sang Boolean,
-    // vì giờ đây newStatus là kiểu Boolean
-
-    // Hàm phụ trợ để chuyển đổi từ chuỗi sang boolean
-    private boolean convertToBoolean(String statusString) {
-        return "Hoạt động".equals(statusString);
-    }
-
+               
 }

@@ -20,4 +20,6 @@ public interface AccountService {
 	public void delete(Account account);
 
 	void updateStatus(String UserName, Boolean Active);
+
+	public List<Account> getAdministrators();
 }

@@ -1,5 +1,6 @@
 package com.techvortex.vortex.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +11,14 @@ import com.techvortex.vortex.entity.Account;
 
 @Repository
 public interface AccountDao extends JpaRepository<Account, String> {
+    @Query("SELECT a FROM Account a JOIN a.authorities auth JOIN auth.role r WHERE r.RoleName = 'Staff'")
+    List<Account> findStaffAccounts();
 
+    @Query("SELECT a FROM Account a JOIN a.authorities auth JOIN auth.role r WHERE r.RoleName = 'Customer'")
+    List<Account> findAllCustomerAccounts();
+
+    @Query("SELECT DISTINCT a FROM Authority ar" +
+            " inner join ar.account a" +
+            " WHERE ar.role.RoleId IN ('Customer','Staff')")
+    List<Account> getAdministrators();
 }

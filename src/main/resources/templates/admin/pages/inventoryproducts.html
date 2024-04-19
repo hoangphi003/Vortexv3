@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bảng sản phẩm tồn kho</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/fonts/circular-std/style.css}" />
+    <link rel="stylesheet" th:href="@{/assets/libs/css/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/fonts/fontawesome/css/fontawesome-all.css}">
+
+    <!-- table -->
+  
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/dataTables.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/buttons.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/select.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/datatables/css/fixedHeader.bootstrap4.css}">
+    <!-- table -->
+</head>
+<style>
+    td {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+     max-width: 100px;
+     font-size: 14px;
+    }
+    th{
+        font-size: 13px;
+    }
+</style>
+<body >       
+        <div th:replace="~{/admin/layout/menu.html}"></div>
+        <div th:replace="~{/admin/layout/header.html}"></div>
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">             
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">Sản phẩm chi tiết</h2>
+                            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">   
+                                        <li class="breadcrumb-ite"><a href="/admin" class="breadcrumb-link">Quay về trang chủ</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+             
+                    <div class="row">
+                        <!-- ============================================================== -->
+                        <!-- validation form -->
+                        <!-- ============================================================== -->
+                       
+                        <!-- ============================================================== -->
+                        <!-- end validation form -->
+                        <!-- ============================================================== -->
+                    </div>                  
+                </div>                   
+          </div>
+           
+            </div>
+
+
+            <!-- bang  -->
+            <div class="dashboard-wrapper" style="margin-top: -750px;">
+                <div class="container-fluid  dashboard-content">
+                   
+                    <div class="row">
+                        <!-- ============================================================== -->
+                        <!-- data table  -->
+                        <!-- ============================================================== -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -35px;">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Dữ liệu bảng sản phẩm tồn kho</h5>                                  
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Ảnh sản phẩm</th>
+                                                    <th>Phân loại sản phẩm</th>
+                                                    <th>Thương hiệu</th>
+                                                    <th>Màu</th>
+                                                    <th>Chất liệu</th>
+                                                    <th>Số lượng tồn kho</th>
+                                                                                        
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr  th:if="${productDetail != null}" th:each="productDetail, stt : ${allProductdetail}">
+                                                    <td th:text="${stt.count}"></td>
+                                                    <td th:text="${productDetail.Product.ProductName}"></td>
+                                                     <td>
+                                                        <img th:src="@{'/assets/images/products/' + ${productDetail.product.Image}}"
+                                                        width="50px">
+                                                    </td> 
+                                                    <td>
+                                                        <div th:each="category : ${productDetail.product.category}"> 
+                                                            <p th:text="${category.CategoryName}"></p> 
+                                                        </div>
+                                                    </td>
+                                                    <td th:text="${productDetail.Brand.BrandName}"></td>
+                                                    <td th:text="${productDetail.Color.ColorName}"></td>
+                                                    <td th:text="${productDetail.Material.MaterialName}"></td>
+                                                    <td th:text="${productDetail.InventoryQuantity}"></td>
+                                                
+                                                                                                                              
+                                                 
+                 
+                                                </tr>             
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Ảnh sản phẩm</th>
+                                                    <th>Phân loại sản phẩm</th>
+                                                    <th>Thương hiệu</th>
+                                                    <th>Màu</th>
+                                                    <th>Chất liệu</th>
+                                                    <th>Số lượng tồn kho</th>
+                                                                                               
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end data table  -->
+                        <!-- ============================================================== -->
+                    </div>
+                        <!-- ============================================================== -->
+                        <!-- end basic table  -->
+                        <!-- ============================================================== -->
+                    
+            <!-- end bang -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            
+            <!-- <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-left: 250px; width: 100%;">
+                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
+                        </div>                 
+                    </div>
+                </div>
+            </div> -->
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script th:src="@{/assets/vendor/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/assets/vendor/slimscroll/jquery.slimscroll.js}"></script>
+    <script th:src="@{/assets/vendor/parsley/parsley.js}"></script>
+    <script th:src="@{/assets/libs/js/main-js.js}"></script>
+    <script>
+
+    
+
+
+
+
+    $('#form').parsley();
+    </script>
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+    // table   
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+<script th:if="${not #strings.isEmpty(successMessage)}"> // thông báo lưu thành công
+ var successMessage = 'Lưu chi tiết sản phẩm thành công';
+ Swal.fire({
+     icon: 'success',
+     title: 'Thành  công!',
+     text: successMessage,
+     showConfirmButton: false,
+     timer: 1500,
+ });
+</script>
+<script>
+
+    function confirmDelete(ProductDetailId) {
+        console.log('ProductDetailId:', ProductDetailId);
+        Swal.fire({
+            title: 'Bạn có chắc muốn xóa không?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng đồng ý xóa, thực hiện chuyển đường dẫn
+                window.location.href = '/admin/deleteproductdetail/' + ProductDetailId;
+            }
+        });
+
+        // Trả về false để ngăn chặn hành động mặc định của liên kết
+        return false;
+    }
+</script>
+<script th:if="${not #strings.isEmpty(deletesuccessMessage)}"> // thông báo xóa thành công
+    var successMessage = 'Xóa chi tiết sản phẩm thành công';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+
+<script th:if="${not #strings.isEmpty(errorMessage)}"> // thông báo xóa thành công
+    var successMessage = 'Màu và chất liệu này đã tồn tại trong cơ sở dữ liệu!';
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành công!',
+        text: successMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+
+<script th:if="${not #strings.isEmpty(deleteerrorMessage)}"> // thông báo xóa thất bại
+    var errorMessage = 'Xóa sản chi tiết phẩm thất bại';
+    Swal.fire({
+        icon: 'error',
+        title: 'Lỗi!',
+        text: errorMessage,
+        showConfirmButton: false,
+        timer: 1500,
+    });
+</script>
+
+
+    <script th:src="@{/assets/vendor/multi-select/js/jquery.multi-select.js}"></script>  
+    <script th:src="@{https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/assets/vendor/datatables/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/assets/vendor/datatables/js/buttons.bootstrap4.min.js}"></script>
+    <script th:src="@{/assets/vendor/datatables/js/data-table.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js}"></script>
+    <script th:src="@{https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js}"></script>
+   <!-- // table   -->
+</body>
+ 
+</html>

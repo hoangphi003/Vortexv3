@@ -1,4 +1,5 @@
 package com.techvortex.vortex.serviceimplement;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,11 +11,12 @@ import com.techvortex.vortex.repository.AccountDao;
 import com.techvortex.vortex.service.AccountService;
 
 import javax.transaction.Transactional;
+
 @Service
 public class AccountImpl implements AccountService {
-         
+
     @Autowired
-	AccountDao accountDAO;
+    AccountDao accountDAO;
 
     @Override
     public List<Account> findAll() {
@@ -27,7 +29,6 @@ public class AccountImpl implements AccountService {
         // TODO Auto-generated method stub
         return accountDAO.save(account);
     }
-
 
     @Override
     public void delete(Account account) {
@@ -43,28 +44,29 @@ public class AccountImpl implements AccountService {
     }
 
     @Override
-@Transactional
-public void updateStatus(String UserName, Boolean Active) {
-    try {
-        Account account = findById(UserName);
-        if (account != null) {
-            account.setActive(Active);
-            // Đảm bảo sử dụng save để cập nhật đối tượng
-            accountDAO.save(account);
+    @Transactional
+    public void updateStatus(String UserName, Boolean Active) {
+        try {
+            Account account = findById(UserName);
+            if (account != null) {
+                account.setActive(Active);
+                // Đảm bảo sử dụng save để cập nhật đối tượng
+                accountDAO.save(account);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
+    @Override
+    public List<Account> getAdministrators() {
+        try {
+            return accountDAO.getAdministrators();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
-    
+    }
 
-
-
-    
-    
-
-
- 
 }

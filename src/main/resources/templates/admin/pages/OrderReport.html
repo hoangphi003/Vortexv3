@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bảng Thống kê đơn hàng</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href=@{/assets/vendor/bootstrap/css/bootstrap.min.css}>
+    <link rel="stylesheet" th:href=@{/assets/vendor/fonts/circular-std/style.css}>
+    <link rel="stylesheet" th:href=@{/assets/libs/css/style.css}>
+    <link rel="stylesheet" th:href=@{/assets/vendor/fonts/fontawesome/css/fontawesome-all.css}>
+
+    <!-- table -->
+
+    <link rel="stylesheet" type="text/css" th:href=@{/assets/vendor/datatables/css/dataTables.bootstrap4.css}>
+    <link rel="stylesheet" type="text/css" th:href=@{/assets/vendor/datatables/css/buttons.bootstrap4.css}>
+    <link rel="stylesheet" type="text/css" th:href=@{/assets/vendor/datatables/css/select.bootstrap4.css}>
+    <link rel="stylesheet" type="text/css" th:href=@{/assets/vendor/datatables/css/fixedHeader.bootstrap4.css}>
+    <!-- table -->
+</head>
+<style>
+    td {
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100px;
+        font-size: 14px;
+    }
+
+    th {
+        font-size: 13px;
+    }
+    /* Style cho phần tử select */
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    width: 150px; /* Điều chỉnh kích thước theo nhu cầu */
+}
+
+/* Style cho các phần tử option */
+option {
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* Style cho nút submit */
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 38px;
+}
+
+/* Hover effect cho nút submit */
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+</style>
+
+<body>
+    <aside class="left-sidebar" th:fragment="asidebar-admin">
+        <!-- ============================================================== -->
+        <!-- main wrapper -->
+        <!-- ============================================================== -->
+        <div class="dashboard-main-wrapper">
+            <!-- ============================================================== -->
+            <!-- navbar -->
+            <!-- ============================================================== -->
+            <div th:replace="~{/admin/layout/header.html}"></div>
+            <div th:replace="~{/admin/layout/menu.html}"></div>
+            <!-- ============================================================== -->
+            <!-- end left sidebar -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- wrapper  -->
+            <!-- ============================================================== -->
+            <div class="dashboard-wrapper">
+                <div class="container-fluid  dashboard-content">
+                    <!-- ============================================================== -->
+                    <!-- pageheader -->
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title">Thống kê đơn hàng</h2>
+                                <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta,
+                                    fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                                <div class="page-breadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Quản Lý</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">Thống kê đơn hàng</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end pageheader -->
+                    <!-- ============================================================== -->
+
+                    <div class="row">
+                        <!-- ============================================================== -->
+                        <!-- validation form -->
+                        <!-- ============================================================== -->
+                       
+                        <!-- ============================================================== -->
+                        <!-- end validation form -->
+                        <!-- ============================================================== -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- bang  -->
+        <div class="dashboard-wrapper" style="margin-top: -750px;">
+            <div class="container-fluid  dashboard-content">
+                
+                <div class="row">
+                    
+                    <!-- ============================================================== -->
+                    <!-- data table  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: -35px;">
+                        <div class="card">
+                            <div class="card-header">
+                                <!-- <h5 class="mb-0">Dữ liệu bảng phân loại</h5> -->
+                                <form action="/admin/orderdate/result" method="GET">
+                                    <label for="selectedDay">Ngày:</label>
+                                    <select name="selectedDay" id="selectedDay"></select>
+                                    <label for="selectedMonth">Tháng:</label>
+                                    <select name="selectedMonth" id="selectedMonth" onchange="updateDays()">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <!-- Add other months -->
+                                        <option value="12">12</option>
+                                    </select>
+                                    <label for="selectedYear">Năm:</label>
+                                    <select  name="selectedYear" id="selectedYear">
+                                        <!-- Iterate over distinctYears attribute using Thymeleaf -->
+                                        <option th:each="year : ${distinctYears}" 
+                                        th:value="${year}" 
+                                        th:text="${year}" 
+                                        th:selected="${year == selectedYear}"></option>
+                                    </select>
+                                    <button type="submit">Xuất Thống kê</button>
+                                </form>
+                              
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered second"
+                                        style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Tài khoản</th>
+                                                <th>Số điện thoại</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Ngày mua hàng</th>
+                                                <th>Trạng thái đơn hàng</th>
+                                                
+                                             
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr th:each="order, stt : ${orders}">
+                                                <td th:text="${stt.count}"></td>
+                                                <td th:text="${order.orderId}"></td>
+                                                <td th:text="${order.account.UserName}"></td>
+                                                <td th:text="${order.account.Phone}"></td>
+                                                <td th:text="${order.Address}"></td>
+                                                <td th:text="${order.orderDate}"></td>
+                                                <td th:text="${order.orderStatus}"></td>
+     
+                                                </td>          
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end data table  -->
+                    <!-- ============================================================== -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- end basic table  -->
+                <!-- ============================================================== -->
+
+                <!-- end bang -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+
+                <!-- <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-left: 250px; width: 100%;">
+                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
+                        </div>                 
+                    </div>
+                </div>
+            </div> -->
+                <!-- ============================================================== -->
+                <!-- end footer -->
+                <!-- ============================================================== -->
+            </div>
+        </div>
+    </aside>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="../assets/vendor/parsley/parsley.js"></script>
+    <script src="../assets/libs/js/main-js.js"></script>
+    <script>
+
+
+
+
+
+
+        $('#form').parsley();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+
+        // table   
+    </script>
+
+
+
+<script th:inline="javascript">
+    /* JavaScript for updating days */
+    /* This JavaScript can be in a separate file */
+    function updateDays() {
+        var month = document.getElementById("selectedMonth").value;
+        var year = document.getElementById("selectedYear").value;
+        var daysInMonth = new Date(year, month, 0).getDate();
+        var daySelect = document.getElementById("selectedDay");
+        
+        // Lấy giá trị ngày hiện tại
+        var currentDay = daySelect.value;
+        
+        daySelect.innerHTML = "";
+        for (var i = 1; i <= daysInMonth; i++) {
+            var option = document.createElement("option");
+            option.text = i;
+            option.value = i;
+            daySelect.appendChild(option);
+        }
+        
+        // Thiết lập giá trị ngày trước đó hoặc giá trị mặc định
+        daySelect.value = currentDay || 1;
+    }
+
+    // Lưu giá trị đã chọn vào localStorage trước khi form được gửi đi
+    document.querySelector('form').addEventListener('submit', function(event) {
+        var selectedDay = document.getElementById("selectedDay").value;
+        var selectedMonth = document.getElementById("selectedMonth").value;
+        var selectedYear = document.getElementById("selectedYear").value;
+
+        localStorage.setItem('selectedDay', selectedDay);
+        localStorage.setItem('selectedMonth', selectedMonth);
+        localStorage.setItem('selectedYear', selectedYear);
+    });
+
+    // Call updateDays() initially to populate days based on default month and year
+    updateDays();
+
+    // Lấy giá trị đã chọn từ localStorage và thiết lập lại cho các ô select
+    var selectedDay = localStorage.getItem('selectedDay');
+    var selectedMonth = localStorage.getItem('selectedMonth');
+    var selectedYear = localStorage.getItem('selectedYear');
+
+    document.getElementById("selectedDay").value = selectedDay;
+    document.getElementById("selectedMonth").value = selectedMonth;
+    document.getElementById("selectedYear").value = selectedYear;
+</script>
+
+
+
+
+    <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/vendor/datatables/js/data-table.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+    <!-- // table   -->
+</body>
+
+</html>

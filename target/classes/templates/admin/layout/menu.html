@@ -1,8 +1,9 @@
+
 <section>
     <aside>
-        <div class="nav-left-sidebar sidebar-dark">
+        <div class="nav-left-sidebar">
             <div class="menu-list">
-                <nav class="navbar navbar-expand-lg navbar-light">
+                <nav class="navbar navbar-expand-lg navbar-light ">
                     <a class="d-xl-none d-lg-none" href="#">Thống kê</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -13,76 +14,69 @@
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Thống kê<span class="badge badge-success">6</span></a>
+                               
+                                <!-- <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Thống kê<span class="badge badge-success">6</span></a>
                                 <div id="submenu-1" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/doanhthu}">Doanh thu</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/loinhuan}">Lợi nhuận</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sanphambanchay}">Sản phẩm bán chạy nhất</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sanphamconlai}">Sản phẩm còn lại trong kho</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/khachhang}">khách hàng mua nhiều nhất</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/donhang}">Tổng số lượng đơn hàng đã bán được</a>
-                                        </li>
-                                </div>
+                                   
+                                </div> -->
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Quản Lý</a>
-                                <div id="submenu-2" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/category}">Phân loại<span class="badge badge-secondary">New</span></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/color}">Màu</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/material}">Chất liệu</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/brand}">Thương hiệu</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/reviewsimg}">Ảnh đánh giá</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/reviews}">Đánh giá</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/product}">Sản phẩm</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/discount}">Giảm giá</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/favorite}">Yêu thích</a>
-                                        </li> 
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/account}">Tài khoản</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/role}">Role</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/authority}">Authority</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/order}">Đơn hàng</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/admin/order}">Đơn hàng chi tiết</a>
-                                        </li>
-                                    </ul>
+                                <ul class="nav flex-column" style="margin-top: -15px;">
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/sanphambanchay}"><img th:src="@{'/assets/images/icons/productselling1.png'}" style="margin-right: 10px;">Sản phẩm bán chạy<span class="badge badge-secondary" style="margin-left: 10px;">New</span></a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/sanphamconlai}">Sản phẩm còn lại trong kho</a>
+                                    </li> -->
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/category}"><img th:src="@{'/assets/images/icons/category1.png'}" style="margin-right: 10px;">Quản lý phân loại</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/color}"><img th:src="@{'/assets/images/icons/color2.png'}" style="margin-right: 10px;">Quản lý màu</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/material}"><img th:src="@{'/assets/images/icons/material2.png'}" style="margin-right: 10px;">Quản lý chất liệu</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/brand}"><img th:src="@{'/assets/images/icons/brand1.png'}" style="margin-right: 10px;">Quản lý thương hiệu</a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/reviewsimg}"><img th:src="@{'/assets/images/icons/imagereviews.png'}" style="margin-right: 10px;">Quản lý ảnh đánh giá</a>
+                                    </li> -->
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/reviews}"><img th:src="@{'/assets/images/icons/reviews.png'}" style="margin-right: 10px;">Quản lý đánh giá</a>
+                                    </li> -->
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/product}"><img th:src="@{'/assets/images/icons/product1.png'}" style="margin-right: 10px;">Quản lý sản phẩm</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/discount}"><img th:src="@{'/assets/images/icons/discount.png'}" style="margin-right: 10px;">Quản lý giảm giá</a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/favorite}"><img th:src="@{'/assets/images/icons/favorite1.png'}" style="margin-right: 10px;">Quản lý yêu thích</a>
+                                    </li>  -->
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/account}"><img th:src="@{'/assets/images/icons/account.png'}" style="margin-right: 10px;">Quản lý nhân viên</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/customer}"><img th:src="@{'/assets/images/icons/customer1.png'}" style="margin-right: 10px;">Quản lý khách hàng</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/role}"><img th:src="@{'/assets/images/icons/role.png'}" style="margin-right: 10px;">Quản lý vai trò</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/authority}"><img th:src="@{'/assets/images/icons/authority.png'}" style="margin-right: 10px;">Quản lý phân quyền</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-top: -5px;">
+                                        <a class="nav-link" th:href="@{/admin/order}"><img th:src="@{'/assets/images/icons/order.png'}" style="margin-right: 10px;">Quản lý đơn hàng</a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/order}"><img th:src="@{'/assets/images/icons/orderdetail.png'}" style="margin-right: 10px;">Quản lý đơn hàng chi tiết</a>
+                                    </li> -->
+                                </ul>
+                                <!-- <a class="nav-link"  href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Quản Lý</a>
+                                <div id="submenu-2" class="collapse submenu" style=""> -->
+                                  
                                 </div>
                             </li>
                             

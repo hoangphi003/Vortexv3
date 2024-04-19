@@ -45,21 +45,6 @@ public class AuthorityController {
         return "admin/pages/Authority";
     }
 
-    // @GetMapping("/addAuthority")
-    // public String showAddForm(Model model, Authority authority) {
-    // List<Authority> authorities = authorityDao.findAll();
-    // model.addAttribute("accountList", accountDao.findAll());
-    // model.addAttribute("roleList", roleDao.findAll());
-    // model.addAttribute("authorityList", authorities);
-    // return "admin/pages/Authority";
-    // }
-
-    // @PostMapping("/addAuthority")
-    // public String addAuthority(@ModelAttribute Authority authority) {
-    // authorityDao.save(authority);
-    // return "redirect:/admin/authority";
-    // }
-
     @GetMapping("/editAuthority/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, Authority authority) {
         List<Authority> authorities = authorityDao.findAll();
@@ -96,29 +81,4 @@ Authority existingAuthority = authorityDao.findById(id).orElse(null);
 
         return "redirect:/admin/authority";
     }
-
-    // @GetMapping("/deleteAuthority/{id}")
-    // public String deleteAuthority(@PathVariable("id") Integer id, Principal
-    // principal, Model model) {
-    // String currentUserUsername = principal.getName(); // Lấy tên người dùng hiện
-    // tại
-    // Authority authority = authorityDao.findById(id).orElse(null);
-
-    // if (authority != null &&
-    // !authority.getAccount().getUserName().equals(currentUserUsername)) {
-    // authorityDao.deleteById(id);
-    // return "redirect:/admin/authority";
-    // } else {
-    // // Người dùng không thể xóa quyền của chính họ
-    // String errorMessage = "Bạn không thể xóa quyền của chính bạn.";
-    // model.addAttribute("errorMessage", errorMessage);
-    // // Load lại danh sách quyền và hiển thị thông báo
-    // List<Authority> authorities = authorityDao.findAll();
-    // model.addAttribute("accountList", accountDao.findAll());
-    // model.addAttribute("roleList", roleDao.findAll());
-    // model.addAttribute("authorityList", authorities);
-    // return "redirect:/admin/authority";
-    // }
-    // }
-
 }

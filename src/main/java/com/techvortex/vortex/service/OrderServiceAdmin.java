@@ -65,4 +65,9 @@ public interface OrderServiceAdmin {
     // Trong OrderServiceAdmin
     List<Float> calculateMonthlyRevenueInCurrentYear();
 
+    // sleect option orderdate theo ngày
+    List<Order> findOrdersByDate(Integer day, Integer month, Integer year);
+
+    // theo tháng
+    List<Order> findOrdersByDatee(Integer month, Integer year);
 }

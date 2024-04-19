@@ -210,4 +210,30 @@ public class OrderServiceImpAdmin implements OrderServiceAdmin {
         return monthlyRevenue;
     }
 
+    // select option orderdate theo ngày
+    @Override
+    public List<Order> findOrdersByDate(Integer day, Integer month, Integer year) {
+        // Tạo một đối tượng Date từ ngày, tháng và năm được cung cấp
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1); // Trừ đi 1 vì tháng trong Java bắt đầu từ 0
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        Date targetDate = calendar.getTime();
+
+        // Tìm kiếm các đơn hàng trong ngày được chỉ định
+        return orderDao.findOrdersByDate(targetDate);
+    }
+
+    // theo tháng
+    @Override
+    public List<Order> findOrdersByDatee(Integer month, Integer year) {
+        // Tạo một đối tượng Date từ ngày, tháng và năm được cung cấp
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1); // Trừ đi 1 vì tháng trong Java bắt đầu từ 0
+        Date targetDate = calendar.getTime();
+        // Tìm kiếm các đơn hàng trong ngày được chỉ định
+        return orderDao.findOrdersByDate(targetDate);
+    }
+
 }
