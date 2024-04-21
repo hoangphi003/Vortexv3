@@ -119,7 +119,7 @@ TechVortex.controller(
                 userName: idUserName.userName,
               },
               orderDetails: $scope.orderDetails,
-              payMent: $scope.paymentmethod,
+              paymentMethod: $scope.paymentmethod,
               discount: $scope.discountId,
             };
             if (validate()) {
@@ -167,6 +167,7 @@ TechVortex.controller(
                     .then((Response) => {})
                     .catch((error) => console.log(error));
                 }
+                $location.path("/purchase");
               }
             }
           };

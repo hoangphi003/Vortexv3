@@ -7,6 +7,8 @@ import java.util.List;
 import org.hibernate.annotations.Nationalized;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -57,6 +59,7 @@ public class Discount implements Serializable {
     @Min(value = 1, message = "Số lượng không được nhỏ hơn một")
     private Integer Quantity;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "discount")
     List<OrderDiscount> OrderDiscounts;
 

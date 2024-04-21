@@ -40,7 +40,7 @@
         <!-- ============================================================== -->
         <!-- left sidebar -->
         <!-- ============================================================== -->
-       
+
         <!-- ============================================================== -->
         <!-- end left sidebar -->
         <!-- ============================================================== -->
@@ -158,7 +158,8 @@
                             <h5 class="text-muted">Số lượng đơn hàng đang chờ vận chuyển</h5>
                             <div class="metric-value d-inline-block">
                                 <h1 class="mb-1"><span th:text="${shippingOrders}"></span>
-                                    <img th:src="@{'/assets/images/icons/fast-delivery.png'}" style="margin-left:150px;">
+                                    <img th:src="@{'/assets/images/icons/fast-delivery.png'}"
+                                        style="margin-left:150px;">
                                 </h1>
                             </div>
 
@@ -172,7 +173,8 @@
                             <h5 class="text-muted">Số lượng đơn hàng đang chờ giao hàng</h5>
                             <div class="metric-value d-inline-block">
                                 <h1 class="mb-1"><span th:text="${deliveringOrders}"></span>
-                                    <img th:src="@{'/assets/images/icons/home-delivery.png'}" style="margin-left:150px;">
+                                    <img th:src="@{'/assets/images/icons/home-delivery.png'}"
+                                        style="margin-left:150px;">
                                 </h1>
                             </div>
 
@@ -222,7 +224,80 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="modal fade" id="cancelOrder" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">Bạn chắc chắn
+                                    muốn hủy
+                                    đơn hàng này
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <span class="">Lý do bạn hủy: (*)</span>
+                                <div class="form-check">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l1"
+                                        ng-model="reason" ng-class="messageBorder" value="1" />
+                                    <label class="form-check-label" for="l1"> Thay đổi chi tiết đơn hàng(Màu
+                                        sắc, kích
+                                        thước, số lượng,...) </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l2"
+                                        ng-model="reason" value="2" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l2">
+                                        Thay đổi địa chỉ nhận hàng
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l3"
+                                        ng-model="reason" value="3" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l3">
+                                        Thay đổi số điện thoại
+                                    </label>
+                                </div>
+                                <div class="form-check ">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l4"
+                                        ng-model="reason" value="4" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l4">
+                                        Đổi ý, không muốn mua nữa
+                                    </label>
+                                </div>
+                                <div class="form-check ">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l5"
+                                        ng-model="reason" value="5" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l5">
+                                        Đặt nhầm sản phẩm
+                                    </label>
+                                </div>
+                                <div class="form-check ">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l6"
+                                        ng-model="reason" value="6" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l6">
+                                        Không gọi được cho shop
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input mt-2" type="radio" name="reason" id="l7"
+                                        ng-model="reason" value="7" ng-class="messageBorder" />
+                                    <label class="form-check-label" for="l7">
+                                        Lý do khác
+                                    </label>
+                                    <span class="text-danger position-absolute d-block ">{{message}}</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary rounded-1 px-3 py-1"
+                                    data-bs-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary rounded-1 px-3 py-1"
+                                    ng-click="submitCancelOrder()">Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- ============================================================== -->
                 <!-- data table  -->
@@ -239,18 +314,20 @@
                                 <option value="Đã hủy" >Đã hủy</option>
                                 </select> -->
                         </div>
+
                         <div class="card-body">
                             <div class="table-responsive">
-                                
+
                                 <table id="example" class="table table-striped table-bordered second"
                                     style="width:100%">
-                                   
+
                                     <thead>
                                         <tr>
                                             <th>STT</th>
                                             <th>Username</th>
                                             <th>Ngày mua hàng</th>
                                             <th>Địa chỉ</th>
+                                            <th>Phương thức thanh toán</th>
                                             <th>Trạng thái đơn hàng</th>
                                             <th>Thay đổi trạng thái</th>
                                             <th>Chức năng</th>
@@ -263,14 +340,14 @@
                                             <td th:text="${order.Account.UserName}"></td>
                                             <td th:text="${order.OrderDate}"></td>
                                             <td th:text="${order.Address}"></td>
+                                            <td th:text="${order.paymentMethod}"></td>
                                             <td th:style="'color: ' + 
-                                                    (${order.OrderStatus} == 'Vận chuyển' ? 'DarkCyan' : 
-                                                    (${order.OrderStatus} == 'Chờ thanh toán' ? 'orange' : 
+                                                    (${order.OrderStatus} == 'Đang vận chuyển' ? 'DarkCyan' : 
+                                                    (${order.OrderStatus} == 'Chờ xác nhận' ? 'orange' : 
                                                     (${order.OrderStatus} == 'Chờ giao hàng' ? 'blue' : 
-                                                    (${order.OrderStatus} == 'Hoàn thành' ? 'green' : 
-                                                    (${order.OrderStatus} == 'Đã hủy' ? 'red' : '')))))">
-
-                                                <span th:text="${order.OrderStatus == 'Chờ giao hàng' ?'Đang giao hàng':  order.OrderStatus == 'Vận chuyển' ?'Chờ Vận chuyển':  order.OrderStatus }"></span>
+                                                    (${order.OrderStatus} == 'Đã hủy' ? 'red' : ''))))">
+                                                <span
+                                                    th:text="${order.OrderStatus == 'Chờ giao hàng' ?'Đang giao hàng':  order.OrderStatus == 'Vận chuyển' ?'Chờ Vận chuyển':  order.OrderStatus }"></span>
 
                                             </td>
                                             <td>
@@ -278,21 +355,42 @@
                                                     th:onchange="'changeOrderStatus(this, ' + ${order.OrderId} + ')'"
                                                     th:value="${order.OrderStatus}"
                                                     data-previous-value="${order.OrderStatus}">
-                                                    <option value="Chờ thanh toán"
-                                                        th:selected="${order.OrderStatus == 'Chờ thanh toán'}">Chờ thanh
-                                                        toán</option>
-                                                    <option value="Vận chuyển"
-                                                        th:selected="${order.OrderStatus == 'Vận chuyển'}">Chờ vận chuyển
-                                                    </option>
-                                                    <option value="Chờ giao hàng"
-                                                        th:selected="${order.OrderStatus == 'Chờ giao hàng'}">Đang giao hàng
+                                                    <th:block th:if="${order.OrderStatus == 'Chờ xác nhận'}">
+                                                        <option value="'Chờ xác nhận"
+                                                            th:selected="${order.OrderStatus == 'Vận chuyển'}">Chờ xác
+                                                            nhận
                                                         </option>
-                                                    <option value="Hoàn thành"
-                                                        th:selected="${order.OrderStatus == 'Hoàn thành'}">Hoàn
-                                                        thành
-                                                    </option>
+                                                        <option value="Chờ vận chuyển"
+                                                            th:selected="${order.OrderStatus == 'Vận chuyển'}">Chờ vận
+                                                            chuyển
+                                                        </option>
+
+                                                    </th:block>
+                                                    <th:block th:if="${order.OrderStatus == 'Chờ vận chuyển'}">
+                                                        <option value="Chờ vận chuyển"
+                                                            th:selected="${order.OrderStatus == 'Chờ vận chuyển'}">Chờ
+                                                            vận chuyển</option>
+                                                        <option value="Đang giao hàng"
+                                                            th:selected="${order.OrderStatus == 'Đang giao hàng'}">Đang
+                                                            giao
+                                                            hàng
+                                                        </option>
+
+                                                    </th:block>
+                                                    <th:block th:if="${order.OrderStatus == 'Đang giao hàng'}">
+                                                        <option value="Đang giao hàng"
+                                                            th:selected="${order.OrderStatus == 'Đang giao hàng'}">Đang
+                                                            giao
+                                                            hàng
+                                                        </option>
+                                                        <option value="Hoàn thành"
+                                                            th:selected="${order.OrderStatus == 'Hoàn thành'}">Hoàn
+                                                            thành</option>
+
+                                                    </th:block>
                                                     <option value="Đã hủy"
-                                                        th:selected="${order.OrderStatus == 'Đã hủy'}">Đã hủy</option>
+                                                        th:selected="${order.OrderStatus == 'Đã hủy'}">Đã hủy
+                                                    </option>
                                                 </select>
                                             </td>
                                             <td>

@@ -167,6 +167,7 @@ TechVortex.controller(
                     .then((Response) => {})
                     .catch((error) => console.log(error));
                 }
+                $location.path("/purchase");
               }
             }
           };

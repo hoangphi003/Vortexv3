@@ -72,7 +72,7 @@ TechVortex.controller(
           $http
             .post(
               `/addorderdiscount/` + checkoutParse.discount,
-              checkoutParse.discount,
+              checkoutParse,
               {
                 headers: { "Content-Type": "application/json" },
               },

@@ -2,6 +2,7 @@ package com.techvortex.vortex.admincontroller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.techvortex.vortex.configuration.sendMailByCancelOrderAdmin;
 import com.techvortex.vortex.entity.Order;
 import com.techvortex.vortex.entity.OrderDetail;
 import com.techvortex.vortex.service.AccountService;
@@ -36,6 +38,9 @@ public class OrderController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    sendMailByCancelOrderAdmin mailByCancelOrderAdmin;
 
     @Autowired
     OrderDetailServiceAdmin orderdetailService;
@@ -191,6 +196,30 @@ public class OrderController {
 
         // Redirect về trang "orderdate" thay vì "ordertotal"
         return "redirect:/admin/orderdate";
+    }
+
+    @GetMapping("/sendmailbyadmin")
+    public ResponseEntity<String> sendMailByAdmin(@RequestParam Integer orderId, @RequestParam String reasonOrder) {
+        Order useOrder = orderService.findOrderById(orderId);
+        String email = useOrder.getAccount().getEmail();
+        String fullName = useOrder.getAccount().getFullName();
+        Date date = useOrder.getOrderDate();
+        String stringGender = "";
+        Boolean gender = useOrder.getAccount().getGender();
+
+        if (gender == null) {
+            stringGender = "Quý khách";
+        } else {
+            if (gender) {
+                stringGender = "Anh";
+            } else {
+                stringGender = "Chị";
+            }
+        }
+
+        mailByCancelOrderAdmin.sendEmailCancelOrder(email, fullName, date, stringGender, reasonOrder);
+
+        return ResponseEntity.ok().build();
     }
 
 }

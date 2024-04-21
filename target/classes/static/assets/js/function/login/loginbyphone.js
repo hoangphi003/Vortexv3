@@ -10,8 +10,8 @@ TechVortex.controller(
     const phone = document.getElementById("phone");
 
     function randomCode() {
-      let code = "1234";
-      return Math.floor(Math.random() * code);
+      let code = "12248";
+      return Math.round(Math.random() * code);
     }
 
     const Base64 = {
@@ -21,6 +21,7 @@ TechVortex.controller(
     };
 
     $scope.submitPhone = function () {
+      console.log(randomCode());
       $rootScope.randomResult = randomCode();
       let PhoneFormat = phone.value.replace(phone.value.substring(0, 1), "84");
       if (validate()) {

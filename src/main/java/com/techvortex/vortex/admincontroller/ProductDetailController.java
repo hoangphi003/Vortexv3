@@ -1,5 +1,7 @@
 package com.techvortex.vortex.admincontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +17,14 @@ import org.springframework.validation.annotation.Validated;
 
 import com.techvortex.vortex.entity.ProductDetail;
 import com.techvortex.vortex.service.BrandService;
+import com.techvortex.vortex.service.CategoryService;
 import com.techvortex.vortex.service.ColorService;
 import com.techvortex.vortex.service.MaterialService;
 import com.techvortex.vortex.service.ProductDetailService;
 import com.techvortex.vortex.service.ProductDetailServiceAdmin;
 import com.techvortex.vortex.service.ProductService;
 import com.techvortex.vortex.entity.Brand;
+import com.techvortex.vortex.entity.Category;
 import com.techvortex.vortex.entity.Color;
 import com.techvortex.vortex.entity.Material;
 import com.techvortex.vortex.entity.Product;
@@ -28,7 +32,6 @@ import com.techvortex.vortex.entity.Product;
 @Controller
 @RequestMapping("/admin")
 public class ProductDetailController {
-
     @Autowired
     ProductDetailServiceAdmin productdeService;
 
@@ -44,6 +47,10 @@ public class ProductDetailController {
     @Autowired
     BrandService brandService;
 
+    @Autowired
+    CategoryService categoryService;
+
+
     @GetMapping("/productdetail")
     public String Product(@ModelAttribute("productDetail") ProductDetail productDetail,
             Color color, Brand brand, Material material, Product product, Model model) {
@@ -52,8 +59,22 @@ public class ProductDetailController {
         model.addAttribute("allBrand", brandService.findAll());
         model.addAttribute("allColor", colorService.findAll());
         model.addAttribute("allMaterial", materialService.findAll());
+
         return "admin/pages/ProductDetails";
     }
+
+    @GetMapping("/inventoryproducts")
+    public String InventoryProducts(@ModelAttribute("productDetail") ProductDetail productDetail,
+            Color color, Brand brand, Material material, Product product,Category category, Model model) {
+        model.addAttribute("allProductdetail", productdeService.findAll());
+        model.addAttribute("allProducts", productService.findAll());
+        model.addAttribute("allBrand", brandService.findAll());
+        model.addAttribute("allColor", colorService.findAll());
+        model.addAttribute("allMaterial", materialService.findAll());
+        model.addAttribute("allCategory", categoryService.findAll());
+        return "admin/pages/inventoryproducts";
+    }
+
 
     @GetMapping("/editproductdetail/{ProductId}")
     public String editProductDetail(@PathVariable("ProductId") Integer productId, Model model) {
@@ -70,6 +91,10 @@ public class ProductDetailController {
         model.addAttribute("allMaterial", materialService.findAll());
 
         // Tạo một ProductDetail và đặt Product vào đó
+        model.addAttribute("product", product);
+        List<ProductDetail> productdetails = product.getProductDetails();
+        model.addAttribute("allProductdetail", productdetails);
+
         ProductDetail productDetail = new ProductDetail();
         productDetail.setProduct(product);
 
@@ -99,11 +124,14 @@ public class ProductDetailController {
         // colorService.create(color);
         // materialService.create(material);
         productdeService.create(productDetail);
+        // Lấy ID của sản phẩm chi tiết vừa lưu
+       
 
         redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
         redirectAttributes.addFlashAttribute("operation", "add"); // Thêm thông điệp động
 
-        return "redirect:/admin/productdetail"; // Chuyển hướng đến trang chi tiết sản phẩm
+        return "redirect:/admin/productdetail" ; // Lấy ID của sản phẩm từ sản phẩm chi tiết vừa lưu
+       
     }
 
     @GetMapping("/deleteproductdetail/{ProductDetailId}")
