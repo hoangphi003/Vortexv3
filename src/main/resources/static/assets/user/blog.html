@@ -1,4 +1,395 @@
+<!doctype html>
+<html lang="end" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head-user">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.png">
+    <meta name="description" content="" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <title>TechVortex</title>
+</head>
+<style>
+    /* Style cho phần blog */
+    .blog_area {
+        padding: 80px 0;
+    }
+
+    .blog_item_img {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .blog_item_img img {
+        width: 100%;
+        transition: transform 0.5s ease;
+    }
+
+    .blog_item_img:hover img {
+        transform: scale(1.1);
+    }
+
+    .blog_details {
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog_details h2 {
+        margin-top: 0;
+        font-size: 28px;
+        color: #333;
+    }
+
+    .blog_details p {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .blog-info-link {
+        margin-top: 20px;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .blog-info-link li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .blog-info-link li a {
+        color: #777;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .blog-info-link li a:hover {
+        color: #333;
+    }
+
+    /* Style cho phân trang */
+    .blog-pagination {
+        margin-top: 50px;
+    }
+
+    .blog-pagination ul.pagination {
+        justify-content: center;
+    }
+
+    .blog-pagination ul.pagination li.page-item {
+        margin: 0 5px;
+    }
+
+    .blog-pagination ul.pagination li.page-item a.page-link {
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #ddd;
+        padding: 8px 16px;
+    }
+
+    .blog-pagination ul.pagination li.page-item.active a.page-link {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #333;
+    }
+
+    .blog-pagination ul.pagination li.page-item a.page-link:hover {
+        background-color: #ccc;
+        color: #333;
+        border: 1px solid #ccc;
+    }
+
+    /* Style cho input trong form */
+    .form-control {
+        border: 1px solid #ced4da;
+        /* Màu viền */
+        border-radius: 5px;
+        /* Bo tròn các góc */
+        padding: 10px;
+        /* Khoảng cách giữa viền và văn bản */
+        width: 100%;
+        /* Chiều rộng tối đa */
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        /* Hiệu ứng chuyển đổi */
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        /* Màu viền khi input được focus */
+        outline: 0;
+        /* Loại bỏ đường viền khi focus */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        /* Hiển thị hiệu ứng shadow khi focus */
+    }
+
+    /* Style cho nút tìm kiếm */
+    .button {
+        display: inline-block;
+        font-weight: 400;
+        color: #fff;
+        text-align: center;
+        vertical-align: middle;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .button.primary-bg {
+        background-color: #007bff;
+        /* Màu nền */
+        border-color: #007bff;
+        /* Màu viền */
+    }
+
+    .button.primary-bg:hover {
+        background-color: #0056b3;
+        /* Màu nền hover */
+        border-color: #0056b3;
+        /* Màu viền hover */
+        color: #fff;
+        /* Màu chữ hover */
+    }
+
+    /* Style cho nút khi được ấn */
+    .button:active {
+        background-color: #0056b3;
+        /* Màu nền khi ấn */
+        border-color: #0056b3;
+        /* Màu viền khi ấn */
+        color: #fff;
+        /* Màu chữ khi ấn */
+    }
+
+    /* Style cho nút khi được ấn và giữ */
+    .button:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+        /* Hiển thị hiệu ứng shadow khi focus */
+        outline: 0;
+        /* Loại bỏ đường viền khi focus */
+    }
+
+    /* Style cho nút khi được ấn và giữ */
+    .button:active {
+        box-shadow: none;
+        /* Loại bỏ hiệu ứng shadow khi ấn */
+    }
+
+    /* Style cho nút khi được ấn và giữ */
+    .button.boxed-btn {
+        border-radius: 5px;
+        /* Bo tròn các góc */
+    }
+
+    /* Style cho tiêu đề của widget */
+    .widget_title {
+        font-size: 18px;
+        /* Kích thước chữ */
+        font-weight: 600;
+        /* Độ đậm của chữ */
+        margin-bottom: 20px;
+        /* Khoảng cách dưới */
+        margin-top: 10px;
+    }
+
+    /* Style cho danh sách danh mục */
+    .cat-list {
+        padding: 0;
+        /* Loại bỏ padding mặc định */
+        list-style: none;
+        /* Loại bỏ dấu chấm đầu dòng */
+    }
+
+    /* Style cho mỗi danh mục */
+    .cat-list li {
+        margin-bottom: 10px;
+        /* Khoảng cách giữa các mục */
+    }
+
+    /* Style cho liên kết trong danh mục */
+    .cat-list li a {
+        display: flex;
+        /* Hiển thị các thành phần trong một hàng */
+        justify-content: space-between;
+        /* Căn chỉnh các thành phần dọc theo hàng */
+        text-decoration: none;
+        /* Loại bỏ gạch chân */
+        color: #333;
+        /* Màu chữ */
+        transition: color 0.3s ease;
+        /* Hiệu ứng chuyển đổi màu chữ */
+    }
+
+    /* Style cho mô tả của danh mục */
+    .cat-list li p {
+        margin: 0;
+        /* Loại bỏ margin */
+    }
+
+    /* Style khi di chuột qua liên kết */
+    .cat-list li a:hover {
+        color: #007bff;
+        /* Màu chữ khi di chuột qua */
+    }
+
+    /* Style cho tiêu đề của widget */
+    .widget_title2 {
+        font-size: 18px;
+        /* Kích thước chữ */
+        font-weight: 600;
+        /* Độ đậm của chữ */
+        margin-bottom: 20px;
+        /* Khoảng cách dưới */
+    }
+
+    /* Style cho mỗi bài đăng */
+    .post_item {
+        margin-bottom: 20px;
+        /* Khoảng cách giữa các bài đăng */
+    }
+
+    /* Style cho hình ảnh */
+    .post_item img {
+        width: 420px;
+        /* Chiều rộng của hình ảnh */
+        height: 211px;
+        /* Chiều cao của hình ảnh */
+        object-fit: cover;
+        /* Hiển thị hình ảnh mà không bị méo */
+        border-radius: 5px;
+        /* Bo tròn các góc */
+        margin-right: 20px;
+        /* Khoảng cách bên phải */
+    }
+
+    /* Style cho tiêu đề bài đăng */
+    .post_item h3 {
+        font-size: 16px;
+        /* Kích thước chữ */
+        margin-top: 10px;
+        /* Loại bỏ margin ở trên */
+        margin-bottom: 10px;
+        /* Khoảng cách dưới */
+    }
+
+    /* Style cho mô tả bài đăng */
+    .post_item p {
+        margin: 0;
+        /* Loại bỏ margin */
+        color: #888;
+        /* Màu chữ */
+    }
+
+    /* Style cho tiêu đề của widget */
+    .widget_title3 {
+        font-size: 25px;
+        /* Kích thước chữ */
+        font-weight: 600;
+        /* Độ đậm của chữ */
+        margin-bottom: 20px;
+        /* Khoảng cách dưới */
+    }
+
+    /* Style cho danh sách thẻ */
+    .tag_cloud_widget .list {
+        padding: 0;
+        /* Loại bỏ padding mặc định */
+        list-style: none;
+        /* Loại bỏ dấu chấm đầu dòng */
+        margin-top: 10px;
+        /* Thêm khoảng cách trên cho danh sách thẻ */
+    }
+
+    /* Style cho mỗi thẻ */
+    .tag_cloud_widget .list li {
+        display: inline-block;
+        /* Hiển thị các mục trong cùng một hàng */
+        margin-right: 10px;
+        /* Khoảng cách bên phải */
+        margin-bottom: 20px;
+    }
+
+    /* Style cho liên kết trong thẻ */
+    .tag_cloud_widget .list li a {
+        text-decoration: none;
+        /* Loại bỏ gạch chân */
+        background-color: #787575;
+        /* Màu nền */
+        color: #fff;
+        /* Màu chữ */
+        padding: 10px 10px;
+        /* Kích thước padding */
+        border-radius: 5px;
+        /* Bo tròn các góc */
+        transition: background-color 0.3s ease;
+        /* Hiệu ứng chuyển đổi màu nền */
+    }
+
+    /* Style khi di chuột qua liên kết */
+    .tag_cloud_widget .list li a:hover {
+        background-color: #0056b3;
+        /* Màu nền khi di chuột qua */
+    }
+
+    /* Style cho tiêu đề của widget */
+    .newsletter_widget .widget_title {
+        font-size: 18px;
+        /* Kích thước chữ */
+        font-weight: 600;
+        /* Độ đậm của chữ */
+        margin-bottom: 15px;
+        /* Khoảng cách dưới */
+    }
+
+    /* Style cho ô nhập email */
+    .newsletter_widget .form-control {
+        border: 1px solid #ccc;
+        /* Viền */
+        border-radius: 5px;
+        /* Bo tròn góc */
+        padding: 10px;
+        /* Kích thước padding */
+        width: 100%;
+        /* Chiều rộng */
+        margin-bottom: 15px;
+        /* Khoảng cách dưới */
+    }
+
+    /* Style cho nút đăng ký */
+    .newsletter_widget .boxed-btn {
+        border-radius: 5px;
+        /* Bo tròn góc */
+        background-color: #007bff;
+        /* Màu nền */
+        color: #fff;
+        /* Màu chữ */
+        padding: 10px;
+        /* Kích thước padding */
+        width: 100%;
+        /* Chiều rộng */
+        transition: background-color 0.3s ease;
+        /* Hiệu ứng chuyển đổi màu nền */
+    }
+
+    /* Hiệu ứng khi di chuột qua nút */
+    .newsletter_widget .boxed-btn:hover {
+        background-color: #0056b3;
+        /* Màu nền khi di chuột qua */
+    }
+</style>
+
 <body>
+    <header th:replace="~{/component/header.html::navbar-user}"></header>
     <main>
         <!--================Blog Area =================-->
         <section class="blog_area section-padding">
@@ -9,10 +400,6 @@
                             <article class="blog_item">
                                 <div class="blog_item_img">
                                     <img class="card-img rounded-0" src="assets/images/collections/1.png" alt="">
-                                    <a href="#" class="blog_item_date">
-                                        <h3>15</h3>
-                                        <p>Tháng một</p>
-                                    </a>
                                 </div>
 
                                 <div class="blog_details">
@@ -33,12 +420,7 @@
                             <article class="blog_item">
                                 <div class="blog_item_img">
                                     <img class="card-img rounded-0" src="assets/images/collections/2.png" alt="">
-                                    <a href="#" class="blog_item_date">
-                                        <h3>15</h3>
-                                        <p>Tháng hai</p>
-                                    </a>
                                 </div>
-
                                 <div class="blog_details">
                                     <a class="d-inline-block" href="/home/postdetails">
                                         <h2>Rolex Avestan được ra mắt tại Thụy Sĩ ngày 13/01/2024</h2>
@@ -55,10 +437,6 @@
                             <article class="blog_item">
                                 <div class="blog_item_img">
                                     <img class="card-img rounded-0" src="assets/images/collections/3.png" alt="">
-                                    <a href="#" class="blog_item_date">
-                                        <h3>15</h3>
-                                        <p>Tháng ba</p>
-                                    </a>
                                 </div>
 
                                 <div class="blog_details">
@@ -77,10 +455,6 @@
                             <article class="blog_item">
                                 <div class="blog_item_img">
                                     <img class="card-img rounded-0" src="assets/images/collections/4.png" alt="">
-                                    <a href="#" class="blog_item_date">
-                                        <h3>15</h3>
-                                        <p>Tháng tư</p>
-                                    </a>
                                 </div>
 
                                 <div class="blog_details">
@@ -101,10 +475,6 @@
                             <article class="blog_item">
                                 <div class="blog_item_img">
                                     <img class="card-img rounded-0" src="assets/images/collections/5.png" alt="">
-                                    <a href="#" class="blog_item_date">
-                                        <h3>15</h3>
-                                        <p>Tháng năm</p>
-                                    </a>
                                 </div>
 
                                 <div class="blog_details">
@@ -203,7 +573,7 @@
                             </aside>
 
                             <aside class="single_sidebar_widget popular_post_widget">
-                                <h3 class="widget_title">Bài đăng gần đây</h3>
+                                <h3 class="widget_title2">Bài đăng gần đây</h3>
                                 <div class="media post_item">
                                     <img src="assets/images/categories/1.webp" alt="post">
                                     <div class="media-body">
@@ -242,7 +612,7 @@
                                 </div>
                             </aside>
                             <aside class="single_sidebar_widget tag_cloud_widget">
-                                <h4 class="widget_title">Thẻ đám mây</h4>
+                                <h4 class="widget_title3">Thẻ đám mây</h4>
                                 <ul class="list">
                                     <li>
                                         <a href="#">Công nghệ</a>
@@ -289,13 +659,4 @@
         </section>
         <!--================Blog Area =================-->
     </main>
-    <!--? Search model Begin -->
-    <div class="search-model-box">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-btn">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Searching key.....">
-            </form>
-        </div>
-    </div>
 </body>
