@@ -1,6 +1,6 @@
 <body>
-    <div class="container bg-white my-3 pt-3 rounded-1">
-        <div class="row" ng-if="favorites.length > 0">
+    <div class="container-fluid px-5  my-3 pt-3 rounded-1">
+        <div class="row bg-white" ng-if="favorites.length > 0">
             <h3 class="text-black pb-4">Danh sách mong muốn</h3>
             <div class="col-3" ng-repeat="favorite in favorites">
                 <div class="rounded-2 py-3 card">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center text-center py-3" ng-if="favorites.length == 0">
+        <div class="row d-flex justify-content-center text-center py-3 bg-white" ng-if="favorites.length == 0">
             <h4>Bạn chưa thích sản phẩm nào</h4>
         </div>
     </div>

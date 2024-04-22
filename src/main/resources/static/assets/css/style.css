@@ -147,7 +147,7 @@ a.more {
   padding-top: 4.8px;
 }
 .hero {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 .btn {
   font-weight: 600;
@@ -1028,7 +1028,7 @@ a {
 }
 .dropdown-menu.acc {
   top: 100%;
-  margin-left: 67rem;
+  margin-left: 69rem;
   margin-top: var(--bs-dropdown-spacer);
 }
 button.btn-private-new {
